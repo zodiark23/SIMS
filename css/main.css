@@ -51,16 +51,17 @@ textarea {
     padding: 0.2em 0;
 }
 
-
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
 body {
     font-family: RobotoRegular, sans-serif;
     font-size: 14px;
-    background: #f2f2f2;
+    background: url(../img/bg.png) no-repeat;
+    background-size: cover;
+    background-position: 0 0;
 }
-.container {
+/* .container {
     max-width: 1200px;
     background: #fff;
     margin: auto;
@@ -217,8 +218,9 @@ body {
     color: #4267B2;
 }
 .banner .swiper-container {
-    width: 1200px;
-    height: 550px;
+    width: 100%;
+    height: 440px;
+    border-radius: 15px;
 }
 .banner .swiper-container .swiper-slide img {
     width: 100%;
@@ -313,7 +315,7 @@ body {
 }
 .events .event-details .details {
     line-height: 1.2;
-}
+} */
 .login-modal {
     position: fixed;
     width: 100%;
@@ -375,7 +377,7 @@ body {
     right: 10px;
     cursor: pointer;
 }
-.db-list {
+/* .db-list {
     padding: 15px;
 }
 .db-list .title {
@@ -449,27 +451,206 @@ body {
 }
 .db-list #db-table tbody tr td img {
     max-width: 100px;
-}
+} */
 .main-container {
-    max-width: 1200px;
+    max-width: 1040px;
     margin: auto;
-    padding-top: 40px;
-    padding-bottom: 30px;
-    min-height: calc(100vh - 70px);
+    min-height: 100vh;
     border-radius: 10px;
     overflow: hidden;
+    padding: 0 15px;
 }
 .main-container .header {
     text-align: center;
 }
-.main-container .header ul {
+.main-container .header ul.top-nav {
     display: inline-block;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
-.main-container .header ul li {
+.main-container .header ul.top-nav li {
     float: left;
 }
-.main-container .header ul li.logo a img {
+.main-container .header ul.top-nav li a {
+    font-size: 16px;
+    font-family: RobotoBold, sans-serif;
+    text-transform: uppercase;
+    display: block;
+    padding: 5px 0px;
+    position: relative;
+    margin-left: 20px;
+}
+.main-container .header ul.top-nav li:not(.nohover) a:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    bottom: 0;
+    height: 1px;
+    background: #4171bf;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transition: width .2s linear;
+}
+.main-container .header ul.top-nav li:not(.nohover) a:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    top: 0;
+    height: 1px;
+    background: #4171bf;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transition: width .2s linear;
+}
+.main-container .header ul.top-nav li a:hover {
+    color: #4171bf;
+}
+.main-container .header ul.top-nav li a:hover:after,
+.main-container .header ul.top-nav li a:hover:before {
+    width: 100%;
+    transition: width .2s linear;
+}
+.main-container .header ul.top-nav li.login {
+    float: right;
+    border: 1px solid;
+    border-radius: 3px;
+}
+.main-container .header ul.top-nav li.login a {
+    transition: all .3s linear;
+    font-family: RobotoRegular, sans-serif;
+    font-size: 14px;
+    margin-left: 0;
+    padding: 5px 20px;
+}
+.main-container .header ul.top-nav li.login a:hover {
+    color: #fff;
+    background: #4171bf;
+    transition: all .3s linear;
+}
+.main-container .header ul.top-nav li.sc-details {
+    text-align: left;
+    display: block;
+    float: none;
+    padding-left: 120px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+.main-container .header ul.top-nav li a img {
     max-width: 100px;
+}
+.main-container .header ul.top-nav li p.sc-name {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.main-container .header ul.top-nav li p.sc-address {
+    font-size: 14px;
+}
+.main-container .header ul.top-nav li.sc-logo a {
+    padding: 5px 0;
+    margin-left: 0;
+}
+.content-container {
+    background: #495057;
+    padding-bottom: 20px;;
+}
+.content-container .banner {
+    width: 100%;
+    height: 440px;
+    margin-bottom: 20px;
+}
+.content-container .banner img {
+    width: 100%;
+    height: 100%;
+}
+.content-container .links {
+    float: left;
+    width: 20%;
+}
+.content-container .links ul {
+    text-align: left;
+    list-style-type: circle;
+    list-style-position: inside;
+    padding: 20px;
+    color: #fff;
+}
+.content-container .links ul li {
+    border-bottom: 1px dashed #fff;
+}
+.content-container .links ul li a {
+    display: inline-block;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 16px;
+    transition: all .3s;
+}
+.content-container .links ul li a:hover {
+    color: #4171bf;
+    transition: all .3s;
+}
+.content-container .ne-board {
+    float: left;
+    padding-left: 20px;
+    width: 76%;
+    border-left: 1px solid #fff;
+}
+.content-container .ne-board .title {
+    color: #fff;
+    font-size: 20px;
+    font-family: RobotoBold, sans-serif;
+    display: block;
+    background: #4171bf;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.content-container .ne-board .ne-content {
+    background: #fff;
+    padding: 10px;
+    max-height: 450px;
+    min-height: 450px;
+    overflow-y: scroll;
+}
+.content-container .ne-board .ne-content .ne-item ~ .ne-item {
+    margin-top: 10px;
+}
+.content-container .ne-board .ne-content .ne-item .ne-item-img {
+    display: inline-block;
+    max-width: 100px;
+    vertical-align: top;
+}
+.content-container .ne-board .ne-content .ne-item .ne-item-details {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 10px;
+}
+.content-container .ne-board .ne-content .ne-item .ne-item-details .ne-title {
+    color: #4171bf;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 2px;
+}
+.content-container .ne-board .ne-content .ne-item .ne-item-details .author-date {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.content-container .ne-board .ne-content .ne-item .ne-item-details .author-date a {
+    color: #4171bf;
+}
+.content-container .ne-board .ne-content .ne-item .ne-item-details .ne-p {
+    max-width: 625px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.content-container .ne-board .ne-content .ne-item .ne-item-details .readmore {
+    font-size: 12px;
+    color: #4171bf;
+    display: block;
+    text-align: right;
+    padding-top: 10px;
 }
 /* ==========================================================================
    Media Queries
