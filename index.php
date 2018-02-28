@@ -1,21 +1,15 @@
 <?php
 
 include_once("config.php");
-
+include_once("app/bootstrap.php");
+include_once("classes/router.php");
 
 /**
  * Basic routing 
  */
-if(isset($_REQUEST['page'])){
-    if(file_exists("pages/".$_REQUEST['page'].".php")){
-        include("pages/".$_REQUEST['page'].".php");
-    }else{
-        echo "404 page";
-    }
-}else{
-    if(file_exists("pages/".DEFAULT_ROUTE_PAGE.".php")){
-        include("pages/".DEFAULT_ROUTE_PAGE.".php");
-    }else{
-        echo "404 page";
-    }
-}
+
+$request = explode("/", trim($_REQUEST['path'] ?? "" , "/") );
+$url = $request[0] ?? "";
+$action = $request[1] ?? "";
+$id = $request[1] ?? "";
+Router::call( str_replace(".php", "" , $url ), $action, $id);

@@ -1,23 +1,4 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=1200px">
-        <link rel="stylesheet" href="css/normalize.min.css">
-        <link rel="stylesheet" href="fonts/roboto.css">
-        <link rel="stylesheet" href="css/swiper.min.css">
-        <link rel="stylesheet" href="css/reset.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script defer src="js/fontawesome-all.min.js"></script>
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    </head>
-    <body>
+
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -25,7 +6,7 @@
         <div class="main-container">
             <div class="header">
                 <ul class="top-nav clearfix">
-                    <li class="sc-logo nohover"><a href="index2.html"><img src="img/logo.png" alt="Luakan National High School"></a></li>
+                    <li class="sc-logo nohover"><a href="index2.html"><img src="<?=BASE_URL?>/img/logo.png" alt="Luakan National High School"></a></li>
                     <li class="sc-details"><p class="sc-name">Luakan National High School</p><p class="sc-address">Dinalupihan, Bataan 2110</p></li>
                     <li><a href="index2.html">Home</a></li>
                     <li><a href="">News &amp; Events</a></li>
@@ -37,7 +18,7 @@
 
             <div class="content-container clearfix">
                 <div class="banner">
-                    <img src="img/banner.jpg">
+                    <img src="<?=BASE_URL?>/img/banner.jpg">
                 </div>
 
                 <div class="links">
@@ -54,7 +35,7 @@
 
                     <div class="ne-content">
                         <div class="ne-item">
-                            <img src="img/lnhs.jpg" alt="" class="ne-item-img">
+                            <img src="<?=BASE_URL?>/img/lnhs.jpg" alt="" class="ne-item-img">
                             <div class="ne-item-details">
                                 <a href="" class="ne-title">Sample Title 1</a>
                                 <p class="author-date">By: <a href="">admin</a> on <span class="date">02/26/18</span></p>
@@ -65,7 +46,7 @@
                             </div>
                         </div>
                         <div class="ne-item">
-                            <img src="img/lnhs2.jpg" alt="" class="ne-item-img">
+                            <img src="<?=BASE_URL?>/img/lnhs2.jpg" alt="" class="ne-item-img">
                             <div class="ne-item-details">
                                 <a href="" class="ne-title">Sample Title 2</a>
                                 <p class="author-date">By: <a href="">admin</a> on <span class="date">02/26/18</span></p>
@@ -84,7 +65,7 @@
                     <a href="#0" class="close">
                         <i class="far fa-times-circle"></i>
                     </a>
-                    <img src="img/logo.png" alt="" class="login-logo">
+                    <img src="<?=BASE_URL?>/img/logo.png" alt="" class="login-logo">
 
                     <form action="">
                         <input type="text" class="userid" placeholder="User ID">
@@ -106,10 +87,10 @@
             </div>
         </div>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-        <script src="js/swiper.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="<?=BASE_URL?>/http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="<?=BASE_URL?>/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="<?=BASE_URL?>/js/swiper.min.js"></script>
+        <script src="<?=BASE_URL?>/js/main.js"></script>
         <script>
             $(document).ready(function(){
                 $(".login a").on("click", function(){
@@ -121,5 +102,4 @@
                 }); 
             });
         </script>
-    </body>
-</html>
+  
