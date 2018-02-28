@@ -12,6 +12,7 @@
         <base href="/sims">
         <link rel="stylesheet" href="<?=BASE_URL?>/css/normalize.min.css">
         <link rel="stylesheet" href="<?=BASE_URL?>/fonts/roboto.css">
+        <link rel="stylesheet" href="<?=BASE_URL?>/css/lightbox.css">
         <link rel="stylesheet" href="<?=BASE_URL?>/css/swiper.min.css">
         <link rel="stylesheet" href="<?=BASE_URL?>/css/reset.css">
         <link rel="stylesheet" href="<?=BASE_URL?>/css/main.css">

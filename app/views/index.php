@@ -77,9 +77,8 @@
             </div>
         </div>
 
-        <script src="<?=BASE_URL?>/http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="<?=BASE_URL?>/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-        <script src="<?=BASE_URL?>/js/swiper.min.js"></script>
         <script src="<?=BASE_URL?>/js/main.js"></script>
         <script>
             $(document).ready(function(){
