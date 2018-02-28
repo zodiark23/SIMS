@@ -19,6 +19,6 @@ class View {
 
 
     public function error(){
-
+        require_once ("app/views/404.php");
     }
 }
