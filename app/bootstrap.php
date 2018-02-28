@@ -9,4 +9,4 @@ $indexController = new IndexController();
 
 Router::$defaultController = $indexController;
 Router::setRoute("", $indexController );
-Router::setRoute("index",$indexController );
+Router::setRoute("home",$indexController );
