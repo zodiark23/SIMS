@@ -1,5 +1,5 @@
 <?php
-
+include_once("classes/model.php");
 
 abstract class Controller{
     /**
@@ -15,8 +15,15 @@ abstract class Controller{
      */
     protected $view;
 
+    // Instantiates the model class
+	public function __construct()
+	{
+		$this->model = new Model();
 
-    public function default(){
+	}
+
+
+	public function default(){
         $this->view->render();
     }
 
