@@ -113,7 +113,7 @@
                     </tbody>
                 </table>
                 <div class="acknowledgement">
-                    <p>I understand that all information I provide in this form may be used by the Department of Education and I consent to such with the assurance that my personal details will be kept confidetial.</p>
+                    <p>I understand that all information I provide in this form may be used by the Department of Education and I consent to such with the assurance that my personal details will be kept confidential.</p>
                 </div>
                 <div class="signature">
                     <div class="st-name">
@@ -128,7 +128,7 @@
             </form>
 
             <div class="print-btn">
-                <a href="javascript:void(0)"><i class="fas fa-print"></i> Print</a>
+                <a href="javascript:void(0)"><i class="far fa-save"></i> Save</a>
             </div>
 
         </div>
