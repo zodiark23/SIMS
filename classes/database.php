@@ -3,7 +3,7 @@
 
 
 
-Class dbConnection{
+Class Database{
 
     private $db;
 

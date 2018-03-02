@@ -1,15 +1,12 @@
 <?php
 
-include("classes/router.php");
-include("classes/controller.php");
-include("controllers/indexController.php");
-include("controllers/fakeController.php");
 
-define("BASE_URL", "/sims");
-define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','^#XKL9f?Hn8NkyAH');
-define('DB_NAME','sims');
+use SIMS\App\Controllers\IndexController;
+use SIMS\App\Controllers\FakeController;
+use SIMS\Classes\Router;
+use SIMS\Classes\Controller;
+
+
 
 $indexController = new IndexController();
 

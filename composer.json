@@ -1,0 +1,17 @@
+{
+    "name": "schizonic/sims",
+    "description": "n/a",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4":{
+            "SIMS\\App\\Controllers\\":"app/controllers",   
+            "SIMS\\App\\Models\\":"app/models",   
+            "SIMS\\Classes\\":"classes"   
+        }
+    }
+}

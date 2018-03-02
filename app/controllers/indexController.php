@@ -1,6 +1,7 @@
-<?php
+<?php namespace SIMS\App\Controllers;
 
-require_once("classes/view.php");
+use SIMS\Classes\Controller;
+use SIMS\Classes\View;
 
 class IndexController extends Controller
 {

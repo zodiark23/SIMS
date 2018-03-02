@@ -1,7 +1,8 @@
-<?php
+<?php namespace SIMS\App\Controllers;
 
+use SIMS\Classes\Controller;
+use SIMS\Classes\View;
 
-require_once ("classes/view.php");
 
 class FakeController extends Controller{
 
