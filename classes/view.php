@@ -1,9 +1,19 @@
 <?php namespace SIMS\Classes;
 
 
+/**
+ * Include the the corresponding view depending on the the declared property
+ */
 class View {
 
+    /**
+     * The filename to be rendered
+     */
     public $view;
+    /**
+     * The data passed by controller
+     */
+    public $data = [];
 
 
     public function __construct($view){

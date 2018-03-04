@@ -13,5 +13,5 @@ use SIMS\Classes\Router;
 $request = explode("/", trim($_REQUEST['path'] ?? "" , "/") );
 $url = $request[0] ?? "";
 $action = $request[1] ?? "";
-$id = $request[1] ?? "";
+$id = $request[2] ?? "";
 Router::call( str_replace(".php", "" , $url ), $action, $id);

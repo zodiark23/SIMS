@@ -75,26 +75,18 @@
                                 </tr>
                             </tbody>
                         </table>
+
+
+                        <span class="input input--kohana">
+                            <input class="input__field input__field--kohana" type="text" id="input-29">
+                            <label class="input__label input__label--kohana" for="input-29">
+                                <i class="fa fa-fw fa-clock-o icon icon--kohana"></i>
+                                <span class="input__label-content input__label-content--kohana">Time</span>
+                            </label>
+                        </span>
                     </div>
 
-                    <div class="side-nav">
-                        <div class="admin">
-                            <img src="<?=BASE_URL?>/img/reyan.jpg" alt="" class="adm-img">
-                            <span class="adm-name">Reyan Tropia <i class="fas fa-user-secret"></i></i></span>
-                        </div>
-
-                        <div class="nav-list">
-                            <ul>
-                                <li><a href="">Admin</a></li>
-                                <li><a href="">Students <span class="count">1000</span></a></li>
-                                <li><a href="">Teachers <span class="count">20</span></a></li>
-                                <li><a href="">News &amp; Events <span class="count">5</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="admin-out">
-                            <a href="">Logout</a>
-                        </div>
-                    </div>
+                    <?php include_once("side-nav.php") ?>
                 </div>
             </div>
         </div>

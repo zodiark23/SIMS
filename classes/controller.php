@@ -2,6 +2,9 @@
 
 use SIMS\Classes\Model;
 
+/**
+ * Base Controller with default methods
+ */
 abstract class Controller{
     /**
      * The model this controller will use

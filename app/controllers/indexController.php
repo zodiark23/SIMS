@@ -18,17 +18,12 @@ class IndexController extends Controller
     }
 
 
-    public function dashboard(){
-        $this->view = new View("dashboard");
-        $this->view->render();
-    }
-
     public function facilities(){
         $this->view = new View("facilities");
         $this->view->render();
     }
 
-    public function mv(){
+    public function mission(){
         $this->view = new View("mv");
         $this->view->render();
     }

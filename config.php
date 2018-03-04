@@ -15,7 +15,7 @@ define("BASE_URL", "/sims");
 /**
  * Database Configurations
  */
-define('DB_HOST','localhost');
+define('DB_HOST','localhost:3307');
 define('DB_USER','root');
-define('DB_PASS','^#XKL9f?Hn8NkyAH');
+define('DB_PASS','');
 define('DB_NAME','sims');

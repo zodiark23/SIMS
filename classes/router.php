@@ -1,7 +1,11 @@
 <?php namespace SIMS\Classes;
 
 
-
+/**
+ * Handles the requests of the user
+ * 
+ * Uses the correct controller depending on the controller action
+ */
 class Router {
 
     /**
@@ -23,7 +27,7 @@ class Router {
     /**
      * Call the controller base on the route given
      */
-    public static function call($url, $action = "", $id){
+    public static function call($url, $action = "", $id = ""){
         $controller = self::$routes[$url]["controller"] ?? "";
 
         if(!$controller){
@@ -37,7 +41,7 @@ class Router {
             return false;
         }
 
-        $action = empty($action) ? "default": $action;
+        $action = empty($action) ? "default": str_replace("-","_",$action);
         
         $valid = method_exists($controller, $action);
 
@@ -46,7 +50,7 @@ class Router {
             return false;
         }
 
-        $controller->$action();
+        $controller->$action($id);
         
     }
 
