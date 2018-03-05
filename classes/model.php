@@ -17,11 +17,13 @@ abstract class Model{
      * 
      * @param string $column - The column to be searched
      * @param int $id - The actual value to be queried
+     * @param string $table Overrides the current property
      */
-    public function findById($column,$id){
+    public function findById($column,$id, $table = ""){
 
+        $target_table = !empty($table) ? $table : $this->table;
         
-        $stmt = $this->db->prepare("SELECT * FROM $this->table WHERE $column = :target_id");
+        $stmt = $this->db->prepare("SELECT * FROM  $target_table WHERE $column = :target_id");
 
         $stmt->execute(["target_id" => $id]);
 

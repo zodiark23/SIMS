@@ -26,4 +26,13 @@ Class Database{
         return $this->db->prepare($query);
     }
 
+
+    /**
+     * Wrapper function
+     */
+
+     public function lastInsertId(){
+         return $this->db->lastInsertId();
+     }
+
 }
