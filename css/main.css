@@ -255,15 +255,15 @@ textarea {
     list-style-type: circle;
     list-style-position: inside;
     padding: 0 20px 20px 20px;
-    color: #fff;
+    color: #333;
 }
 .content-container .links ul li {
-    border-bottom: 1px dashed #fff;
+    border-bottom: 1px dashed #495057;
 }
 .content-container .links ul li a {
     display: inline-block;
     padding: 10px 0;
-    color: #fff;
+    color: #333;
     font-size: 16px;
     transition: all .3s;
 }
@@ -275,7 +275,7 @@ textarea {
     float: left;
     padding-left: 20px;
     width: 76%;
-    border-left: 1px solid #fff;
+    border-left: 1px solid #495057;
 }
 .content-container .ne-board .title {
     color: #fff;
@@ -284,8 +284,6 @@ textarea {
     display: block;
     background: #4171bf;
     padding: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 }
 .content-container .ne-board .ne-content {
     background: #fff;
@@ -469,7 +467,7 @@ textarea {
 }
 .content-container .mv-container .mv-title {
     font-size: 30px;
-    color: #fff;
+    color: #333;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 5px;
@@ -477,7 +475,7 @@ textarea {
     text-decoration: underline;
 }
 .content-container .mv-container .mv-content {
-    color: #fff;
+    color: #333;
     text-align: justify;
     line-height: 1.5;
     margin-bottom: 40px;
@@ -538,7 +536,6 @@ textarea {
     display: table;
     width: 100%;
     padding-bottom: 10px;
-    border-bottom: 1px solid #fff;
     margin-bottom: 30px;
 }
 .content-container .dashboard-container .side-nav .admin .adm-img {
@@ -572,30 +569,39 @@ textarea {
     display: block;
     padding: 10px 0;
 }
-.content-container .dashboard-container .side-nav .nav-list ul li a {
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li>a {
     display: block;
     padding: 15px 0;
     transition: all .2s linear;
+    position: relative;
 }
-.content-container .dashboard-container .side-nav .nav-list ul li ~ li {
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li ~ .parent-li {
     border-top:  1px solid #fff;
 }
-.content-container .dashboard-container .side-nav .nav-list ul li a:hover {
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li>a:hover {
     color: #000;
     background: #fff;
     transition: all .2s linear;
     padding-left: 10px;
     padding-right: 10px;
 }
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li.active>a {
+    color: #000;
+    background: #fff;
+    transition: all .2s linear;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+}
 .content-container .dashboard-container .side-nav .nav-list ul li a span.count {
-    float: right;
     display: block;
     border: 1px solid #fff;
     background: #ff5722;
     border-radius: 10px;
     padding: 2px 5px 1px 5px;
-    position: relative;
-    top: -1px;
+    position: absolute;
+    top: 13px;
+    right: 10px;
     font-size: 11px;
 }
 .content-container .dashboard-container .side-nav .nav-list ul li a:hover span.count {
@@ -604,14 +610,16 @@ textarea {
     color:#ff5722;
 
 }
-
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li.active>a span.count {
+    border-color: #ff5722;
+    background: #f2f2f2;
+    color:#ff5722;
+}
 .dashboard-section-title{
     font-family: LatoRegular, Segoe UI Light, sans-serif;
     font-size: 25px;
     letter-spacing: 0.2px;
 }
-
-
 .plain-button{
     min-width:90px;
     padding:5px 14px;
@@ -619,7 +627,6 @@ textarea {
     border:0px;
     color: #f2f2f2;
 }
-
 .outlined-button{
     min-width:90px;
     padding: 5px 14px;
@@ -627,22 +634,34 @@ textarea {
     border: 2px solid #4272d7;
     color: #4272d7;
 }
-
 .school-level-list tr td{
     vertical-align: middle;
     vertical-align: -webkit-baseline-middle;
 }
-
 .util-btn{
     width:36px;
     height:30px;
     border: none;
     background:transparent;
+    display: inline-block;
+    vertical-align: middle;
 }
-
 .util-btn img {
     width: 100%;
     height:100%;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li .child-ul {
+    display: none;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li.active .child-ul {
+    display: block;
+    background: rgba(0,0,0,.5);
+    padding-left: 10px;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li .child-ul li a {
+    font-size: 13px;
+    display: block;
+    padding: 10px 0;
 }
 /* ==========================================================================
    Media Queries

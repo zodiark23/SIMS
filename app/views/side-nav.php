@@ -5,14 +5,97 @@
     </div>
 
     <div class="nav-list">
-        <ul>
-            <li><a href="<?=BASE_URL?>/admin/create-education">Admin</a></li>
-            <li><a href="">Students <span class="count">1000</span></a></li>
-            <li><a href="">Teachers <span class="count">20</span></a></li>
-            <li><a href="">News &amp; Events <span class="count">5</span></a></li>
+        <ul class="parent-ul">
+            <li class="parent-li">
+                <a href="javascript:void(0);">Admin</a>
+                <ul class="child-ul">
+                    <li><a href="">School Levels</a></li>
+                    <li><a href="">Roles</a></li>
+                    <li><a href="">Privileges</a></li>
+                    <li><a href="">Master List</a></li>
+                    <li><a href="">News &amp; Announcements</a></li>
+                    <li><a href="">Management</a></li>
+                    <li><a href="">Payments</a></li>
+                    <li><a href="">Approvals</a></li>
+                    <li><a href="">Parental Tools</a></li>
+                </ul>
+            </li>
+            <li class="parent-li">
+                <a href="javascript:void(0);">Students <span class="count">1000</span></a>
+                <ul class="child-ul">
+                    <li><a href="">Overview</a></li>
+                    <li><a href="">Create New</a></li>
+                    <li><a href="">Manage Student</a></li>
+                    <li><a href="">Academic Status</a></li>
+                </ul>
+            </li>
+            <li class="parent-li">
+                <a href="javascript:void(0);">Teachers <span class="count">20</span></a>
+                <ul class="child-ul">
+                    <li><a href="">Overview</a></li>
+                    <li><a href="">Add Teacher</a></li>
+                    <li><a href="">Grade Management</a></li>
+                </ul>
+            </li>
+            <li class="parent-li">
+                <a href="javascript:void(0);">Accounting <span class="count">5</span></a>
+                <ul class="child-ul">
+                    <li><a href="">Payments</a></li>
+                    <li><a href="">Balances</a></li>
+                    <li><a href="">Accounting Logs</a></li>
+                </ul>
+            </li>
+            <li class="parent-li">
+                <a href="javascript:void(0);">Schedules <span class="count">5</span></a>
+                <ul class="child-ul">
+                    <li><a href="">View Schedules</a></li>
+                    <li><a href="">My Schedule</a></li>
+                    <li><a href="">Manage Schedule</a></li>
+                </ul>
+            </li>
+            <li class="parent-li">
+                <a href="javascript:void(0);">Subjects <span class="count">5</span></a>
+                <ul class="child-ul">
+                    <li><a href="">Overview</a></li>
+                    <li><a href="">Lists</a></li>
+                    <li><a href="">Manage Subjects</a></li>
+                </ul>
+            </li>
+            <li class="parent-li">
+                <a href="javascript:void(0);">Sections <span class="count">5</span></a>
+                <ul class="child-ul">
+                    <li><a href="">Section List</a></li>
+                    <li><a href="">Add Section</a></li>
+                    <li><a href="">Change Advisor</a></li>
+                </ul>
+            </li>
+            <li class="parent-li">
+                <a href="javascript:void(0);">Logs <span class="count">5</span></a>
+                <ul class="child-ul">
+                    <li><a href="">Grade Logs</a></li>
+                    <li><a href="">Student Logs</a></li>
+                    <li><a href="">Section Logs</a></li>
+                    <li><a href="">Schedule Logs</a></li>
+                    <li><a href="">Payment Logs</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
     <div class="admin-out">
         <a href="">Logout</a>
     </div>
 </div>
+
+    <script>
+            $(document).ready(function(){        
+                $(".parent-ul>li>a").on('click', function(){
+                    if ($(this).parent().hasClass('active')) {
+                        $(this).parent().removeClass('active');
+                    } else {
+                        $(".parent-ul>li").removeClass('active');
+                        $(this).parent().toggleClass('active');
+                    }
+
+                });
+            });
+    </script>

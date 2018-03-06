@@ -14,7 +14,7 @@
                 <div class="links">
                     <ul>
                         <li><a href="">Enroll Online</a></li>
-                        <li><a href="reg_form.html">Online Admission</a></li>
+                        <li><a href="">Online Admission</a></li>
                         <li><a href="">Forums</a></li>
                         <li><a href="">Web Mail</a></li>
                     </ul>

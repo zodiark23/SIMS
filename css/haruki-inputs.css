@@ -6,6 +6,7 @@
 	max-width: 350px;
 	width: calc(100% - 2em);
 	vertical-align: top;
+	vertical-align: middle;
 }
 
 .input__field {
@@ -28,7 +29,7 @@
 }
 
 .input__label {
-	display: inline-block;
+	/* display: inline-block; */
 	float: right;
 	padding: 0 1em;
 	width: 40%;
