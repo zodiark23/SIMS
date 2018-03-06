@@ -23,11 +23,11 @@ class AdminModel extends Model{
         if( empty($description) || empty($duration)){
             return false;
         }
-        $stmt = $this->db->prepare("INSERT INTO curriculum VALUES('', :description, :duration) ");
+        $stmt = $this->db->prepare("INSERT INTO curriculum(description,year_duration)  VALUES(:description, :duration) ");
 
-        $stmt->execute([ "description" => $description, "duration" => $duration ]);
-
-        if($stmt){
+        $result = $stmt->execute([ "description" => $description, "duration" => $duration ]);
+        
+        if($result){
             return $this->db->lastInsertId();
         }
 
@@ -64,7 +64,7 @@ class AdminModel extends Model{
             return false;
         }
 
-        $stmt = $this->db->prepare("INSERT INTO school_levels VALUES('', :curr_id, :level_name, 0) ");
+        $stmt = $this->db->prepare("INSERT INTO school_levels VALUES('0', :curr_id, :level_name, 0) ");
 
         $stmt->execute([ "curr_id" => $curriculum_id, "level_name" => $level_name ]);
 

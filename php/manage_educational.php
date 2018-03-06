@@ -27,6 +27,8 @@ if($action == "create"){
                 $hasErrors++;
             }
         }
+    }else{
+        $hasErrors++;
     }
     
     

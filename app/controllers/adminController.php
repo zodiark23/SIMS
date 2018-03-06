@@ -3,6 +3,8 @@
 use SIMS\Classes\Controller;
 use SIMS\Classes\View;
 use SIMS\App\Models\AdminModel;
+use SIMS\App\Models\CurriculumModel;
+
 
 class AdminController extends Controller{
     public function __construct(){
@@ -53,6 +55,15 @@ class AdminController extends Controller{
             return false;
         }
 
+        $this->view->render();
+    }
+
+
+    public function create_subject(){
+        $this->view = new View("create_subject");
+        $currModel = new CurriculumModel();
+        $this->view->curriculumList = $currModel->list();
+        
         $this->view->render();
     }
 }

@@ -36,7 +36,7 @@
 
     <?php
 
-    include($this->view.".php");
+    include(__DIR__."/".$this->view.".php");
     ?>
 
 

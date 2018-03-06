@@ -143,9 +143,25 @@ $("#publish-educational").on("click", function(){
             }
         });
     }
-})
+});
 
 
+
+$("#submit-create-subject").on('click', function(){
+    $.ajax({
+        url : BASE_URL+"/php/create_subject.php",
+        type : "post",
+        data : "",
+        success : function(data){
+            console.log(data);
+        }
+    })
+});
+
+
+/**
+ * End of .ready();
+ */
 });
 
 
