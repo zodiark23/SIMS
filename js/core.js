@@ -135,9 +135,10 @@ $("#publish-educational").on("click", function(){
             "data" : "curr_id="+curr_id,
             "success" : function(data){
                 x = JSON.parse(data);
-                console.log(x);
+                
                 if(x.code == "00"){
                     alert(x.message);
+                    location.reload();
                 }else{
                     alert(x.message);
                 }
@@ -148,15 +149,50 @@ $("#publish-educational").on("click", function(){
 
 
 
-$("#submit-create-subject").on('click', function(){
-    $.ajax({
-        url : BASE_URL+"/php/create_subject.php",
-        type : "post",
-        data : "",
-        success : function(data){
-            console.log(data);
+$("#create-subject-form").on('submit', function(){
+    var data = "";
+    var hasErrors = 0;
+    $(this).find("[name]").each(function(){
+        var name = $(this).attr('name');
+
+        var value = $(this).val();
+
+        if(name == "subject_name"){
+            if(value.length < 0){
+                hasErrors++;
+            }
+
         }
-    })
+        if(name == "curr"){
+            if(value.length <= 0){
+                hasErrors++;
+            }
+        }
+
+        
+
+    });
+    
+    if(hasErrors == 0){
+        data = $(this).serialize();
+        $.ajax({
+            url : BASE_URL+"/php/create_subject.php",
+            type : "post",
+            data : data,
+            success : function(data){
+                x = JSON.parse(data);
+
+                if(x.code == "00"){
+                    alert(x.message);
+
+                }else{
+                    alert(x.message);
+                }
+            }
+        });
+    }
+        
+    return false;
 });
 
 

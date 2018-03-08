@@ -31,7 +31,7 @@ add styling on bottom note
                     ?>
                 </select>
                 
-                <input type="button" class="outlined-button" data-curr-id="<?= ($this->data["adminModel"]["curriculum_id"] ?? "" ) ?>" id="submit-create-subject" value="Create" />
+                <input type="submit" class="outlined-button" data-curr-id="<?= ($this->data["adminModel"]["curriculum_id"] ?? "" ) ?>" id="submit-create-subject" value="Create" />
             </form>
 
         </div>

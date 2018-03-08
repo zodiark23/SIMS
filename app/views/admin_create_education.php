@@ -74,22 +74,27 @@
                                             <tr>
                                                 <td>
                                                     <span class='input input--hoshi'>
-                                                        <input class='input__field input__field--hoshi' type='text' value="<?= $levels['level_name']?>" class='level_item' data-id="" name='level_name[]'>
+                                                        <input <?= ($published == true ? "disabled" : "")?> class='input__field input__field--hoshi' type='text' value="<?= $levels['level_name']?>" class='level_item' data-id="" name='level_name[]'>
                                                         <label class='input__label input__label--hoshi input__label--hoshi-color-1' for='level_item'>
                                                             <span class='input__label-content input__label-content--hoshi'>Level Name</span>
                                                         </label>
                                                     </span>
-                                                    <?php if($key == 0){ ?>
+                                                    <?php 
+                                                    if($published == false){
 
-                                                    <button type="button" id="add_school_level" class='util-btn'>
-                                                        <img src="<?=BASE_URL?>/img/add_icon.png" />
-                                                    </button>
-                                                    <?php } 
-                                                    else { ?>
-                                                        <button type='button' class='del-school-level util-btn'>
-                                                        <img src="<?=BASE_URL?>/img/trash_icon.png" />
+                                                        if($key == 0){ ?>
+
+                                                        <button type="button" id="add_school_level" class='util-btn'>
+                                                            <img src="<?=BASE_URL?>/img/add_icon.png" />
                                                         </button>
-                                                    <?php
+                                                        <?php } 
+                                                        else { ?>
+                                                            <button type='button' class='del-school-level util-btn'>
+                                                            <img src="<?=BASE_URL?>/img/trash_icon.png" />
+                                                            </button>
+                                                        <?php
+                                                        }
+
                                                     }
                                                     ?>
                                                 </td>
