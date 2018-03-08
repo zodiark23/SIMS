@@ -185,14 +185,16 @@ $("#submit-create-subject").on('click', function(){
             url: BASE_URL+"/php/login_user.php",
             data: data,
             success: function (data) {
-                if(data === "Invalid email and password") {
+                x = JSON.parse(data);
+
+
+                if(x.code == "01") {
                     $("#form-message").fadeIn(1000, function () {
+                        // can use x.message instead of this text
                         $("#form-message").html('Invalid email and password.');
                     });
 
-                }
-                else
-                {
+                }else {
                     window.location = BASE_URL+"/account";
                 }
             }
