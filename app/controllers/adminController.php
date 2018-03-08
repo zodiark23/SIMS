@@ -8,8 +8,36 @@ use SIMS\App\Models\CurriculumModel;
 
 class AdminController extends Controller{
     public function __construct(){
-        $this->view = new View("admin_create_education");
+        $this->view = new View("educational_list");
         $this->view->action = "new";
+    }
+
+
+    public function education(){
+        $this->view = new View("educational_list");
+        $m = new CurriculumModel();
+        $this->view->data = $m->list();
+        $this->view->render();
+    }
+
+
+    public function delete_education($id){
+        if(empty($id)){
+            $this->error();
+            return false;
+        
+        
+        }
+        $this->view = new View("educational_list");
+
+        $m = new CurriculumModel();
+        $result = $m->delete($id);
+        
+
+        header("Location: ../education");
+        
+        exit;
+        
     }
 
 

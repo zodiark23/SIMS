@@ -99,6 +99,7 @@ $("#submit-educational").on("click", function(){
                 console.log(x);
                 if(x.code == "00"){
                     alert(x.message);
+                    window.location = BASE_URL+"/admin/education";
                 }else{
                     alert(x.message);
                 }

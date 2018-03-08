@@ -9,7 +9,7 @@
             <li class="parent-li">
                 <a href="javascript:void(0);">Admin</a>
                 <ul class="child-ul">
-                    <li><a href="<?=BASE_URL?>/admin/create-education">School Levels</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/education">School Levels</a></li>
                     <li><a href="">Roles</a></li>
                     <li><a href="">Privileges</a></li>
                     <li><a href="">Master List</a></li>
