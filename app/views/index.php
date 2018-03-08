@@ -57,9 +57,10 @@
                     </a>
                     <img src="<?=BASE_URL?>/img/logo.png" alt="" class="login-logo">
 
-                    <form action="">
-                        <input type="text" class="userid" placeholder="User ID">
-                        <input type="password" class="userpass" placeholder="Password">
+                    <form id="login-form" action="" method="post">
+                        <div id="form-message"></div>
+                        <input type="text" class="userid" placeholder="User ID" name="userid">
+                        <input type="password" class="userpass" placeholder="Password" name="userpass">
                         <button class="login-btn">LOGIN</button>
                     </form>
                 </div>
@@ -77,7 +78,7 @@
             </div>
         </div>
 
-        
+
         <script>
             $(document).ready(function(){
                 $(".login a").on("click", function(){
@@ -86,7 +87,13 @@
 
                 $(".close").on("click", function(){
                     $(this).parents().removeClass("active");
-                }); 
+                });
             });
         </script>
-  
+
+        <!-- CDN for aJax validation -->
+        <script type="text/javascript"
+                src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js">
+        </script>
+
+

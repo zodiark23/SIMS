@@ -7,13 +7,13 @@ $(document).ready(function(){
 
 /**
  * Process the submit differently
- * 
+ *
  * - Get data on school levels and validate it store all values processed on variable `data`
  * - Proceed with submission if there's no errors found
  */
 $("#submit-educational").on("click", function(){
     var curr_id = $(this).data('curr-id');
-    
+
     var data = [];
     var isValid = true;
     var levelsCount = 0; //used to check if levels matchs the duration
@@ -69,7 +69,7 @@ $("#submit-educational").on("click", function(){
         }
 
         levelsCount++;
-        
+
     });
 
 
@@ -113,9 +113,9 @@ $("#add_school_level").on("click", function(){
 
     $("#school-level-form table").append(toAppend);
 
-    
+
     runClassieInput();
-    
+
 });
 
 $("body").on("click",".del-school-level", function(){
@@ -159,7 +159,48 @@ $("#submit-create-subject").on('click', function(){
 });
 
 
-/**
+    $("#login-form").validate({
+        rules:
+            {
+                userid: {
+                    required: true
+                },
+                userpass: {
+                    required: true
+                }
+            },
+        messages:
+            {
+                userid: "Please provide an email.",
+                userpass: "Please provide a password."
+            },
+        submitHandler: submitForm
+    });
+
+    function submitForm() {
+        var data = $("#login-form").serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: BASE_URL+"/php/login_user.php",
+            data: data,
+            success: function (data) {
+                if(data === "Invalid email and password") {
+                    $("#form-message").fadeIn(1000, function () {
+                        $("#form-message").html('Invalid email and password.');
+                    });
+
+                }
+                else
+                {
+                    window.location = BASE_URL+"/account";
+                }
+            }
+        });
+        return false;
+    }
+
+    /**
  * End of .ready();
  */
 });
