@@ -20,4 +20,4 @@ Router::setRoute("home",$indexController );
 Router::setRoute("account",new AccountController() );
 Router::setRoute("admin",new AdminController() );
 Router::setRoute("fake",new FakeController() );
-Router::setRoute("home",new LoginController() );
+

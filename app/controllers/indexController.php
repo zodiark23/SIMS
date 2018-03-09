@@ -27,6 +27,21 @@ class IndexController extends Controller
         $this->view = new View("mv");
         $this->view->render();
     }
+
+    public function login(){
+        $this->view = new View("index");
+
+        $this->view->render();
+
+        if(!isset($_SESSION['role_id'] )){
+        	?>
+			<script language="javascript">
+				$(".login-modal").show();
+			</script>
+			<?php
+	        
+        }
+    }
     
     
 }
