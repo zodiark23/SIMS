@@ -11,6 +11,7 @@
         "psr-4":{
             "SIMS\\App\\Controllers\\":"app/controllers",   
             "SIMS\\App\\Models\\":"app/models",   
+            "SIMS\\App\\Entities\\":"app/entities",   
             "SIMS\\Classes\\":"classes"   
         }
     }
