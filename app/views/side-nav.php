@@ -9,7 +9,7 @@
             <li class="parent-li">
                 <a href="javascript:void(0);">Admin</a>
                 <ul class="child-ul">
-                    <li><a href="<?=BASE_URL?>/admin/education">School Levels</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/education">Education Settings</a></li>
                     <li><a href="">Roles</a></li>
                     <li><a href="">Privileges</a></li>
                     <li><a href="">Master List</a></li>
@@ -57,7 +57,7 @@
                 <a href="javascript:void(0);">Subjects <span class="count">5</span></a>
                 <ul class="child-ul">
                     <li><a href="">Overview</a></li>
-                    <li><a href="">Lists</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/subject-list">Lists</a></li>
                     <li><a href="<?=BASE_URL?>/admin/create-subject">Manage Subjects</a></li>
                 </ul>
             </li>

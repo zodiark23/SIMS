@@ -4,6 +4,7 @@ use SIMS\Classes\Controller;
 use SIMS\Classes\View;
 use SIMS\App\Models\AdminModel;
 use SIMS\App\Models\CurriculumModel;
+use SIMS\App\Models\SubjectModel;
 
 
 class AdminController extends Controller{
@@ -92,6 +93,46 @@ class AdminController extends Controller{
         $currModel = new CurriculumModel();
         $this->view->curriculumList = $currModel->list();
         
+        $this->view->render();
+    }
+
+
+    public function edit_subject($id){
+        $this->view = new View("edit_subject");
+        $currModel = new CurriculumModel();
+        $subjectModel = new SubjectModel();
+        $info = $subjectModel->info($id);
+
+        if($info == false){
+            $this->error();
+            return false;
+        }
+
+        $this->view->curriculumList = $currModel->list();
+        $this->view->subjectInfo = $info[0];
+        
+        $this->view->render();
+    }
+
+
+    public function subject_list(){
+        $data = [];
+
+        $this->view = new View("subject_list");
+        $currModel = new CurriculumModel();
+        $subjectModel = new SubjectModel();
+
+        $result = $currModel->list();
+
+        foreach($result as $curriculum){
+            
+            $subjects = $subjectModel->list($curriculum['curriculum_id']);
+
+            $data[$curriculum["description"]] = $subjects;
+        }
+
+        $this->view->data = $data;
+
         $this->view->render();
     }
 }

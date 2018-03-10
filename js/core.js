@@ -195,6 +195,59 @@ $("#create-subject-form").on('submit', function(){
     return false;
 });
 
+$("#edit-subject-form").on('submit', function(){
+    var data = "";
+    var hasErrors = 0;
+    $(this).find("[name]").each(function(){
+        var name = $(this).attr('name');
+
+        var value = $(this).val();
+
+        if(name == "subject_name"){
+            if(value.length < 0){
+                hasErrors++;
+            }
+
+        }
+        if(name == "curr"){
+            if(value.length <= 0){
+                hasErrors++;
+            }
+        }
+
+        
+
+    });
+    
+    if(hasErrors == 0){
+        data = $(this).serialize();
+        target = $(this).data('s-id');
+        data = data+"&id="+target;
+        
+        $.ajax({
+            url : BASE_URL+"/php/update_subject.php",
+            type : "post",
+            data : data,
+            success : function(data){
+                x = JSON.parse(data);
+
+                if(x.code == "00"){
+                    alert(x.message);
+                    window.location = BASE_URL+"/admin/subject-list"
+
+                }else{
+                    alert(x.message);
+                }
+            }
+        });
+    }
+        
+    return false;
+});
+
+
+
+
 
     $("#login-form").validate({
         rules:
