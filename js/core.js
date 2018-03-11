@@ -245,6 +245,29 @@ $("#edit-subject-form").on('submit', function(){
     return false;
 });
 
+    $("#save-btn").on("click",function () {
+
+       var id = $(this).data('target');
+
+       var dataString = $("#rightsForm").serialize();
+
+       $.ajax({
+           type:'POST',
+           url: BASE_URL+"/php/update_rights.php",
+           data: dataString+"&rid="+id,
+           success: function(data) {
+               x = JSON.parse(data);
+
+               if(x.code == "01") {
+                   alert(x.message);
+               }else{
+                   alert(x.message);
+               }
+           }
+       });
+       return false;
+    });
+
 
 
 
@@ -279,11 +302,7 @@ $("#edit-subject-form").on('submit', function(){
 
 
                 if(x.code == "01") {
-                    $("#form-message").fadeIn(1000, function () {
-                        // can use x.message instead of this text
-                        $("#form-message").html('Invalid email and password.');
-                    });
-
+                   alert(x.message);
                 }else {
                     window.location = BASE_URL+"/account";
                 }
