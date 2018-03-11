@@ -184,6 +184,7 @@ $("#create-subject-form").on('submit', function(){
 
                 if(x.code == "00"){
                     alert(x.message);
+                    window.location = BASE_URL+"/admin/subject-list";
 
                 }else{
                     alert(x.message);

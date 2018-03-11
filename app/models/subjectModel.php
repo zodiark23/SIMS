@@ -24,8 +24,8 @@ class SubjectModel extends Model{
             return false;
         }
 
-        $stmt = $this->db->prepare("INSERT INTO `subjects` VALUES('0', :subject_name, :curr_id)");
-        $result = $stmt->execute(["subject_name" => $subject_name, "curr_id" => $curr_id]);
+        $stmt = $this->db->prepare("INSERT INTO `subjects` VALUES(:s_id, :subject_name, :curr_id, 1)");
+        $result = $stmt->execute(["s_id" => 0 ,"subject_name" => $subject_name, "curr_id" => $curr_id]);
         if($result){
             return true;
         }
