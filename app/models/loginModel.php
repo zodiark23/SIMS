@@ -22,7 +22,7 @@ class LoginModel extends Model {
 		$this->dbtable = $table;
 
 		$stmt = $this->db->prepare("SELECT * FROM $table WHERE email=:email AND password=:password");
-		$stmt->execute([":email"=> $p1, ":password"=>$p2]);
+		$stmt->execute([":email"=> $p1, ":password"=>md5($p2)]);
 
 		$result = $stmt->fetchAll();
 

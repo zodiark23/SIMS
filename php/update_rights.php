@@ -20,12 +20,16 @@ if(empty($rightsid)){
 	$callback['code'] = "01";
 	$callback['message'] = "Please select atleast 1.";
 }else {
-	foreach ( $_POST['rights'] as $r) {
 
-		$updateRights = $roleModel->updateRights($_POST['rid'], $r);
+	$updateRights = $roleModel->updateRights($_POST['rid'], $_POST['rights']);
+	if($updateRights){
+
+		$callback['code'] = "00";
+		$callback['message'] = "Successfully updated the rights";
+	}else{
+		$callback['code'] = "01";
+		$callback['message'] = "Unable to process the request.";
 	}
-	$callback['code'] = "00";
-	$callback['message'] = "Successfully updated the rights";
 }
 
 

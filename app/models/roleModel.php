@@ -80,34 +80,49 @@ class RoleModel extends Model {
 	    return $array_rights;
     }
 
+	public function deleteRights($role_id){
+		$stmt = $this->db->prepare("DELETE FROM role_privilege WHERE role_id=:role_id ");
+		$stmt->execute([":role_id"=>$role_id]);
+
+		if($stmt){
+			return true;
+		}
+
+		return false;
+
+	}
+
+
 	/**
-	 * Delete and insert new rights based on the checked rights.
+	 * Perform a delete 
+	 * 
+	 * Then insert all the new rights
+	 * 
+	 * 
 	 */
     public function updateRights($role_id,$rights_id){
-    	$hasRights = false;
-
-	    $stmt = $this->db->prepare("SELECT rp.rights_id FROM role_privilege rp LEFT JOIN rights r ON rp.rights_id = r.rights_id WHERE rp.rights_id > 1 AND rp.role_id = :role_id");
-	    $stmt->execute([ "role_id" => $role_id]);
-
-	    $result = $stmt->fetchAll();
-
-	    foreach ($result as $r){
-	    	if($r['rights_id']){
-	    		$hasRights = true;
-		    }
-	    }
-
+    	
 	    // Delete rights if the user submitted the form.
-	    if($hasRights){
-		    $stmt = $this->db->prepare("DELETE FROM role_privilege WHERE role_id=:role_id ");
-		    $stmt->execute([":role_id"=>$role_id]);
+	    
+			$result = $this->deleteRights($role_id);
+			
 
 		    // Insert new rights if the user submitted the form.
-		    if($stmt){
-		    	$stmt = $this->db->prepare("INSERT INTO role_privilege (privilege_id,role_id,rights_id) VALUES (null, :role_id, :rights_id)");
-		    	$stmt->execute([":role_id"=>$role_id, ":rights_id"=>$rights_id]);
-		    }
-	    }
+		    if($result){
+
+				foreach($rights_id as $rid){
+
+					$stmt = $this->db->prepare("INSERT INTO role_privilege (privilege_id,role_id,rights_id) VALUES (null, :role_id, :rights_id)");
+					$stmt->execute([":role_id"=>$role_id, ":rights_id"=>$rid]);
+				
+				}
+
+				return true;
+			}
+			
+
+		return false;
+	    
 
     }
 }
