@@ -17,7 +17,6 @@ Fix the UI @morbid
 				<br>
                 <table style="width:100%">
                     <tr>
-                        <td>
                             <a href='<?=BASE_URL?>/admin/manage_roles'>
                             <?php
 
@@ -27,7 +26,6 @@ Fix the UI @morbid
                             }
                             ?>
                             </a>
-                        </td>
                     </tr>
 
                 </table>

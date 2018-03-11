@@ -19,7 +19,7 @@ Fix the UI @morbid
                 <form method="post" id="rightsForm">
 				<table style="width:100%" class="roles-table">
 						<tr>
-                            <td>
+                            
                                 <?php
 //                                $rolesname = $_SESSION['rolename'];
 
@@ -39,7 +39,7 @@ Fix the UI @morbid
                                 }
 
                                 ?>
-							</td>
+							
 						</tr>
 
                 </table>
