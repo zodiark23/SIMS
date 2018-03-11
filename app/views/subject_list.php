@@ -63,7 +63,7 @@ add styling on bottom note
 
         <script>
         
-             $('.del-subject').on("click", function(){
+             $('.tbl-delete-btn').on("click", function(){
                  var that = $(this);
                  var id = $(this).data('<?= md5(time())?>');
                 var c = confirm("Warning : This process is irreversible are you sure?");
