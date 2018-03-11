@@ -9,6 +9,12 @@
 	vertical-align: middle;
 }
 
+.input label.error{
+	position: absolute;
+	top:0px;
+	color : #da5d5e;
+}
+
 .input__field {
 	position: relative;
 	display: block;

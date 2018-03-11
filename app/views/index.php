@@ -13,10 +13,8 @@
 
                 <div class="links">
                     <ul>
-                        <li><a href="">Enroll Online</a></li>
-                        <li><a href="">Online Admission</a></li>
-                        <li><a href="">Forums</a></li>
-                        <li><a href="">Web Mail</a></li>
+                        <li><a href="<?=BASE_URL?>/home/register">Enroll Online</a></li>
+                        <li><a href="<?=BASE_URL?>/home/teachers">Teachers</a></li>
                     </ul>
                 </div>
 

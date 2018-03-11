@@ -5,12 +5,26 @@ use SIMS\Classes\View;
 use SIMS\App\Models\AdminModel;
 use SIMS\App\Models\CurriculumModel;
 use SIMS\App\Models\SubjectModel;
+use SIMS\App\Models\TeacherModel;
 
 
 class AdminController extends Controller{
+    public $side_nav_data = [];
+
     public function __construct(){
         $this->view = new View("educational_list");
         $this->view->action = "new";
+
+        /**
+         * Teachers sidenav counter
+         */
+        $teacherModel = new TeacherModel();
+        $result = $teacherModel->showAll();
+        $this->side_nav_data['teacherCount'] = 0;
+
+        if($result){
+            $this->side_nav_data['teacherCount'] = count($result) > 0 ? (count($result) - 1) : 0;
+        }
     }
 
 
@@ -18,6 +32,8 @@ class AdminController extends Controller{
         $this->view = new View("educational_list");
         $m = new CurriculumModel();
         $this->view->data = $m->list();
+
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -48,6 +64,7 @@ class AdminController extends Controller{
 
         $this->view->action = "new";
 
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -84,6 +101,7 @@ class AdminController extends Controller{
             return false;
         }
 
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -93,6 +111,7 @@ class AdminController extends Controller{
         $currModel = new CurriculumModel();
         $this->view->curriculumList = $currModel->list();
         
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -111,6 +130,7 @@ class AdminController extends Controller{
         $this->view->curriculumList = $currModel->list();
         $this->view->subjectInfo = $info[0];
         
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -133,6 +153,23 @@ class AdminController extends Controller{
 
         $this->view->data = $data;
 
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+    public function overview_teacher(){
+        $this->view = new View("teacher_overview");
+        $this->model = new TeacherModel();
+        $this->view->teachers = $this->model->showAll();
+
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+    public function create_teacher(){
+        $this->view = new View("add_teacher");
+
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 }

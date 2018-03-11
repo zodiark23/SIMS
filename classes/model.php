@@ -32,17 +32,24 @@ abstract class Model{
         if($data){
             return $data;
         }
+        return false;
     }
 
     /**
      * Helper function returns the lists of item depending the property `table` set
      * 
+     * @param string $orderBy Column for sorting
      * @param string $order - DESC or ASC
      */
-    public function showAll($order = "DESC"){
-        $stmt = $this->db->prepare("SELECT * FROM $this->table ORDER BY $order");
+    public function showAll($orderBy = "", $order = "DESC"){
+        $phrase = "";
+        if(!empty($orderBy)){
+            $phrase = "ORDER BY ". $orderBy . " ". $order;
+        }
+        
+        $stmt = $this->db->prepare("SELECT * FROM $this->table $phrase");
 
-        $stmt->execute(["target_id" => $id]);
+        $stmt->execute();
 
         $data = $stmt->fetchAll();
 

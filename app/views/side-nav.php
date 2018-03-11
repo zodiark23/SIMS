@@ -30,13 +30,14 @@
                 </ul>
             </li>
             <li class="parent-li">
-                <a href="javascript:void(0);">Teachers <span class="count">20</span></a>
+                <a href="javascript:void(0);">Teachers <span class="count"><?= ($this->side_nav_data['teacherCount'] ?? 0)?></span></a>
                 <ul class="child-ul">
                     <li><a href="">Overview</a></li>
-                    <li><a href="">Add Teacher</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/create-teacher">Add Teacher</a></li>
                     <li><a href="">Grade Management</a></li>
                 </ul>
             </li>
+            <!-- disabled for now not included in the system
             <li class="parent-li">
                 <a href="javascript:void(0);">Accounting <span class="count">5</span></a>
                 <ul class="child-ul">
@@ -44,7 +45,7 @@
                     <li><a href="">Balances</a></li>
                     <li><a href="">Accounting Logs</a></li>
                 </ul>
-            </li>
+            </li> -->
             <li class="parent-li">
                 <a href="javascript:void(0);">Schedules <span class="count">5</span></a>
                 <ul class="child-ul">

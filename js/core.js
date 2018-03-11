@@ -246,14 +246,17 @@ $("#edit-subject-form").on('submit', function(){
 });
 
 
+$.validator.addMethod("regex", function(value, element, regexpr) {          
+    return regexpr.test(value);
+  }, "Value doesn't match the required pattern.");
 
 
-
-    $("#login-form").validate({
+$("#login-form").validate({
         rules:
             {
                 userid: {
-                    required: true
+                    required: true,
+                    regex : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
                 },
                 userpass: {
                     required: true
@@ -261,13 +264,17 @@ $("#edit-subject-form").on('submit', function(){
             },
         messages:
             {
-                userid: "Please provide an email.",
+                userid: {
+                    required : "Please provide an email.",
+                    regex : "Please enter a valid email"
+                },
                 userpass: "Please provide a password."
             },
         submitHandler: submitForm
     });
 
     function submitForm() {
+        
         var data = $("#login-form").serialize();
 
         $.ajax({
@@ -292,9 +299,134 @@ $("#edit-subject-form").on('submit', function(){
         return false;
     }
 
-    /**
- * End of .ready();
- */
+
+
+    $("#create-teacher-form").validate({
+        rules: {
+                    t_email: {
+                        required: true,
+                        regex : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+                    },
+                    t_pass: {
+                        required: true
+                    },
+                    t_pass_confirm : {
+                        required: true,
+                        equalTo : '#t_pass'
+                    },
+                    t_first_name : {
+                        required : true,
+                        regex : /^[a-zA-Z\s]+$/,
+                        minlength : 2,
+                    },
+                    t_middle_name : {
+                        required : true,
+                        regex : /^[a-zA-Z\s]+$/
+                    },
+                    t_last_name : {
+                        required : true,
+                        regex : /^[a-zA-Z\s]+$/
+                    },
+                    t_contact : {
+                        required : true,
+                        regex : /^[0-9]+$/
+                    },
+                    t_nationality : {
+                        required : true,
+                        regex : /^[a-zA-Z\s]+$/
+                    },
+                    t_civil_status : {
+                        required : true,
+                        regex : /^[a-zA-Z\s]+$/
+                    },
+                    t_address : {
+                        required : true
+                    },
+                    t_birth_month : {
+                        required : true,
+                        regex : /^[0-9]+$/
+                    },
+                    t_birth_day : {
+                        required : true,
+                        regex : /^[0-9]+$/
+                    },
+                    t_birth_year : {
+                        required : true,
+                        regex : /^[0-9]+$/
+                    },
+                    t_gender : {
+                        required : true
+                    }
+                },
+        messages : {
+            t_email : {
+                regex : 'Please enter a valid email'
+            },
+            t_pass_confirm : {
+                equalTo : "Password doesn't match"
+            },
+            t_first_name : {
+                minlength : "Name must be at least 2 characters",
+                regex : "Only letters are allowed",
+            },
+            t_middle_name : {
+                regex : "Only letters are allowed",
+            },
+            t_last_name : {
+                regex : "Only letters are allowed",
+            },
+            t_contact : {
+                regex : "Only numbers allowed"
+            },
+            t_nationality : {
+                regex : "Only letters are allowed"
+            },
+            t_civil_status : {
+                regex : "Only letters are allowed"
+            },
+            t_birth_day : {
+                regex : "Please use number"
+            },
+            t_birth_month : {
+                regex : "Please use number"
+            },
+            t_birth_year : {
+                regex : "Please use number"
+            },
+            t_gender :{
+                required : "Please specify the gender"
+            }
+        },
+        submitHandler : function(){
+            var data = $("#create-teacher-form").serialize();
+            
+            $.ajax({
+                url : BASE_URL+"/php/add_teacher.php",
+                type : "post",
+                data : data,
+                success : function(data){
+                    x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/overview-teacher";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+    });
+
+
+
+
+
+
+
+/**
+  * End of .ready();
+  */
 });
 
 
