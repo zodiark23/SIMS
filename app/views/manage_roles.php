@@ -17,7 +17,7 @@ Fix the UI @morbid
 				<br>
 
                 <form method="post" id="rightsForm">
-				<table style="width:100%">
+				<table style="width:100%" class="roles-table">
 						<tr>
                             <td>
                                 <?php
@@ -34,7 +34,7 @@ Fix the UI @morbid
                                         $checked = "checked";
                                     }
 
-	                                echo "<td><input type='checkbox' name='rights[]' class=".$rightscode." value=".$rightsID." $checked>" . str_replace("_"," ",$rightscode) . "</td>";
+	                                echo "<td><label><input type='checkbox' name='rights[]' class=".$rightscode." value=".$rightsID." $checked><span>" . str_replace("_"," ",$rightscode) . "</span></label></td>";
 
                                 }
 
@@ -42,8 +42,10 @@ Fix the UI @morbid
 							</td>
 						</tr>
 
-				</table>
-                <input type="submit" data-target="<?= ($this->role_id ?? "" )?>" id="save-btn">
+                </table>
+                    <div style="text-align: center;">
+                        <input type="submit" data-target="<?= ($this->role_id ?? "" )?>" id="save-btn">
+                    </div>
                 </form>
 
 			</div>
@@ -52,3 +54,14 @@ Fix the UI @morbid
 		</div>
 	</div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        if ( $('.roles-table tr td label checkbox').is(':checked') ) {
+            console.log("checked");
+        }
+        $('.roles-table tr td label').click(function(){
+            $(this).find('checkbox').attr('checked');
+        });
+    });
+</script>

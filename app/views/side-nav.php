@@ -32,7 +32,7 @@
             <li class="parent-li">
                 <a href="javascript:void(0);">Teachers <span class="count"><?= ($this->side_nav_data['teacherCount'] ?? 0)?></span></a>
                 <ul class="child-ul">
-                    <li><a href="">Overview</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/overview-teacher">Overview</a></li>
                     <li><a href="<?=BASE_URL?>/admin/create-teacher">Add Teacher</a></li>
                     <li><a href="">Grade Management</a></li>
                 </ul>

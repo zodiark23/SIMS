@@ -6,7 +6,7 @@
         <div class="main-container">
             <div class="reg-form-header">
                 <div class="back-to-homepage">
-                    <a href="index2.html"><i class="fas fa-angle-double-left"></i> HOME</a>
+                    <a href=""><i class="fas fa-angle-double-left"></i> HOME</a>
                 </div>
                 <img src="<?=BASE_URL?>/img/logo.png" alt="Luakan National High School">
                 <p class="sc-name">Luakan National High School</p>

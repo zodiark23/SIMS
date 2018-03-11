@@ -291,6 +291,7 @@ textarea {
     max-height: 450px;
     min-height: 450px;
     overflow-y: scroll;
+    border: 1px solid #ccc;
 }
 .content-container .ne-board .ne-content .ne-item ~ .ne-item {
     margin-top: 10px;
@@ -454,6 +455,7 @@ textarea {
 .main-container .footer .footer-content ul li a {
     color: #fff;
     font-size: 12px;
+    letter-spacing: 1.5px;
 }
 .main-container .footer .footer-content .copyright {
     color: #fff;
@@ -461,6 +463,7 @@ textarea {
     float: right;
     font-size: 13px;
     text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 .content-container .mv-container {
     padding: 30px;
@@ -662,6 +665,89 @@ textarea {
     font-size: 13px;
     display: block;
     padding: 10px 0;
+}
+.content-panel .content-panel-table {
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.content-panel .content-panel-table tr th {
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #333;
+    background: #ccc;
+}
+.content-panel .content-panel-table tr td {
+    border: 1px solid #333;
+    text-align: center;
+    vertical-align: middle;
+    height: 30px;
+    background: #fff;
+}
+.content-panel select[name="curr"] {
+    height: 31px;
+    min-width: 150px;
+    outline: none;
+    border-color: #4272d7;
+}
+.content-panel .content-panel-table tr td .tbl-edit-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px 5px;
+    background: #4272d7;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+.content-panel .content-panel-table tr td .tbl-delete-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px 5px;
+    background: #c93c3c;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+.content-panel .roles-table tr td {
+    display: inline-block;
+    width: 100px;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 2px;
+}
+.content-panel .roles-table tr td label {
+    display: block;
+    height: 100%;
+    color: #fff;
+}
+.content-panel .roles-table tr td label span {
+    padding: 10px 15px;
+    display: block;
+    background: #c93c3c;
+    cursor: pointer;
+}
+.content-panel .roles-table tr td input[type="checkbox"] {
+    display: none;
+}
+.content-panel .roles-table tr td input[type="checkbox"]:checked + span {
+    background: #4272d7;
+}
+.input__label-content {
+    bottom: 27px;
+    padding: 0 !important;
+}
+.input label.error {
+    font-size: 12px;
+    padding: 0 .25em;
+}
+.content-panel #rightsForm #save-btn {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    background: #4272d7;
+    border: 1px solid #ccc;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin-top: 20px;
 }
 /* ==========================================================================
    Media Queries

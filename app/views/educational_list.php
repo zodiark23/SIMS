@@ -17,28 +17,34 @@ Fix the UI @morbid
             <br>
             <a class="outlined-button" href="<?=BASE_URL?>/admin/create-education">Create</a>
 
-            <table style="width:100%">
-                <tr>
-                    <td>#</td>
-                    <td>Name</td>
-                    <td>Duration</td>
-                    <td>Action</td>
-                </tr>
-                <?php 
-                    $count = 0;
-                    foreach($this->data as $cur_data){ 
-                    $count++;
-                ?>
-                <tr>
-                    <td><?= ($count) ?></td>
-                    <td><?= ($cur_data['description'] ?? "") ?></td>
-                    <td><?= ($cur_data['year_duration'] ?? "") ?></td>
-                    <td>
-                        <a href="<?=BASE_URL?>/admin/edit-education/<?=($cur_data['curriculum_id'] ?? "")?>" >Edit</a>
-                        <a href="<?=BASE_URL?>/admin/delete-education/<?=($cur_data['curriculum_id'] ?? "")?>" >Delete</a>
-                    </td>
-                </tr>
-                <?php } ?>
+            <table style="width:100%" class="content-panel-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Duration</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        $count = 0;
+                        foreach($this->data as $cur_data){ 
+                        $count++;
+                    ?>
+                    
+                        <tr>
+                            <td><?= ($count) ?></td>
+                            <td><?= ($cur_data['description'] ?? "") ?></td>
+                            <td><?= ($cur_data['year_duration'] ?? "") ?></td>
+                            <td>
+                                <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-education/<?=($cur_data['curriculum_id'] ?? "")?>" >Edit</a>
+                                <a class="tbl-delete-btn" href="<?=BASE_URL?>/admin/delete-education/<?=($cur_data['curriculum_id'] ?? "")?>" >Delete</a>
+                            </td>
+                        </tr>
+                    
+                    <?php } ?>
+                </tbody>
             </table>
 
         </div>

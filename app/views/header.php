@@ -5,7 +5,7 @@
         <li><a href="<?=BASE_URL?>" class="<?= (($this->view == "home") ? "active" : "" )?>">Home</a></li>
         <li><a href="<?=BASE_URL?>" class="<?= (($this->view == "news") ? "active" : "" )?>">News &amp; Events</a></li>
         <li><a href="<?=BASE_URL?>/home/facilities" class="<?= (($this->view == "facilities") ? "active" : "" )?>">Facilities</a></li>
-        <li><a href="<?=BASE_URL?>/home/mv" class="<?= (($this->view == "mv") ? "active" : "" )?>">Mission/Vision</a></li>
+        <li><a href="<?=BASE_URL?>/home/mission" class="<?= (($this->view == "mission") ? "active" : "" )?>">Mission/Vision</a></li>
         <li class="login nohover"><a href="javascript:void(0)">Login</a></li>
     </ul>
 </div>

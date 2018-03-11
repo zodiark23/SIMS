@@ -15,42 +15,46 @@ add styling on bottom note
         <div class="content-panel">
             <h3 class="dashboard-section-title">Subjects Lists</h3>                        
             
-            <table width=100%>
-            <tr>
-                <th> Subject Name</th>
-                <th> Category</th>
-                <th> Action</th>
-            </tr>
-            <?php
-            /**
-             * Format
-             * 
-             * Educational
-             *  - Subjects
-             *  - Subjects
-             */
-
-
-             foreach($this->data as $curriculum => $subjects){
-
-                    if(!empty($subjects)){
-
-                        foreach($subjects as $s){
-            ?>
+            <table width=100% class="content-panel-table">
+                <thead>
                     <tr>
-                        <td><?= ($s['subject_name'] ?? "") ?></td>
-                        <td><?= ($curriculum ?? "") ?></td>
-                        <td>
-                            <a href="<?=BASE_URL?>/admin/edit-subject/<?=($s['subject_id'] ?? "")?>">Edit </a> | 
-                            <a data-<?= md5(time())?>=<?=($s['subject_id'] ?? "")?> class="del-subject">Delete </a>
-                        </td>
+                        <th> Subject Name</th>
+                        <th> Category</th>
+                        <th> Action</th>
                     </tr>
-                    <!-- @GAB needed na parent().parent() nung delete class ung tr aun binubura ko sa .remove() -->
-            <?php
-                        }
+                </thead>
+                <tbody>
+                    <?php
+                    /**
+                     * Format
+                     * 
+                     * Educational
+                     *  - Subjects
+                     *  - Subjects
+                     */
+
+
+                    foreach($this->data as $curriculum => $subjects){
+
+                            if(!empty($subjects)){
+
+                                foreach($subjects as $s){
+                    ?>
+                            <tr>
+                                <td><?= ($s['subject_name'] ?? "") ?></td>
+                                <td><?= ($curriculum ?? "") ?></td>
+                                <td>
+                                    <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-subject/<?=($s['subject_id'] ?? "")?>">Edit </a>
+                                    <a class="tbl-delete-btn" data-<?= md5(time())?>=<?=($s['subject_id'] ?? "")?> class="del-subject">Delete </a>
+                                </td>
+                            </tr>
+                            <!-- @GAB needed na parent().parent() nung delete class ung tr aun binubura ko sa .remove() -->
+                    <?php
+                                }
+                            }
                     }
-             }
-            ?>
+                    ?>
+                </tbody>
             </table>
         </div>
 

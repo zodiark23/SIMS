@@ -17,40 +17,44 @@ Fix the UI @morbid
             <br>
             
 
-            <table style="width:100%">
-                <tr>
-                    <td>#</td>
-                    <td>Name</td>
-                    <td>Create Date</td>
-                    <td>Last Modified</td>
-                    <td>Status</td>
-                    <td>Action</td>
-                </tr>
-                <?php 
-                    $count = 0;
-                    foreach($this->teachers as $cur_data){
-                    //exclude teacher #1
-                    
-                    if($cur_data['teacher_id'] != 1){
+            <table style="width:100%" class="content-panel-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;">#</th>
+                        <th>Name</th>
+                        <th>Create Date</th>
+                        <th>Last Modified</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        $count = 0;
+                        foreach($this->teachers as $cur_data){
+                        //exclude teacher #1
+                        
+                        if($cur_data['teacher_id'] != 1){
 
-                    $count++;
-                ?>
-                <tr>
-                    <td><?= ($count) ?></td>
-                    <td><?= ($cur_data['first_name'] ?? "")." ". ($cur_data['last_name'] ?? "") ?></td>
-                    <td><?= date("M dS, Y h:i:s a", strtotime( ($cur_data['create_date'] ?? "") ) ) ?></td>
-                    <td><?= date("M dS, Y h:i:s a", strtotime( ($cur_data['last_modified'] ?? "") ) ) ?></td>
-                    <td class='success'><?= (($cur_data['status'] ?? "" ) == 1 ) ? "active" : "terminated" ?></td>
-                    <td>
-                        <a href="<?=BASE_URL?>/admin/edit-teacher/<?=($cur_data['curriculum_id'] ?? "")?>" >Edit</a>
-                       
-                        <a href="<?=BASE_URL?>/admin/Deactivate/<?=($cur_data['curriculum_id'] ?? "")?>" >Deactivate</a>
-                    </td>
-                </tr>
-                <?php } 
-           
-                    }
-                ?>
+                        $count++;
+                    ?>
+                    <tr>
+                        <td><?= ($count) ?></td>
+                        <td><?= ($cur_data['first_name'] ?? "")." ". ($cur_data['last_name'] ?? "") ?></td>
+                        <td><?= date("M dS, Y h:i:s a", strtotime( ($cur_data['create_date'] ?? "") ) ) ?></td>
+                        <td><?= date("M dS, Y h:i:s a", strtotime( ($cur_data['last_modified'] ?? "") ) ) ?></td>
+                        <td class='success'><?= (($cur_data['status'] ?? "" ) == 1 ) ? "active" : "terminated" ?></td>
+                        <td>
+                            <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-teacher/<?=($cur_data['curriculum_id'] ?? "")?>" >Edit</a>
+                        
+                            <a class="tbl-delete-btn" href="<?=BASE_URL?>/admin/Deactivate/<?=($cur_data['curriculum_id'] ?? "")?>" >Deactivate</a>
+                        </td>
+                    </tr>
+                    <?php } 
+            
+                        }
+                    ?>
+                </tbody>
             </table>
 
         </div>

@@ -23,6 +23,7 @@ add styling on bottom note
                 </span>
 
                 <select name="curr">
+                    <option value="" selected disabled hidden>Curriculum</option>
                     <?php
 
                     foreach($this->curriculumList as $c){
