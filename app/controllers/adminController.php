@@ -6,6 +6,7 @@ use SIMS\App\Models\AdminModel;
 use SIMS\App\Models\CurriculumModel;
 use SIMS\App\Models\SubjectModel;
 use SIMS\App\Models\TeacherModel;
+use SIMS\App\Models\RoleModel;
 
 
 class AdminController extends Controller{
@@ -172,4 +173,39 @@ class AdminController extends Controller{
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
+
+	public function roles(){
+
+		$this->view = new View("roles");
+		$this->model = new RoleModel();
+
+		$role = $this->model->getRole();
+
+		$this->view->roles = $role;
+
+		$this->view->render();
+	}
+
+	public function manage_roles($id){
+		if(empty($id)){
+			$this->error();
+			return false;
+		}
+		$this->view = new View("manage_roles");
+		$this->model = new RoleModel();
+		$rights_list = $this->model->getRights();
+
+		// Check if the role has / have rights.
+		$currentRights = $this->model->setRights($id);
+
+		// Display all rights from the rights table.
+		$this->view->rights_list = $rights_list;
+
+		$this->view->role_id = $id;
+
+		$this->view->currentRights = $currentRights;
+
+		$this->view->render();
+
+	}
 }
