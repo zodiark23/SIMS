@@ -13,10 +13,8 @@
 
                 <div class="links">
                     <ul>
-                        <li><a href="">Enroll Online</a></li>
-                        <li><a href="reg_form.html">Online Admission</a></li>
-                        <li><a href="">Forums</a></li>
-                        <li><a href="">Web Mail</a></li>
+                        <li><a href="<?=BASE_URL?>/home/register">Enroll Online</a></li>
+                        <li><a href="<?=BASE_URL?>/home/teachers">Teachers</a></li>
                     </ul>
                 </div>
 
@@ -57,9 +55,10 @@
                     </a>
                     <img src="<?=BASE_URL?>/img/logo.png" alt="" class="login-logo">
 
-                    <form action="">
-                        <input type="text" class="userid" placeholder="User ID">
-                        <input type="password" class="userpass" placeholder="Password">
+                    <form id="login-form" action="" method="post">
+                        <div id="form-message"></div>
+                        <input type="text" class="userid" placeholder="User ID" name="userid">
+                        <input type="password" class="userpass" placeholder="Password" name="userpass">
                         <button class="login-btn">LOGIN</button>
                     </form>
                 </div>
@@ -77,9 +76,7 @@
             </div>
         </div>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="<?=BASE_URL?>/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-        <script src="<?=BASE_URL?>/js/main.js"></script>
+
         <script>
             $(document).ready(function(){
                 $(".login a").on("click", function(){
@@ -88,7 +85,10 @@
 
                 $(".close").on("click", function(){
                     $(this).parents().removeClass("active");
-                }); 
+                });
             });
         </script>
-  
+
+        
+
+

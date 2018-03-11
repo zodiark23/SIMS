@@ -6,7 +6,7 @@
         <div class="main-container">
             <div class="reg-form-header">
                 <div class="back-to-homepage">
-                    <a href="index2.html"><i class="fas fa-angle-double-left"></i> HOME</a>
+                    <a href=""><i class="fas fa-angle-double-left"></i> HOME</a>
                 </div>
                 <img src="<?=BASE_URL?>/img/logo.png" alt="Luakan National High School">
                 <p class="sc-name">Luakan National High School</p>
@@ -113,7 +113,7 @@
                     </tbody>
                 </table>
                 <div class="acknowledgement">
-                    <p>I understand that all information I provide in this form may be used by the Department of Education and I consent to such with the assurance that my personal details will be kept confidetial.</p>
+                    <p>I understand that all information I provide in this form may be used by the Department of Education and I consent to such with the assurance that my personal details will be kept confidential.</p>
                 </div>
                 <div class="signature">
                     <div class="st-name">
@@ -128,12 +128,10 @@
             </form>
 
             <div class="print-btn">
-                <a href="javascript:void(0)"><i class="fas fa-print"></i> Print</a>
+                <a href="javascript:void(0)"><i class="far fa-save"></i> Save</a>
             </div>
 
         </div>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-        <script src="js/main.js"></script>
+        
     

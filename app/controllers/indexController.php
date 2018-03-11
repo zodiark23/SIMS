@@ -1,6 +1,7 @@
-<?php
+<?php namespace SIMS\App\Controllers;
 
-require_once("classes/view.php");
+use SIMS\Classes\Controller;
+use SIMS\Classes\View;
 
 class IndexController extends Controller
 {
@@ -17,19 +18,29 @@ class IndexController extends Controller
     }
 
 
-    public function dashboard(){
-        $this->view = new View("dashboard");
-        $this->view->render();
-    }
-
     public function facilities(){
         $this->view = new View("facilities");
         $this->view->render();
     }
 
-    public function mv(){
+    public function mission(){
         $this->view = new View("mv");
         $this->view->render();
+    }
+
+    public function login(){
+        $this->view = new View("index");
+
+        $this->view->render();
+
+        if(!isset($_SESSION['role_id'] )){
+        	?>
+			<script language="javascript">
+				$(".login-modal").show();
+			</script>
+			<?php
+	        
+        }
     }
     
     

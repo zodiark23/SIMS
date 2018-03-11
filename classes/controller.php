@@ -1,6 +1,10 @@
-<?php
-include_once("classes/model.php");
+<?php namespace SIMS\Classes;
 
+use SIMS\Classes\Model;
+
+/**
+ * Base Controller with default methods
+ */
 abstract class Controller{
     /**
      * The model this controller will use

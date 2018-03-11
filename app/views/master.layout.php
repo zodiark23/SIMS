@@ -16,8 +16,20 @@
         <link rel="stylesheet" href="<?=BASE_URL?>/css/swiper.min.css">
         <link rel="stylesheet" href="<?=BASE_URL?>/css/reset.css">
         <link rel="stylesheet" href="<?=BASE_URL?>/css/main.css">
+        <link rel="stylesheet" type="text/css" href="<?=BASE_URL?>/css/haruki-inputs.css" />
         <script defer src="<?=BASE_URL?>/js/fontawesome-all.min.js"></script>
         <script src="<?=BASE_URL?>/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+        <script>window.jQuery || document.write('<script src="<?=BASE_URL?>/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="<?=BASE_URL?>/js/lightbox.js"></script>
+        <script src="<?=BASE_URL?>/js/jquery.tablesorter.min.js"></script>
+        <script>
+            var BASE_URL = "<?=BASE_URL?>";
+        </script>
+        <script src="<?=BASE_URL?>/js/main.js"></script>
+        <script src="<?=BASE_URL?>/js/core.js"></script>
+
     </head>
 
 
@@ -25,13 +37,18 @@
 
     <?php
 
-    include($this->view.".php");
+    include(__DIR__."/".$this->view.".php");
     ?>
 
 
 
 
-
+        <script src="<?=BASE_URL?>/js/classie.js"></script>
+        <script>
+			(function() {
+				runClassieInput();
+            })();
+        </script>
     </body>
     </html>
 

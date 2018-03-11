@@ -54,268 +54,17 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-body {
+@font-face{
+    font-family: "LatoRegular";
+    src: url(../fonts/Lato-Light.ttf);
+}
+   body {
     font-family: RobotoRegular, sans-serif;
     font-size: 14px;
     background: url(../img/bg.png) no-repeat;
     background-size: cover;
     background-position: 0 0;
 }
-/* .container {
-    max-width: 1200px;
-    background: #fff;
-    margin: auto;
-    padding-top: 40px;
-    padding-bottom: 30px;
-    box-shadow: 0px 0px 55px #333;
-    min-height: calc(100vh - 70px);
-}
-.main-nav {
-    background: #4171bf;
-    color: #fff;
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 999;
-    box-shadow: 0px 1px 5px #000;
-}
-.main-nav .nav-container {
-    display: table;
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    height: 40px;
-}
-.main-nav .logo {
-    display: table-cell;
-    vertical-align: middle;
-    height: 40px;
-    padding-left: 15px;
-}
-.main-nav .logo span {
-    font-family: RobotoBold, sans-serif;
-    text-transform: uppercase;
-    padding-left: 5px;
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    top: 1px;
-}
-.main-nav .logo img {
-    width: 30px;
-}
-.main-nav .login {
-    display: table-cell;
-    vertical-align: middle;
-    width: 100px;
-    text-align: center;
-    font-size: 12px;
-}
-.main-nav .login svg {
-    padding-right: 5px;
-    display: inline-block;
-    vertical-align: bottom;
-}
-.main-nav .side-menu {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    position: relative;
-}
-.main-nav .side-menu .parent-ul {
-    position: absolute;
-    background: #000;
-    width: 250px;
-    height: auto;
-    top: 100%;
-    right: 0;;
-    opacity: 0;
-    visibility: hidden;
-    transition: all .5s linear;
-}
-.main-nav .side-menu .parent-ul.active {
-    opacity: 1;
-    visibility: visible;
-    transition: all .5s linear;
-}
-.main-nav .side-menu .parent-ul li.logout {
-    border-top: 1px dashed #fff;
-}
-.main-nav .side-menu .parent-ul li a {
-    padding: 15px 0;
-    display: block;
-    font-size: 12px;
-    text-align: left;
-    padding-left: 35px;
-}
-.main-nav .side-menu .parent-ul li a:hover {
-    background: #4171bf;
-}
-.main-nav .side-menu .parent-ul li a svg {
-    margin-left: 5px;
-    position: absolute;
-    right: 30px;
-}
-.main-nav .side-menu .parent-ul li .child-ul {
-    background: #333;
-    height: 0;
-    overflow: hidden;
-    transition: all .5s linear;
-}
-.main-nav .side-menu .parent-ul > li.active .child-ul {
-    height: auto;
-    transition: all .5s linear;
-}
-.main-nav .side-menu .parent-ul li .child-ul li a:hover {
-    background: #4171bf;
-}
-.footer {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    background: #4171bf;
-    color: #fff;
-    z-index: 999;
-    box-shadow: 0px -1px 5px #000;
-}
-.footer .footer-container {
-    display: table;
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    height: 30px;
-    text-align: center;
-}
-.footer .footer-container .copyright {
-    display: table-cell;
-    vertical-align: middle;
-    text-transform: uppercase;
-    font-size: 11px;
-}
-.banner {
-    position: relative;
-}
-.banner .social {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 2;
-}
-.banner .social ul {
-    background: #fff;
-    padding: 0 2px;
-    border-radius: 4px;
-}
-.banner .social ul li {
-    float: left;
-}
-.banner .social ul li a {
-    font-size: 30px;
-}
-.banner .social ul li a#fb-link {
-    color: #4267B2;
-}
-.banner .swiper-container {
-    width: 100%;
-    height: 440px;
-    border-radius: 15px;
-}
-.banner .swiper-container .swiper-slide img {
-    width: 100%;
-    height: 100%;
-}
-.news {
-    padding: 15px;
-}
-.news h3 {
-    font-size: 24px;
-    font-family: RobotoBold, sans-serif;
-    margin-bottom: 20px;
-    background: #4171bf;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    position: relative;
-}
-.news h3 svg {
-    position: absolute;
-    right: 20px;
-}
-.news .news-container ~ .news-container {
-    margin-top: 15px;
-}
-.news .news-title {
-    font-size: 18px;
-    font-family: RobotoBold, sans-serif;
-    margin-bottom: 5px;
-}
-.news .news-date {
-    font-size: 12px;
-    font-family: RobotoLight, sans-serif;
-    margin-bottom: 15px;
-}
-.news .news-content {
-    line-height: 1.5;
-    text-indent: 15px;
-}
-.events {
-    padding: 15px;
-}
-.events h3 {
-    font-size: 24px;
-    font-family: RobotoBold, sans-serif;
-    margin-bottom: 20px;
-    background: #4171bf;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    position: relative;
-}
-.events h3 svg {
-    position: absolute;
-    right: 20px;
-}
-.events .event-content {
-    padding: 10px;
-}
-.events .event-title {
-    font-size: 18px;
-    font-family: RobotoBold, sans-serif;
-    margin-bottom: 5px;
-}
-.events .event-details {
-    display: inline-block;
-    vertical-align: top;
-    max-width: 80%;
-    padding-left: 15px;
-}
-.events .event-img {
-    max-width: 200px;
-    max-height: 200px;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    border: 1px solid #333;
-}
-.events .event-details .event-venue {
-    font-family: RobotoBold, sans-serif;
-    margin-bottom: 5px;
-}
-.events .event-details .event-venue span {
-    font-family: RobotoRegular, sans-serif;
-}
-.events .event-details .event-date {
-    font-family: RobotoBold, sans-serif;
-    margin-bottom: 5px;
-}
-.events .event-details .event-date span {
-    font-family: RobotoRegular, sans-serif;
-}
-.events .event-details .details {
-    line-height: 1.2;
-} */
 .login-modal {
     position: fixed;
     width: 100%;
@@ -377,81 +126,6 @@ body {
     right: 10px;
     cursor: pointer;
 }
-/* .db-list {
-    padding: 15px;
-}
-.db-list .title {
-    font-size: 25px;
-    font-family: RobotoBold, sans-serif;
-    margin-bottom: 10px;
-}
-.db-list table {
-    width: 100%;
-    border-collapse: collapse;
-}
-.db-list table tr td {
-    border: 1px solid #333;
-    text-align: center;
-}
-.db-list table thead tr th {
-    height: 40px;
-    vertical-align: middle;
-    background: #4171bf;
-    color: #fff;
-    font-family: RobotoBold, sans-serif;
-    border: 1px solid #333333;
-    cursor: pointer;
-}
-.db-list table tbody tr td {
-    height: 30px;
-    vertical-align: middle;
-    font-size: 13px;
-}
-.db-list .search-db {
-    margin-bottom: 10px;
-}
-.db-list .search-db input {
-    height: 20px;
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 10px;
-}
-.db-list .search-db button {
-    height: 24px;
-    display: inline-block;
-    vertical-align: middle;
-}
-.db-list .pager {
-    text-align: center;
-    padding-top: 20px;
-}
-.db-list .pager div {
-    display: inline-block;
-    vertical-align: middle;
-}
-.db-list .pager div:not(.pager-num) {
-    background: #4171bf;
-    width: 20px;
-    text-align: center;
-    color: #fff;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.db-list .pager .pager-num {
-    position: relative;
-    top: 1px;
-}
-.db-list .pager .pager-num .curr-page {
-    font-family: RobotoBold, sans-serif;
-    color: #4171bf;
-}
-.db-list #db-table tbody tr td.news-content {
-    text-align: left;
-    padding: 10px;
-}
-.db-list #db-table tbody tr td img {
-    max-width: 100px;
-} */
 .main-container {
     max-width: 1040px;
     margin: auto;
@@ -556,8 +230,12 @@ body {
     margin-left: 0;
 }
 .content-container {
-    background: rgba(0,0,0,.7);
-    padding-bottom: 20px;;
+    background: #f2f2f2;
+    padding-bottom: 20px;
+    position: relative;
+}
+.content-container.dashboard {
+    padding-bottom: 0;
 }
 .content-container .banner {
     width: 100%;
@@ -576,16 +254,16 @@ body {
     text-align: left;
     list-style-type: circle;
     list-style-position: inside;
-    padding: 20px;
-    color: #fff;
+    padding: 0 20px 20px 20px;
+    color: #333;
 }
 .content-container .links ul li {
-    border-bottom: 1px dashed #fff;
+    border-bottom: 1px dashed #495057;
 }
 .content-container .links ul li a {
     display: inline-block;
     padding: 10px 0;
-    color: #fff;
+    color: #333;
     font-size: 16px;
     transition: all .3s;
 }
@@ -597,7 +275,7 @@ body {
     float: left;
     padding-left: 20px;
     width: 76%;
-    border-left: 1px solid #fff;
+    border-left: 1px solid #495057;
 }
 .content-container .ne-board .title {
     color: #fff;
@@ -606,8 +284,6 @@ body {
     display: block;
     background: #4171bf;
     padding: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 }
 .content-container .ne-board .ne-content {
     background: #fff;
@@ -615,6 +291,7 @@ body {
     max-height: 450px;
     min-height: 450px;
     overflow-y: scroll;
+    border: 1px solid #ccc;
 }
 .content-container .ne-board .ne-content .ne-item ~ .ne-item {
     margin-top: 10px;
@@ -778,6 +455,7 @@ body {
 .main-container .footer .footer-content ul li a {
     color: #fff;
     font-size: 12px;
+    letter-spacing: 1.5px;
 }
 .main-container .footer .footer-content .copyright {
     color: #fff;
@@ -785,13 +463,14 @@ body {
     float: right;
     font-size: 13px;
     text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 .content-container .mv-container {
     padding: 30px;
 }
 .content-container .mv-container .mv-title {
     font-size: 30px;
-    color: #fff;
+    color: #333;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 5px;
@@ -799,7 +478,7 @@ body {
     text-decoration: underline;
 }
 .content-container .mv-container .mv-content {
-    color: #fff;
+    color: #333;
     text-align: justify;
     line-height: 1.5;
     margin-bottom: 40px;
@@ -815,6 +494,260 @@ body {
 .content-container .facilities-container a img {
     max-width: 100%;
     height: 100%;
+}
+.content-container .dashboard-container .content-panel {
+    padding: 15px 15px 15px 265px;
+    height: calc(100vh - 30px);
+    overflow-y: scroll;
+}
+.content-container .dashboard-container .content-panel .db-table {
+    width: 100%;
+    margin-bottom: 30px;
+}
+.content-container .dashboard-container .content-panel .db-table thead {
+    background: #000;
+}
+.content-container .dashboard-container .content-panel .db-table thead tr th {
+    color: #fff;
+    border: 1px solid #999;
+    height: 30px;
+    vertical-align: middle;
+    padding: 10px;
+}
+.content-container .dashboard-container .content-panel .db-table tbody tr td {
+    color: #000;
+    border: 1px solid #999;
+    height: 30px;
+    vertical-align: middle;
+    background: #fff;
+    text-align: center;
+    padding: 10px;
+}
+.content-container .dashboard-container .content-panel .db-table tbody tr td img {
+    max-width: 100px;
+}
+.content-container .dashboard-container .side-nav {
+    width: 220px;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    background: #4272d7;
+    color: #fff;
+    padding: 15px;
+}
+.content-container .dashboard-container .side-nav .admin {
+    display: table;
+    width: 100%;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+.content-container .dashboard-container .side-nav .admin .adm-img {
+    width: 50px;
+    border-radius: 50%;
+    display: table-cell;
+    vertical-align: middle;
+}
+.content-container .dashboard-container .side-nav .admin .adm-name {
+    display: table-cell;
+    vertical-align: middle;
+    width: 160px;
+    cursor: pointer;
+    position: relative;
+}
+.content-container .dashboard-container .side-nav .admin .adm-name .fa-user-secret {
+    float: right;
+}
+.content-container .dashboard-container .side-nav .admin-out {
+    width: 100%;
+    background: #fff;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #000;
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    text-align: center;
+}
+.content-container .dashboard-container .side-nav .admin-out a {
+    display: block;
+    padding: 10px 0;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li>a {
+    display: block;
+    padding: 15px 0;
+    transition: all .2s linear;
+    position: relative;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li ~ .parent-li {
+    border-top:  1px solid #fff;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li>a:hover {
+    color: #000;
+    background: #fff;
+    transition: all .2s linear;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li.active>a {
+    color: #000;
+    background: #fff;
+    transition: all .2s linear;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+}
+.content-container .dashboard-container .side-nav .nav-list ul li a span.count {
+    display: block;
+    border: 1px solid #fff;
+    background: #ff5722;
+    border-radius: 10px;
+    padding: 2px 5px 1px 5px;
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    font-size: 11px;
+}
+.content-container .dashboard-container .side-nav .nav-list ul li a:hover span.count {
+    border-color: #ff5722;
+    background: #f2f2f2;
+    color:#ff5722;
+
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li.active>a span.count {
+    border-color: #ff5722;
+    background: #f2f2f2;
+    color:#ff5722;
+}
+.dashboard-section-title{
+    font-family: LatoRegular, Segoe UI Light, sans-serif;
+    font-size: 25px;
+    letter-spacing: 0.2px;
+}
+.plain-button{
+    min-width:90px;
+    padding:5px 14px;
+    background: #4272d7;
+    border:0px;
+    color: #f2f2f2;
+}
+.outlined-button{
+    min-width:90px;
+    padding: 5px 14px;
+    background: transparent;
+    border: 2px solid #4272d7;
+    color: #4272d7;
+}
+.school-level-list tr td{
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+}
+.util-btn{
+    width:36px;
+    height:30px;
+    border: none;
+    background:transparent;
+    display: inline-block;
+    vertical-align: middle;
+}
+.util-btn img {
+    width: 100%;
+    height:100%;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li .child-ul {
+    display: none;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li.active .child-ul {
+    display: block;
+    background: rgba(0,0,0,.5);
+    padding-left: 10px;
+}
+.content-container .dashboard-container .side-nav .nav-list .parent-ul .parent-li .child-ul li a {
+    font-size: 13px;
+    display: block;
+    padding: 10px 0;
+}
+.content-panel .content-panel-table {
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.content-panel .content-panel-table tr th {
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #333;
+    background: #ccc;
+}
+.content-panel .content-panel-table tr td {
+    border: 1px solid #333;
+    text-align: center;
+    vertical-align: middle;
+    height: 30px;
+    background: #fff;
+}
+.content-panel select[name="curr"] {
+    height: 31px;
+    min-width: 150px;
+    outline: none;
+    border-color: #4272d7;
+}
+.content-panel .content-panel-table tr td .tbl-edit-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px 5px;
+    background: #4272d7;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+.content-panel .content-panel-table tr td .tbl-delete-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px 5px;
+    background: #c93c3c;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+.content-panel .roles-table tr td {
+    display: inline-block;
+    width: 100px;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 2px;
+}
+.content-panel .roles-table tr td label {
+    display: block;
+    height: 100%;
+    color: #fff;
+}
+.content-panel .roles-table tr td label span {
+    padding: 10px 15px;
+    display: block;
+    background: #c93c3c;
+    cursor: pointer;
+}
+.content-panel .roles-table tr td input[type="checkbox"] {
+    display: none;
+}
+.content-panel .roles-table tr td input[type="checkbox"]:checked + span {
+    background: #4272d7;
+}
+.input__label-content {
+    bottom: 27px;
+    padding: 0 !important;
+}
+.input label.error {
+    font-size: 12px;
+    padding: 0 .25em;
+}
+.content-panel #rightsForm #save-btn {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    background: #4272d7;
+    border: 1px solid #ccc;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin-top: 20px;
 }
 /* ==========================================================================
    Media Queries
