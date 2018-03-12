@@ -16,18 +16,11 @@ class RoleModel extends Model {
 	}
 
 	/**
-	 * Returns the list of all available right names
+	 * Returns true if the logged in user have / has right(s) to that page.
 	 */
-	private function verify_rights(){
-		$role_id = $_SESSION['role_id'];
+	private function verifyRights($rights_code){
 
-		$stmt = $this->db->prepare("SELECT r.rights_code FROM role_privilege rp LEFT JOIN rights r ON rp.rights_id = r.rights_id WHERE rp.role_id = :role_id");
-
-		$stmt->execute([":role_id"=>$role_id]);
-
-		$result = $stmt->fetchAll();
-
-		return $result;
+		($rights_code) ? true : false;
 
 	}
 
@@ -119,10 +112,25 @@ class RoleModel extends Model {
 
 				return true;
 			}
-			
 
 		return false;
-	    
 
+    }
+
+	/**
+	 * Fetch all the right(s) of the logged in user.
+	 */
+    public function loadRights($role_id){
+    	$stmt = $this->db->prepare("SELECT r.rights_code FROM role_privilege rp LEFT JOIN rights r ON rp.rights_id=r.rights_id WHERE rp.role_id = $role_id");
+
+    	$stmt->execute();
+
+    	$result = $stmt->fetchAll();
+
+	    foreach ($result as $r) {
+	    	$rights = $r['rights_code'];
+    	}
+
+	    ($rights) ? true : false;
     }
 }

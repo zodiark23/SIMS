@@ -2,16 +2,21 @@
 
 session_start();
 
-
+$role_id = $_SESSION['role_id'];
 
 include_once("../config.php");
 include("../classes/autoloader.php");
 
 use SIMS\App\Models\LoginModel;
+use SIMS\App\Models\RoleModel;
 
 loadPackage("../");
 
 $loginModel = new LoginModel();
+$roleModel = new RoleModel();
+
+// Fetch all the right(s) of the logged in user.
+$userRights = $roleModel->loadRights($role_id);
 
 $getEmail = $_POST['userid'];
 $getPassword = $_POST['userpass'];
@@ -38,6 +43,7 @@ $isValid = $loginModel->adminLogin($getEmail, $getPassword);
 if($isValid){
     $callback['code'] = "00";
     $callback['message'] = "Success";
+	$userRights;
 }else{
     /**
      * * * * * * * * * * * * * * * * * *
@@ -49,6 +55,7 @@ if($isValid){
     if($isValid){
         $callback['code'] = "00";
         $callback['message'] = "Success";
+	    $userRights;
     }else{
         /**
          * * * * * * * * * * * * * * * * * *
@@ -59,6 +66,7 @@ if($isValid){
         if($isValid){
             $callback['code'] = "00";
             $callback['message'] = "Success";
+	        $userRights;
         }
         else{
             $callback['code'] = "01";
