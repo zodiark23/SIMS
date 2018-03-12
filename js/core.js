@@ -439,6 +439,59 @@ $("#login-form").validate({
     });
 
 
+    $("#create-role-form").validate({
+        rules:
+            {
+                r_name: {
+                    required: true,
+                    regex: /^[a-zA-Z\s]+$/,
+                    minlength : 3
+                }
+                /*,
+                r_default: {
+                    required: true,
+                    regex: /^[0-9]+$/,
+                    minlength: 1
+                }*/
+            },
+        messages:
+            {
+                r_name: {
+                    required: "Please provide a role name.",
+                    regex: "Please enter a valid role name."
+                }
+               /* ,
+                r_default: {
+                    required: "Please provide a valid default number.",
+                    regex: "Only numbers are allowed."
+                }*/
+            },
+        submitHandler: submitForm
+    });
+
+    function submitForm(){
+        var role_name = $("#create-role-form").serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: BASE_URL+"/php/add_role.php",
+            data: role_name,
+            success: function (data) {
+                x = JSON.parse(data);
+
+
+                if(x.code == "01") {
+                    alert(x.message);
+                }else {
+                    alert(x.message);
+                    window.location = BASE_URL+"/admin/roles/";
+                }
+            }
+        });
+        return false;
+    }
+
+
 
 
 

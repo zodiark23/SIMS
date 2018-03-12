@@ -208,4 +208,11 @@ class AdminController extends Controller{
 		$this->view->render();
 
 	}
+
+	public function add_roles(){
+    	$this->view = new View("add_roles");
+
+		$this->view->render();
+
+	}
 }

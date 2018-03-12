@@ -16,12 +16,28 @@ class RoleModel extends Model {
 	}
 
 	/**
+	 * Fetch all the right(s) of the logged in user.
+	 */
+	public function loadRights($role_id){
+		$stmt = $this->db->prepare("SELECT r.rights_code FROM role_privilege rp LEFT JOIN rights r ON rp.rights_id=r.rights_id WHERE rp.role_id = $role_id");
+
+		$stmt->execute();
+
+		$result = $stmt->fetchAll();
+
+		return $result;
+
+	}
+
+	/**
 	 * Returns true if the logged in user have / has right(s) to that page.
 	 */
-	private function verifyRights($rights_code){
-
-		($rights_code) ? true : false;
-
+	public function verifyRights($rights_code){
+//		($rights_code) ? true : false;
+//		if(in_array($rights_code,))
+//		if($rights_code == $session){
+//			var_dump($)
+//		}
 	}
 
 	/**
@@ -117,20 +133,24 @@ class RoleModel extends Model {
 
     }
 
-	/**
-	 * Fetch all the right(s) of the logged in user.
-	 */
-    public function loadRights($role_id){
-    	$stmt = $this->db->prepare("SELECT r.rights_code FROM role_privilege rp LEFT JOIN rights r ON rp.rights_id=r.rights_id WHERE rp.role_id = $role_id");
+    /*
+     *  Add int $default parameter later (FOR CONFIRMATION)
+     */
+    public function addRole($role_name){
 
-    	$stmt->execute();
-
+    	// ERROR when inserting data into default column (REMOVED default param until further notice )
+    	$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_name = :role_name");
+    	$stmt->execute([':role_name'=>$role_name,]);
     	$result = $stmt->fetchAll();
-
-	    foreach ($result as $r) {
-	    	$rights = $r['rights_code'];
-    	}
-
-	    ($rights) ? true : false;
+    	if($result){
+    		return false;
+	    }
+    	$stmt = $this->db->prepare("INSERT INTO roles (role_id,role_name) VALUES (null,:role_name)");
+    	$stmt->execute([':role_name'=>$role_name]);
+    	if ($stmt){
+    		return true;
+	    }
+	    return false;
     }
+
 }

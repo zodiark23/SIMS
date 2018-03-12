@@ -29,6 +29,11 @@ Fix the UI @morbid
                     </tr>
 
                 </table>
+                <br>
+                <br>
+                <br>
+                <br>
+                <a href='<?=BASE_URL?>/admin/add_roles' class='outlined-button'>Add new role</a>
 
 			</div>
 
