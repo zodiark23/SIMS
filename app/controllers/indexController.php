@@ -5,8 +5,8 @@ use SIMS\Classes\View;
 
 class IndexController extends Controller
 {
- 
-    
+
+
 
     public function __construct(){
         $this->view = new View("index");
@@ -39,9 +39,15 @@ class IndexController extends Controller
 				$(".login-modal").show();
 			</script>
 			<?php
-	        
+
         }
     }
-    
-    
+
+    public function logout(){
+        $this->view = new View("logout");
+
+        $this->view->render();
+    }
+
+
 }

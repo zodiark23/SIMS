@@ -1,8 +1,6 @@
 <?php
 
-session_start();
-
-$role_id = $_SESSION['role_id'];
+@session_start();
 
 include_once("../config.php");
 include("../classes/autoloader.php");
@@ -13,23 +11,25 @@ use SIMS\App\Models\RoleModel;
 loadPackage("../");
 
 $loginModel = new LoginModel();
+
+
 $roleModel = new RoleModel();
 
 // Fetch all the right(s) of the logged in user.
-$userRights = $roleModel->loadRights($role_id);
+
 
 $getEmail = $_POST['userid'];
 $getPassword = $_POST['userpass'];
 
 /**
  * Beta Algorithm
- * 
+ *
  * Check if its admin
  * Check if its student
  * Check if its parent
- * 
+ *
  * Attempt 3 times to find if this login is existing
- * 
+ *
  */
 
 
@@ -43,7 +43,8 @@ $isValid = $loginModel->adminLogin($getEmail, $getPassword);
 if($isValid){
     $callback['code'] = "00";
     $callback['message'] = "Success";
-	$userRights;
+    $role_id = $_SESSION['user']['role_id'];
+    $userRights = $roleModel->loadRights($role_id);
 }else{
     /**
      * * * * * * * * * * * * * * * * * *
@@ -55,6 +56,7 @@ if($isValid){
     if($isValid){
         $callback['code'] = "00";
         $callback['message'] = "Success";
+        $role_id;
 	    $userRights;
     }else{
         /**
@@ -66,6 +68,7 @@ if($isValid){
         if($isValid){
             $callback['code'] = "00";
             $callback['message'] = "Success";
+            $role_id;
 	        $userRights;
         }
         else{

@@ -83,12 +83,12 @@
         </ul>
     </div>
     <div class="admin-out">
-        <a href="">Logout</a>
+        <a href="<?=BASE_URL?>/home/logout/">Logout</a>
     </div>
 </div>
 
     <script>
-            $(document).ready(function(){        
+            $(document).ready(function(){
                 $(".parent-ul>li>a").on('click', function(){
                     if ($(this).parent().hasClass('active')) {
                         $(this).parent().removeClass('active');

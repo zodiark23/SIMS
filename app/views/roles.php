@@ -12,7 +12,26 @@ Fix the UI @morbid
 	<div class="content-container dashboard">
 		<div class="dashboard-container">
 			<div class="content-panel">
-				<h3 class="dashboard-section-title">Roles</h3>
+                <form id="create-role-form">
+                    <br>
+                    <h3 class="dashboard-section-title">Role</h3>
+                    <div class='error_role_form'></div>
+                    <span class="input input--hoshi" style="width:45%">
+                    <input value="" class="input__field input__field--hoshi" type="text" id="r_name"  name="r_name">
+                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="r_name">
+                        <span class="input__label-content input__label-content--hoshi">Role Name</span>
+                    </label>
+                </span>
+
+                    <br>
+                    <br>
+
+                    <input type="submit" class="outlined-button" value="Add" />
+                </form>
+
+                <br>
+                <br>
+				<h3 class="dashboard-section-title">Manage Roles</h3>
 				<br>
 				<br>
                 <table style="width:100%">
@@ -33,9 +52,13 @@ Fix the UI @morbid
                 <br>
                 <br>
                 <br>
-                <a href='<?=BASE_URL?>/admin/add_roles' class='outlined-button'>Add new role</a>
+
+
+
+
 
 			</div>
+
 
 			<?php include_once("side-nav.php") ?>
 		</div>

@@ -2,12 +2,10 @@
 
 use SIMS\Classes\Model;
 use SIMS\Classes\Database;
-//use SIMS\App\Models\LoginModel;
-
-//session_start();
 
 
 class RoleModel extends Model {
+
 
 	public function __construct()
 	{
@@ -32,12 +30,11 @@ class RoleModel extends Model {
 	/**
 	 * Returns true if the logged in user have / has right(s) to that page.
 	 */
-	public function verifyRights($rights_code){
-//		($rights_code) ? true : false;
-//		if(in_array($rights_code,))
-//		if($rights_code == $session){
-//			var_dump($)
-//		}
+	public function verifyRights($rights_code,$loadRights){
+        if(in_array($rights_code,$loadRights)){
+            return true;
+        }
+        return false;
 	}
 
 	/**
@@ -103,18 +100,18 @@ class RoleModel extends Model {
 
 
 	/**
-	 * Perform a delete 
-	 * 
+	 * Perform a delete
+	 *
 	 * Then insert all the new rights
-	 * 
-	 * 
+	 *
+	 *
 	 */
     public function updateRights($role_id,$rights_id){
-    	
+
 	    // Delete rights if the user submitted the form.
-	    
+
 			$result = $this->deleteRights($role_id);
-			
+
 
 		    // Insert new rights if the user submitted the form.
 		    if($result){
@@ -123,7 +120,7 @@ class RoleModel extends Model {
 
 					$stmt = $this->db->prepare("INSERT INTO role_privilege (privilege_id,role_id,rights_id) VALUES (null, :role_id, :rights_id)");
 					$stmt->execute([":role_id"=>$role_id, ":rights_id"=>$rid]);
-				
+
 				}
 
 				return true;
