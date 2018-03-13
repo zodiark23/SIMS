@@ -9,4 +9,5 @@ class EducationalAttainment {
     public $address;
     public $create_date;
     public $last_modified;
+    public $year_completed;
 }

@@ -20,6 +20,8 @@ class Student{
     public $create_date;
     public $last_updated;
 
+    public $birth_date;
+
     public $gender;
     public $house_street_number;
     public $subdivision_barangay;
@@ -28,6 +30,7 @@ class Student{
     public $tel_number;
     public $cell_number;
     
+    public $region;
 
     public $status = 0;
     public $role_id;

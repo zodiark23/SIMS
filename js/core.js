@@ -494,6 +494,110 @@ $("#login-form").validate({
 
 
 
+    $("#student-form").validate({
+        rules : {
+            s_last_name : {
+                required : true
+            },
+            s_middle_name : {
+                required : true
+            },
+            s_first_name : {
+                required : true
+            },
+            s_day: {
+                required : true
+            },
+            s_month: {
+                required : true
+            },
+            s_year: {
+                required : true
+            },
+            s_nationality: {
+                required : true
+            },
+            s_place_of_birth: {
+                required : true
+            },
+            edu_elementary_name: {
+                required : true
+            },
+            edu_elem_year_completed: {
+                required : true,
+                number : true
+            },
+            edu_elem_address: {
+                required : true
+            },
+            s_region: {
+                required : true
+            },
+            s_house_street_number: {
+                required : true
+            },
+            s_sub_barangay: {
+                required : true
+            },
+            s_town_city: {
+                required : true
+            },
+            province: {
+                required : true
+            },
+            s_tel_number: {
+                required : true,
+                number : true
+            },
+            s_cell_number: {
+                required : true,
+                number : true
+            },
+            s_email: {
+                required : true,
+                regex : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+            },
+
+        },
+        messages : {
+            s_email : {
+                regex : "Please use a valid email format"
+            }  
+        },
+        submitHandler : function(e){
+            var gender1 = $("#s-male").is(":checked");
+            var gender2 = $("#s-female").is(":checked");
+
+            if(gender1 == false && gender2 == false){
+                alert("Please selet a gender");
+            }
+
+            var data = $(e).serialize();
+
+            $.ajax({
+                url : BASE_URL+"/php/create_student.php",
+                type : "post",
+                data : data,
+                success : function (data){
+                    console.log(data);
+
+                    x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/home";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            });
+        }
+
+    });
+
+
+
+
 
 
 

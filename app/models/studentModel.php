@@ -34,12 +34,13 @@ class StudentModel extends Model {
         if($emailExists == true){
             return ["code" => "DUPLICATE" , "message" => "Email is taken"];
         }
-        $stmt = $this->db->prepare("INSERT INTO students(student_id, first_name,middle_name,last_name,email,password,contact_number,create_date,last_updated,gender,house_street_number,subdivision_barangay,town_city,province,tel_number,cell_number,status,role_id)
+        $stmt = $this->db->prepare("INSERT INTO students(student_id, first_name,middle_name,last_name,birth_date,email,password,contact_number,create_date,last_updated,gender,house_street_number,subdivision_barangay,town_city,province,tel_number,cell_number,status,role_id)
                     VALUES(
                         0,
                         :first_name,
                         :middle_name,
                         :last_name,
+                        :birth_date,
                         :email,
                         :password,
                         :contact_number,
@@ -60,6 +61,7 @@ class StudentModel extends Model {
             "first_name" => $student->first_name,
             "middle_name" => $student->middle_name,
             "last_name" => $student->last_name,
+            "birth_date" => $student->birth_date,
             "email" => $student->email,
             "password" => $student->password,
             "contact_number" => $student->contact_number,
@@ -100,12 +102,13 @@ class StudentModel extends Model {
      * @return bool True if success
      */
     public function addEducationAttainment(EducationalAttainment $educ){
-        $stmt = $this->db->prepare("INSERT INTO `educational_attainment`(curriculum_id,description,student_id,address,create_date, last_modified)
+        $stmt = $this->db->prepare("INSERT INTO `educational_attainment`(curriculum_id,description,student_id,address,year_completed,create_date, last_modified)
                 VALUES(
                     :curr_id,
                     :description,
                     :student_id,
                     :address,
+                    :year_completed,
                     :create_date,
                     :last_modified
                 )
@@ -124,6 +127,7 @@ class StudentModel extends Model {
             "description" => $educ->description,
             "student_id" => $educ->student_id,
             "address" => $educ->address,
+            "year_completed" => $educ->year_completed,
             "create_date" => $educ->create_date,
             "last_modified" => $educ->last_modified
         ]);

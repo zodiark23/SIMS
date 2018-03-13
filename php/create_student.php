@@ -14,21 +14,23 @@ use SIMS\App\Entities\EducationalAttainment;
  * **********************************************
  */
 $student = new Student();
-$student->first_name = "Reyan";
-$student->middle_name = "Celestial";
-$student->last_name = "Tropia";
-$student->email = "r23516@gmail.com";
-$student->password = md5("12qwas");
-$student->contact_number = "183123";
+$student->first_name = $_POST['s_first_name'] ?? "";
+$student->middle_name = $_POST['s_middle_name'] ?? "";
+$student->last_name = $_POST['s_last_name'] ?? "";
+$student->email = $_POST['s_email'] ?? "";
+$student->password = md5(time());
+$student->contact_number = "-";
 $student->create_date = date("Y-m-d H:i:s");
 $student->last_updated = date("Y-m-d H:i:s");
-$student->gender = 1;
-$student->house_street_number = "0502 Purok 4";
-$student->subdivision_barangay = "Sitio Mapanao Asinan Proper";
-$student->town_city = "Subic Zambales";
-$student->province = "Zambales";
-$student->tel_number = "09391760491";
-$student->cell_number = "48488";
+$student->birth_date = ($_POST['s_year'] ?? "")."-".($_POST['s_month'] ?? "")."-".($_POST['s_day'] ?? "");
+$student->gender = $_POST['sex'] ?? "";
+$student->house_street_number = $_POST['s_house_street_number'] ?? "";
+$student->subdivision_barangay = $_POST['s_sub_barangay'] ?? "";
+$student->town_city = $_POST['s_town_city'] ?? "";
+$student->province = $_POST['province'] ?? "";
+$student->tel_number = $_POST['s_tel_number'] ?? "";
+$student->cell_number = $_POST['s_cell_number'] ?? "";
+$student->region = $_POST['s_region'] ?? "";
 $student->status = 0;
 $student->role_id = 3;
 
@@ -47,9 +49,9 @@ if(!empty($studentResult['student_id'])){
     // Since we now have the student_id we will insert it to the educational table
     $educAttainment = new EducationalAttainment();
     $educAttainment->student_id = $studentResult['student_id'];
-    $educAttainment->address = "Subic Zambales";
-    $educAttainment->description = "Subic Central Elementary School";
-    $educAttainment->description = "sdfsdfsdf";
+    $educAttainment->address = $_POST['edu_elem_address'] ?? "";
+    $educAttainment->description = $_POST['edu_elementary_name'] ?? "";
+    $educAttainment->year_completed = $_POST['edu_elem_year_completed'] ?? "";
     $educAttainment->create_date = date("Y-m-d H:i:s");
     $educAttainment->last_modified = date("Y-m-d H:i:s");
 

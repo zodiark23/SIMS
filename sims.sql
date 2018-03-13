@@ -322,23 +322,60 @@ CREATE TABLE `students` (
   `first_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birth_date` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_number` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `create_date` datetime NOT NULL,
   `last_updated` datetime NOT NULL,
   `gender` int(4) NOT NULL,
+  `house_street_number` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subdivision_barangay` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `town_city` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `province` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel_number` text COLLATE utf8mb4_unicode_ci,
+  `cell_number` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(1) NOT NULL,
   `role_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+CREATE TABLE `educational_attainment` (
+  `ea_id` int(11) NOT NULL,
+  `curriculum_id` int(10) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `student_id` int(10) NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `year_completed` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `create_date` datetime NOT NULL,
+  `last_modified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `educational_attainment`
+--
+ALTER TABLE `educational_attainment`
+  ADD PRIMARY KEY (`ea_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `educational_attainment`
+--
+ALTER TABLE `educational_attainment`
+  MODIFY `ea_id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `first_name`, `middle_name`, `last_name`, `email`, `password`, `contact_number`, `create_date`, `last_updated`, `gender`, `status`, `role_id`) VALUES
-(1, 'vince', 'joshua', 'sanao', 'vince@test.com', 'acc1b2532ab4314b909ea6c282f55c20', '09121231234', '2018-03-05 08:39:36', '2018-03-05 08:39:36', 1, 1, 3),
-(2, 'Paul', 'Chirstian', 'Lunario', 'paul@test.com', 'acc1b2532ab4314b909ea6c282f55c20', '09121231234', '2018-03-05 08:39:36', '2018-03-05 08:39:36', 1, 1, 3);
 
 -- --------------------------------------------------------
 

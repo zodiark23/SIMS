@@ -13,7 +13,7 @@
                 <p class="sc-address">Dinalupihan, Bataan 2110</p>
             </div>
 
-            <form action="" class="reg-form">
+            <form action="" id="student-form" class="reg-form">
                 <table>
                     <tbody>
                         <tr>
@@ -47,13 +47,13 @@
                                 <label for="s-female">Female</label>
                             </td>
                             <td style="width: 50px;">
-                                <input type="number" id="mm">
+                                <input name="s_month" type="number" id="mm">
                             </td>
                             <td style="width: 50px;">
-                                <input type="number" id="dd">
+                                <input name="s_day" type="number" id="dd">
                             </td>
                             <td style="width: 100px;">
-                                <input type="number" id="yyyy">
+                                <input name="s_year" type="number" id="yyyy">
                             </td>
                             <td style="width: 150px;"><input name="s_nationality" type="text"></td>
                             <td><input name="s_place_of_birth" type="text"></td>
@@ -128,8 +128,9 @@
             </form>
 
             <div class="print-btn">
-                <a href="javascript:void(0)"><i class="far fa-save"></i> Save</a>
+                <a href="javascript: $('#student-form').submit()"><i class="far fa-save"></i> Save</a>
             </div>
+            
 
         </div>
 
