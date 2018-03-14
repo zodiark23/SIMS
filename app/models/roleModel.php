@@ -6,7 +6,6 @@ use SIMS\Classes\Database;
 
 class RoleModel extends Model {
 
-    private $roles_code =[];
 	public function __construct()
 	{
 		$this->db = new Database();
@@ -25,14 +24,6 @@ class RoleModel extends Model {
 
 		$result = $stmt->fetchAll();
 
-		foreach ($result as $r){
-		    $this->roles_code = $r;
-//		    var_dump($this->roles_code);
-            $_SESSION['savedRRights'] = $this->roles_code;
-            return $_SESSION['savedRRights'];
-
-        }
-
 		return $result;
 
 	}
@@ -40,11 +31,15 @@ class RoleModel extends Model {
 	/**
 	 * Returns true if the logged in user have / has right(s) to that page.
 	 */
-	public function verifyRights($rights_code){
-        if(in_array($rights_code,$_SESSION['savedRRights'])){
-            echo "SUCCESS";
-        }
-        return false;
+	public function verifyRights($rights_code)
+	{
+		session_start();
+		foreach ($_SESSION['userRights'] as $r) {
+			if (in_array($rights_code, $r)) {
+				return true;
+			}
+			return false;
+		}
 	}
 
 	/**

@@ -181,8 +181,12 @@ class AdminController extends Controller{
 
 		$role = $this->model->getRole();
 
-		$this->model->verifyRights("ALL");
+		$hasRights = $this->model->verifyRights("ALL");
 
+		if(!$hasRights){
+			$this->unauthorized();
+			return false;
+		}
 
 		$this->view->roles = $role;
 
@@ -216,6 +220,11 @@ class AdminController extends Controller{
     	$this->view = new View("add_roles");
 
 		$this->view->render();
+	}
 
+	public function news(){
+    	$this->view = new View("news");
+
+    	$this->view->render();
 	}
 }

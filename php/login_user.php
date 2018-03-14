@@ -1,6 +1,6 @@
 <?php
 
-@session_start();
+session_start();
 
 include_once("../config.php");
 include("../classes/autoloader.php");
@@ -40,12 +40,11 @@ $getPassword = $_POST['userpass'];
  */
 $isValid = $loginModel->adminLogin($getEmail, $getPassword);
 
+
 if($isValid){
     $callback['code'] = "00";
     $callback['message'] = "Success";
-    $isValid = $loginModel->adminLogin($getEmail, $getPassword);
-    $userRights = $roleModel->loadRights($_SESSION['user']['role_id']);
-    $_SESSION['userRights'] = $userRights;
+	$_SESSION['userRights'] = $roleModel->loadRights($_SESSION['user']['role_id']);
 }else{
     /**
      * * * * * * * * * * * * * * * * * *
@@ -57,7 +56,7 @@ if($isValid){
     if($isValid){
         $callback['code'] = "00";
         $callback['message'] = "Success";
-//	    $userRights;
+	    $_SESSION['userRights'] = $roleModel->loadRights($_SESSION['user']['role_id']);
     }else{
         /**
          * * * * * * * * * * * * * * * * * *
@@ -68,7 +67,7 @@ if($isValid){
         if($isValid){
             $callback['code'] = "00";
             $callback['message'] = "Success";
-//	        $userRights;
+	        $_SESSION['userRights'] = $roleModel->loadRights($_SESSION['user']['role_id']);
         }
         else{
             $callback['code'] = "01";
