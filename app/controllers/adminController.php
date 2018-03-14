@@ -43,19 +43,19 @@ class AdminController extends Controller{
         if(empty($id)){
             $this->error();
             return false;
-        
-        
+
+
         }
         $this->view = new View("educational_list");
 
         $m = new CurriculumModel();
         $result = $m->delete($id);
-        
+
 
         header("Location: ../education");
-        
+
         exit;
-        
+
     }
 
 
@@ -96,7 +96,7 @@ class AdminController extends Controller{
             if(!empty($levels)){
                 $this->view->data['schoolLevels'] = $levels;
             }
-            
+
         }else{
             $this->error();
             return false;
@@ -111,7 +111,7 @@ class AdminController extends Controller{
         $this->view = new View("create_subject");
         $currModel = new CurriculumModel();
         $this->view->curriculumList = $currModel->list();
-        
+
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -130,7 +130,7 @@ class AdminController extends Controller{
 
         $this->view->curriculumList = $currModel->list();
         $this->view->subjectInfo = $info[0];
-        
+
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -146,7 +146,7 @@ class AdminController extends Controller{
         $result = $currModel->list();
 
         foreach($result as $curriculum){
-            
+
             $subjects = $subjectModel->list($curriculum['curriculum_id']);
 
             $data[$curriculum["description"]] = $subjects;
@@ -180,6 +180,9 @@ class AdminController extends Controller{
 		$this->model = new RoleModel();
 
 		$role = $this->model->getRole();
+
+		$this->model->verifyRights("ALL");
+
 
 		$this->view->roles = $role;
 

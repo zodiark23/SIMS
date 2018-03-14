@@ -29,11 +29,17 @@ class LoginModel extends Model {
 
 		if(count($result) > 0){
 
-            foreach($result as $key => $val){
+		    $user_info = [];
 
-                $_SESSION['user'][$key] = $val;
+            foreach($result as $key => $val){
+                foreach($val as $key => $v){
+                    $user_info[$key] = $v;
+                }
+
             }
 
+
+            $_SESSION['user'] = $user_info;
 			return true;
 
 		} else {

@@ -43,8 +43,9 @@ $isValid = $loginModel->adminLogin($getEmail, $getPassword);
 if($isValid){
     $callback['code'] = "00";
     $callback['message'] = "Success";
-    $role_id = $_SESSION['user']['role_id'];
-    $userRights = $roleModel->loadRights($role_id);
+    $isValid = $loginModel->adminLogin($getEmail, $getPassword);
+    $userRights = $roleModel->loadRights($_SESSION['user']['role_id']);
+    $_SESSION['userRights'] = $userRights;
 }else{
     /**
      * * * * * * * * * * * * * * * * * *
@@ -56,8 +57,7 @@ if($isValid){
     if($isValid){
         $callback['code'] = "00";
         $callback['message'] = "Success";
-        $role_id;
-	    $userRights;
+//	    $userRights;
     }else{
         /**
          * * * * * * * * * * * * * * * * * *
@@ -68,8 +68,7 @@ if($isValid){
         if($isValid){
             $callback['code'] = "00";
             $callback['message'] = "Success";
-            $role_id;
-	        $userRights;
+//	        $userRights;
         }
         else{
             $callback['code'] = "01";
@@ -78,6 +77,7 @@ if($isValid){
 
     }
 }
+//
 
 
 echo json_encode($callback, JSON_PRETTY_PRINT);
