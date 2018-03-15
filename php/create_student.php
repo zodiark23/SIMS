@@ -2,7 +2,7 @@
 
 include("../config.php");
 include("../classes/autoloader.php");
-loadPackage("..");
+loadPackage("../");
 
 use SIMS\App\Models\StudentModel;
 use SIMS\App\Entities\Student;
