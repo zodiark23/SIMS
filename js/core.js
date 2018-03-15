@@ -439,43 +439,51 @@ $("#login-form").validate({
     });
 
 
-    $("#create-role-form").validate({
-        rules:
-            {
-                r_name: {
-                    required: true,
-                    regex: /^[a-zA-Z\s]+$/,
-                    minlength : 3
-                }
-            },
-        messages:
-            {
-                r_name: {
-                    required: "Please provide a role name.",
-                    regex: "Please enter a valid role name."
-                }
-            },
+    // $("#create-role-form").validate({
+    //     rules:
+    //         {
+    //             r_name: {
+    //                 required: true,
+    //                 regex: /^[a-zA-Z\s]+$/,
+    //                 minlength : 3
+    //             }
+    //         },
+    //     messages:
+    //         {
+    //             r_name: {
+    //                 required: "Please provide a role name.",
+    //                 regex: "Please enter a valid role name."
+    //             }
+    //         },
+    //
+    // submitHandler: function(){
+    //     var role_name = $("#create-role-form").serialize();
+    //
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: BASE_URL+"/php/add_role.php",
+    //         data: role_name,
+    //         success: function (data) {
+    //             x = JSON.parse(data);
+    //
+    //             if(x.code == "01") {
+    //                 alert(x.message);
+    //             }else {
+    //                 alert(x.message);
+    //                 window.location = BASE_URL+"/admin/roles/";
+    //             }
+    //         }
+    //     });
+    //     return false;
+    // }
+    // });
 
-    submitHandler: function(){
-        var role_name = $("#create-role-form").serialize();
-
-        $.ajax({
-            type: 'POST',
-            url: BASE_URL+"/php/add_role.php",
-            data: role_name,
-            success: function (data) {
-                x = JSON.parse(data);
-
-                if(x.code == "01") {
-                    alert(x.message);
-                }else {
-                    alert(x.message);
-                    window.location = BASE_URL+"/admin/roles/";
-                }
-            }
-        });
-        return false;
-    }
+    $("#dru").on("click", function () {
+        // 'newsContent' name of the field for tinymce
+       var mi = tinymce.get('newsContent').getContent();
+       console.log(mi);
+        // var title = $('#newsTitle').val();
+        // alert(title);
     });
 
 

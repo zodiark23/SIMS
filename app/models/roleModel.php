@@ -140,7 +140,6 @@ class RoleModel extends Model {
      */
     public function addRole($role_name){
 
-    	// ERROR when inserting data into default column (REMOVED default param until further notice )
     	$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_name = :role_name");
     	$stmt->execute([':role_name'=>$role_name,]);
     	$result = $stmt->fetchAll();
