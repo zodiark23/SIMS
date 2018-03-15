@@ -11,7 +11,7 @@ Fix the UI @morbid
 	<div class="content-container dashboard">
 		<div class="dashboard-container">
 			<div class="content-panel">
-                <form id="create-role-form">
+                <form id="publish-news-form">
                     <br>
                     <h3 class="dashboard-section-title">Publish News</h3>
                     <div class='error_role_form'></div>
@@ -24,7 +24,7 @@ Fix the UI @morbid
                     <br>
 
 
-	                <textarea class="tinymce" name='newsContent' cols='105' rows='30'></textarea>
+	                <textarea class="tinymce" id="newsContent" name='newsContent' cols='105' rows='30'></textarea>
 
                     <!--- tinymce CDN-->
                     <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
@@ -34,10 +34,11 @@ Fix the UI @morbid
                             plugins: [
                                 "advlist autolink lists link image charmap print preview anchor",
                                 "searchreplace visualblocks code fullscreen",
-                                "insertdatetime media table contextmenu paste"
+                                "insertdatetime media table contextmenu paste",
+                                "textcolor"
                             ],
                             browser_spellcheck: true,
-                            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image "
+                            toolbar: "insertfile undo redo | styleselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image "
                         });
                     </script>
 
@@ -45,6 +46,23 @@ Fix the UI @morbid
                     <br>
 
                     <input type="submit" value="Add" id="dru">
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <div>
+                        <!-- TODO: display News title and content -->
+		                <?php
+
+		                foreach ($this->displayNews as $result){
+                            echo htmlspecialchars_decode($result['news_content']);
+		                }
+
+		                ?>
+
+                    </div>
                 </form>
 			</div>
 

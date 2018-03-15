@@ -7,6 +7,7 @@ use SIMS\App\Models\CurriculumModel;
 use SIMS\App\Models\SubjectModel;
 use SIMS\App\Models\TeacherModel;
 use SIMS\App\Models\RoleModel;
+use SIMS\App\Models\NewsModel;
 
 
 class AdminController extends Controller{
@@ -224,6 +225,12 @@ class AdminController extends Controller{
 
 	public function news(){
     	$this->view = new View("news");
+
+    	$this->model = new NewsModel();
+
+    	$displayNews = $this->model->displayNews();
+
+    	$this->view->displayNews = $displayNews;
 
     	$this->view->render();
 	}
