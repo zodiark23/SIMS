@@ -27,28 +27,33 @@ Fix the UI @morbid
                         <tr>
 
                             <?php
-                            if ($this->displayNews){
-                                foreach ($this->displayNews as $result){
-                                    // Title and Content
-                                    echo "<tr><td>".htmlspecialchars_decode($result['news_title']);
-                                    echo "<br><br>";
-                                    echo htmlspecialchars_decode($result['news_content'])."</td>";
+                            if ($this->displayNews) {
 
-                                    // Published
-                                    if($result['news_publish'] == 0){
-                                        echo "<td>Published</td>";
-                                    }
 
-                                    // Edit button here
-                                    echo "<td><button class='outlined-button' value='Edit'>"."EDIT"."</button>";
+	                            foreach ($this->displayNews as $result) {
 
-                                    // Delete button here
-                                    echo "<button class='outlined-button' value='Delete'>"."DELETE"."</button>";
-                                    // View button here
-                                    echo "<button class='outlined-button' value='VIEW'>"."VIEW"."</button></td>";
-                                }
-                                }else {
-                                echo "No data";
+		                            if (strlen(htmlspecialchars($result['news_content'])) > 10) {
+			                            // Title and Content
+			                            echo "<tr><td>".$result['news_title'];
+			                            echo "<br><br>";
+			                            echo substr(htmlspecialchars_decode($result['news_content']),0,250)."..."."</td>";
+
+
+			                            // Published button here (YES/NO)
+                                        echo "<td>".$result['news_publish'];
+
+
+			                            // Edit button here
+			                            echo "<td><input type='button' class='outlined-button' value='Edit' id='edit-btn' name='edit-btn'></button>";
+
+			                            // Delete button here
+			                            echo "<input type='button' data-news-id=<? class='outlined-button' value='Delete' id='delete-btn' name='delete-btn'>";
+			                            // View button here
+			                            echo "<input type='button' class='outlined-button' value='VIEW' id='view-btn' name='view-btn'></td>";
+		                            }
+	                            }
+                            }else {
+                                echo "<td>"."No data"."</td>";
                             }
                             ?>
 

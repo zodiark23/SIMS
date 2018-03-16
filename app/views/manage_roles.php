@@ -21,8 +21,6 @@ Fix the UI @morbid
 						<tr>
                             
                                 <?php
-//                                $rolesname = $_SESSION['rolename'];
-
 
                                 foreach($this->rights_list as $row)
                                 {
