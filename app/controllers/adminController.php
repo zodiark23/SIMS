@@ -234,4 +234,10 @@ class AdminController extends Controller{
 
     	$this->view->render();
 	}
+
+	public function add_news(){
+        $this->view = new View("add_news");
+
+        $this->view->render();
+    }
 }

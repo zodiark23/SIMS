@@ -301,17 +301,17 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
             },
 
         submitHandler: function(){
-            var newsContent = tinymce.get('newsContent').getContent();
+            $newsContent = tinymce.get('newsContent').getContent();
 
-            var newsTitle = $('#newsTitle').val();
-
-
-            // var data = $("#publish-news-form").serialize();
+            $newsTitle = $('#newsTitle').val();
 
             $.ajax({
                 type: 'POST',
                 url: BASE_URL+"/php/publish_news.php",
-                data: newsTitle+newsContent,
+                data: {
+                    newsTitle: $newsTitle,
+                    newsContent: $newsContent
+                },
                 success: function (data) {
                     x = JSON.parse(data);
 
@@ -319,7 +319,7 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
                         alert(x.message);
                     }else {
                         alert(x.message);
-                        window.location = BASE_URL+"/dashboard";
+                        window.location = BASE_URL+"/admin/news";
                     }
                 }
             });

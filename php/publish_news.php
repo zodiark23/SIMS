@@ -5,16 +5,15 @@ session_start();
 include_once("../config.php");
 include("../classes/autoloader.php");
 
-use SIMS\App\Models\NewsModel;
-
 loadPackage("../");
+
+use SIMS\App\Models\NewsModel;
 
 $newsModel = new NewsModel();
 
 $newsTitle = $_POST['newsTitle'];
 
 $newsContent = $newsModel->validatetinyMCE($_POST['newsContent']);
-//var_dump($newsContent);
 
 $loggedinUser = $_SESSION['user']['role_id'];
 

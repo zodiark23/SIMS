@@ -11,58 +11,54 @@ Fix the UI @morbid
 	<div class="content-container dashboard">
 		<div class="dashboard-container">
 			<div class="content-panel">
-                <form id="publish-news-form">
+                <form id="display-news-form" method="post">
                     <br>
                     <h3 class="dashboard-section-title">Publish News</h3>
-                    <div class='error_role_form'></div>
+                    <div class='error_news_form'></div>
                     <br>
                     <br>
+                    <table style="width:100%">
+                        <tr>
+                            <th>News</th>
+                            <th>Published</th>
+                            <th>Action</th>
+                        </tr>
 
-                    <p><label>Title</label><br />
-                        <input type='text' name='newsTitle' id="newsTitle"></p>
+                        <tr>
+
+                            <?php
+                            if ($this->displayNews){
+                                foreach ($this->displayNews as $result){
+                                    // Title and Content
+                                    echo "<tr><td>".htmlspecialchars_decode($result['news_title']);
+                                    echo "<br><br>";
+                                    echo htmlspecialchars_decode($result['news_content'])."</td>";
+
+                                    // Published
+                                    if($result['news_publish'] == 0){
+                                        echo "<td>Published</td>";
+                                    }
+
+                                    // Edit button here
+                                    echo "<td><button class='outlined-button' value='Edit'>"."EDIT"."</button>";
+
+                                    // Delete button here
+                                    echo "<button class='outlined-button' value='Delete'>"."DELETE"."</button>";
+                                    // View button here
+                                    echo "<button class='outlined-button' value='VIEW'>"."VIEW"."</button></td>";
+                                }
+                                }else {
+                                echo "No data";
+                            }
+                            ?>
+
+                        </tr>
+                    </table>
+
                     <br>
                     <br>
+                    <button class="outlined-button" value="Add"><a href="<?=BASE_URL?>/admin/add_news">Add News</a></button>
 
-
-	                <textarea class="tinymce" id="newsContent" name='newsContent' cols='105' rows='30'></textarea>
-
-                    <!--- tinymce CDN-->
-                    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-                    <script>
-                        tinymce.init({
-                            selector: ".tinymce",
-                            plugins: [
-                                "advlist autolink lists link image charmap print preview anchor",
-                                "searchreplace visualblocks code fullscreen",
-                                "insertdatetime media table contextmenu paste",
-                                "textcolor"
-                            ],
-                            browser_spellcheck: true,
-                            toolbar: "insertfile undo redo | styleselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image "
-                        });
-                    </script>
-
-                    <br>
-                    <br>
-
-                    <input type="submit" value="Add" id="dru">
-
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-
-                    <div>
-                        <!-- TODO: display News title and content -->
-		                <?php
-
-		                foreach ($this->displayNews as $result){
-                            echo htmlspecialchars_decode($result['news_content']);
-		                }
-
-		                ?>
-
-                    </div>
                 </form>
 			</div>
 
