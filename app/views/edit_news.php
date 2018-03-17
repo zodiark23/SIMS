@@ -11,23 +11,25 @@ Fix the UI @morbid
 	<div class="content-container dashboard">
 		<div class="dashboard-container">
 			<div class="content-panel">
-                <form id="publish-news-form" method="post">
+                <form id="edit-news-form" method="post">
                     <br>
-                    <h3 class="dashboard-section-title">Add News</h3>
-                    <div class='error_news_form'></div>
+                    <h3 class="dashboard-section-title">Edit News</h3>
+                    <div class='error_edit_news_form'></div>
                     <br>
                     <br>
 
                     <p>
                         <label>Title</label>
                         <br>
-                        <input type="text" name="newsTitle" id="newsTitle">
+                        <input type="text" name="newsTitle" id="newsTitle" value="<?php echo $this->news_content[0]['news_title'] ?>">
                     </p>
+
                     <br>
                     <br>
 
-
-	                <textarea class="tinymce" id="newsContent" name="newsContent" cols='105' rows='30'></textarea>
+                    <!-- Display the News content -->
+	                <textarea class="tinymce" id="newsContent" name="newsContent" cols='105' rows='30'><?php echo  htmlspecialchars_decode($this->news_content[0]['news_content'])?>
+                    </textarea>
 
                     <!--- tinymce CDN-->
                     <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
@@ -48,13 +50,7 @@ Fix the UI @morbid
                     <br>
                     <br>
 
-                    <input type="submit" value="Add" id="save-news">
-
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-
+                    <input type="submit" data-target="<?= ($this->news_id ?? "")?>" id="update-btn">
                 </form>
 			</div>
 

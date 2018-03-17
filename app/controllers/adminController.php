@@ -209,6 +209,11 @@ class AdminController extends Controller{
 		// Display all rights from the rights table.
 		$this->view->rights_list = $rights_list;
 
+		// Display the role name for update
+		$display_role = $this->model->displayRole($id);
+
+		$this->view->role_name = $display_role;
+
 		$this->view->role_id = $id;
 
 		$this->view->currentRights = $currentRights;
@@ -239,5 +244,24 @@ class AdminController extends Controller{
         $this->view = new View("add_news");
 
         $this->view->render();
+    }
+
+    public function edit_news($id){
+    	if(empty($id)){
+    		$this->error();
+    		return false;
+	    }
+    	$this->view = new View("edit_news");
+
+    	$this->model = new NewsModel();
+
+    	$news_content = $this->model->getNews($id);
+
+    	$this->view->news_content = $news_content;
+
+    	$this->view->news_id = $id;
+
+	    $this->view->render();
+
     }
 }
