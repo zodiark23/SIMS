@@ -11,8 +11,6 @@ loadPackage("../");
 $roleModel = new RoleModel();
 
 $getRole = $_POST['r_name'];
-//$getDefault = $_POST['r_default'];
-
 
 /*
  * If valid new role name will be inserted to the database.

@@ -2,9 +2,6 @@
 
 use SIMS\Classes\Model;
 use SIMS\Classes\Database;
-//use SIMS\App\Models\LoginModel;
-
-//session_start();
 
 
 class RoleModel extends Model {
@@ -19,6 +16,8 @@ class RoleModel extends Model {
 	 * Fetch all the right(s) of the logged in user.
 	 */
 	public function loadRights($role_id){
+
+	    @session_start();
 		$stmt = $this->db->prepare("SELECT r.rights_code FROM role_privilege rp LEFT JOIN rights r ON rp.rights_id=r.rights_id WHERE rp.role_id = $role_id");
 
 		$stmt->execute();
@@ -32,12 +31,15 @@ class RoleModel extends Model {
 	/**
 	 * Returns true if the logged in user have / has right(s) to that page.
 	 */
-	public function verifyRights($rights_code){
-//		($rights_code) ? true : false;
-//		if(in_array($rights_code,))
-//		if($rights_code == $session){
-//			var_dump($)
-//		}
+	public function verifyRights($rights_code)
+	{
+		session_start();
+		foreach ($_SESSION['userRights'] as $r) {
+			if (in_array($rights_code, $r)) {
+				return true;
+			}
+			return false;
+		}
 	}
 
 	/**
@@ -103,18 +105,18 @@ class RoleModel extends Model {
 
 
 	/**
-	 * Perform a delete 
-	 * 
+	 * Perform a delete
+	 *
 	 * Then insert all the new rights
-	 * 
-	 * 
+	 *
+	 *
 	 */
     public function updateRights($role_id,$rights_id){
-    	
+
 	    // Delete rights if the user submitted the form.
-	    
+
 			$result = $this->deleteRights($role_id);
-			
+
 
 		    // Insert new rights if the user submitted the form.
 		    if($result){
@@ -123,7 +125,7 @@ class RoleModel extends Model {
 
 					$stmt = $this->db->prepare("INSERT INTO role_privilege (privilege_id,role_id,rights_id) VALUES (null, :role_id, :rights_id)");
 					$stmt->execute([":role_id"=>$role_id, ":rights_id"=>$rid]);
-				
+
 				}
 
 				return true;
@@ -138,7 +140,6 @@ class RoleModel extends Model {
      */
     public function addRole($role_name){
 
-    	// ERROR when inserting data into default column (REMOVED default param until further notice )
     	$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_name = :role_name");
     	$stmt->execute([':role_name'=>$role_name,]);
     	$result = $stmt->fetchAll();

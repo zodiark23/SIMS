@@ -135,7 +135,7 @@ $("#publish-educational").on("click", function(){
             "data" : "curr_id="+curr_id,
             "success" : function(data){
                 x = JSON.parse(data);
-                
+
                 if(x.code == "00"){
                     alert(x.message);
                     location.reload();
@@ -169,10 +169,10 @@ $("#create-subject-form").on('submit', function(){
             }
         }
 
-        
+
 
     });
-    
+
     if(hasErrors == 0){
         data = $(this).serialize();
         $.ajax({
@@ -192,7 +192,7 @@ $("#create-subject-form").on('submit', function(){
             }
         });
     }
-        
+
     return false;
 });
 
@@ -216,15 +216,15 @@ $("#edit-subject-form").on('submit', function(){
             }
         }
 
-        
+
 
     });
-    
+
     if(hasErrors == 0){
         data = $(this).serialize();
         target = $(this).data('s-id');
         data = data+"&id="+target;
-        
+
         $.ajax({
             url : BASE_URL+"/php/update_subject.php",
             type : "post",
@@ -242,7 +242,7 @@ $("#edit-subject-form").on('submit', function(){
             }
         });
     }
-        
+
     return false;
 });
 
@@ -270,9 +270,62 @@ $("#edit-subject-form").on('submit', function(){
     });
 
 
-$.validator.addMethod("regex", function(value, element, regexpr) {          
+$.validator.addMethod("regex", function(value, element, regexpr) {
     return regexpr.test(value);
   }, "Value doesn't match the required pattern.");
+
+
+    $("#publish-news-form").validate({
+        rules:
+            {
+                newsTitle: {
+                    required: true,
+                    regex: /^[a-zA-Z\s]+$/,
+                    minlength : 3
+                }/*,
+                newsContent: {
+                    required: true,
+                    minlength: 3
+                }*/
+
+            },
+        messages:
+            {
+                newsTitle: {
+                    required: "Please provide a title.",
+                    regex: "Please enter a valid title."
+                }/*,
+                newsContent: {
+                    required: "Please add a content,"
+                }*/
+            },
+
+        submitHandler: function(){
+            $newsContent = tinymce.get('newsContent').getContent();
+
+            $newsTitle = $('#newsTitle').val();
+
+            $.ajax({
+                type: 'POST',
+                url: BASE_URL+"/php/publish_news.php",
+                data: {
+                    newsTitle: $newsTitle,
+                    newsContent: $newsContent
+                },
+                success: function (data) {
+                    x = JSON.parse(data);
+
+                    if(x.code == "01") {
+                        alert(x.message);
+                    }else {
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/news";
+                    }
+                }
+            });
+            return false;
+        }
+    });
 
 
 $("#login-form").validate({
@@ -294,11 +347,10 @@ $("#login-form").validate({
                 },
                 userpass: "Please provide a password."
             },
-        submitHandler: submitForm
-    });
 
-    function submitForm() {
-        
+
+    submitHandler: function() {
+
         var data = $("#login-form").serialize();
 
         $.ajax({
@@ -318,6 +370,7 @@ $("#login-form").validate({
         });
         return false;
     }
+});
 
 
 
@@ -419,7 +472,7 @@ $("#login-form").validate({
         },
         submitHandler : function(){
             var data = $("#create-teacher-form").serialize();
-            
+
             $.ajax({
                 url : BASE_URL+"/php/add_teacher.php",
                 type : "post",
@@ -447,12 +500,6 @@ $("#login-form").validate({
                     regex: /^[a-zA-Z\s]+$/,
                     minlength : 3
                 }
-                /*,
-                r_default: {
-                    required: true,
-                    regex: /^[0-9]+$/,
-                    minlength: 1
-                }*/
             },
         messages:
             {
@@ -460,16 +507,9 @@ $("#login-form").validate({
                     required: "Please provide a role name.",
                     regex: "Please enter a valid role name."
                 }
-               /* ,
-                r_default: {
-                    required: "Please provide a valid default number.",
-                    regex: "Only numbers are allowed."
-                }*/
             },
-        submitHandler: submitForm
-    });
 
-    function submitForm(){
+    submitHandler: function(){
         var role_name = $("#create-role-form").serialize();
 
         $.ajax({
@@ -478,7 +518,6 @@ $("#login-form").validate({
             data: role_name,
             success: function (data) {
                 x = JSON.parse(data);
-
 
                 if(x.code == "01") {
                     alert(x.message);
@@ -490,6 +529,9 @@ $("#login-form").validate({
         });
         return false;
     }
+    });
+
+
 
 
 

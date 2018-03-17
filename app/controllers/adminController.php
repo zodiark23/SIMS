@@ -7,6 +7,7 @@ use SIMS\App\Models\CurriculumModel;
 use SIMS\App\Models\SubjectModel;
 use SIMS\App\Models\TeacherModel;
 use SIMS\App\Models\RoleModel;
+use SIMS\App\Models\NewsModel;
 
 
 class AdminController extends Controller{
@@ -43,19 +44,19 @@ class AdminController extends Controller{
         if(empty($id)){
             $this->error();
             return false;
-        
-        
+
+
         }
         $this->view = new View("educational_list");
 
         $m = new CurriculumModel();
         $result = $m->delete($id);
-        
+
 
         header("Location: ../education");
-        
+
         exit;
-        
+
     }
 
 
@@ -96,7 +97,7 @@ class AdminController extends Controller{
             if(!empty($levels)){
                 $this->view->data['schoolLevels'] = $levels;
             }
-            
+
         }else{
             $this->error();
             return false;
@@ -111,7 +112,7 @@ class AdminController extends Controller{
         $this->view = new View("create_subject");
         $currModel = new CurriculumModel();
         $this->view->curriculumList = $currModel->list();
-        
+
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -130,7 +131,7 @@ class AdminController extends Controller{
 
         $this->view->curriculumList = $currModel->list();
         $this->view->subjectInfo = $info[0];
-        
+
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -146,7 +147,7 @@ class AdminController extends Controller{
         $result = $currModel->list();
 
         foreach($result as $curriculum){
-            
+
             $subjects = $subjectModel->list($curriculum['curriculum_id']);
 
             $data[$curriculum["description"]] = $subjects;
@@ -181,6 +182,13 @@ class AdminController extends Controller{
 
 		$role = $this->model->getRole();
 
+		$hasRights = $this->model->verifyRights("ALL");
+
+		if(!$hasRights){
+			$this->unauthorized();
+			return false;
+		}
+
 		$this->view->roles = $role;
 
 		$this->view->render();
@@ -213,6 +221,23 @@ class AdminController extends Controller{
     	$this->view = new View("add_roles");
 
 		$this->view->render();
-
 	}
+
+	public function news(){
+    	$this->view = new View("news");
+
+    	$this->model = new NewsModel();
+
+    	$displayNews = $this->model->displayNews();
+
+    	$this->view->displayNews = $displayNews;
+
+    	$this->view->render();
+	}
+
+	public function add_news(){
+        $this->view = new View("add_news");
+
+        $this->view->render();
+    }
 }

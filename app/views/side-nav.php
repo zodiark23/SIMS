@@ -13,7 +13,7 @@
                     <li class="roles"><a href="<?=BASE_URL?>/admin/roles">Roles</a></li>
                     <li><a href="">Privileges</a></li>
                     <li><a href="">Master List</a></li>
-                    <li><a href="">News &amp; Announcements</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/news">News &amp; Announcements</a></li>
                     <li><a href="">Management</a></li>
                     <li><a href="">Payments</a></li>
                     <li><a href="">Approvals</a></li>
@@ -83,12 +83,12 @@
         </ul>
     </div>
     <div class="admin-out">
-        <a href="">Logout</a>
+        <a href="<?=BASE_URL?>/home/logout/">Logout</a>
     </div>
 </div>
 
     <script>
-            $(document).ready(function(){        
+            $(document).ready(function(){
                 $(".parent-ul>li>a").on('click', function(){
                     if ($(this).parent().hasClass('active')) {
                         $(this).parent().removeClass('active');

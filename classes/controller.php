@@ -35,4 +35,8 @@ abstract class Controller{
     public function error(){
         $this->view->error();
     }
+
+	public function unauthorized(){
+		$this->view->unauthorized();
+	}
 }
