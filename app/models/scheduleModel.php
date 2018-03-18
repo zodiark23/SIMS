@@ -206,6 +206,27 @@ class ScheduleModel extends Model
 
     }
 
+
+    /**
+     * Returns all the schedules
+     * 
+     * @return bool|array 
+     */
+    public function scheduleList(){
+        $stmt = $this->db->prepare("SELECT * FROM `schedules`");
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
+
+    }
+
     /**
      * Move the schedule of teacher to a target date.
      * It will validate if the teacher is still free for that time

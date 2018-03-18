@@ -20,6 +20,21 @@ class TeacherModel extends Model{
     }
 
 
+
+    public function list(){
+        $stmt = $this->db->prepare("SELECT * FROM `teachers` WHERE `teacher_id` > 1");
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
+    }
+
+
     /**
      * Method to create a new teacher
      * 

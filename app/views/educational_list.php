@@ -8,6 +8,14 @@
 Fix the UI @morbid
     -->
 
+<?php
+if(!$this->hasRights){
+    $this->unauthorized();
+    exit;
+}
+
+?>
+
 <div class="main-container">
 <div class="content-container dashboard">
     <div class="dashboard-container">

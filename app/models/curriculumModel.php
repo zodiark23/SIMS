@@ -79,6 +79,47 @@ class CurriculumModel extends Model{
 
     }
 
+    /**
+     * Returns the school levels base on curr_id
+     * 
+     * @param int $curr_id The curriculum id of the school levels you wish to retrieve
+     * 
+     * @return bool|aray
+     */
+    public function schoolLevels(int $curr_id){
+        $stmt = $this->db->prepare("SELECT * FROM `school_levels` WHERE curriculum_id = :cid AND `published` = 1");
+        $stmt->execute([ "cid" => $curr_id]);
+
+        $result = $stmt->fetchAll();
+
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Returns the information about the level id
+     * 
+     * @param int $level_id The target id to fetch info
+     * 
+     * @return bool|array
+     */
+    public function schoolLevelInfo(int $level_id){
+        $stmt = $this->db->prepare("SELECT * FROM `school_levels` WHERE `level_id` = :lid ");
+        $stmt->execute([ "lid" => $level_id]);
+
+        $result = $stmt->fetch();
+
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
+    }
+
 
     /**
      * Toggle the state of curriculum to `active` or `inactive`

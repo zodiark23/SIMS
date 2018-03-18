@@ -8,14 +8,26 @@ use SIMS\App\Models\SubjectModel;
 use SIMS\App\Models\TeacherModel;
 use SIMS\App\Models\RoleModel;
 use SIMS\App\Models\NewsModel;
+use SIMS\App\Models\ScheduleModel;
+use SIMS\App\Models\SectionModel;
 
 
 class AdminController extends Controller{
     public $side_nav_data = [];
 
     public function __construct(){
+        
+
         $this->view = new View("educational_list");
         $this->view->action = "new";
+        $m = new CurriculumModel();
+        $this->view->data = $m->list();
+
+        //we use this way for default actions
+        // invoke them on the actual page
+        $this->roleModel = new RoleModel();
+        $this->hasRights = $this->roleModel->verifyRights("ALL");
+        $this->view->hasRights = $this->hasRights;
 
         /**
          * Teachers sidenav counter
@@ -35,6 +47,13 @@ class AdminController extends Controller{
         $m = new CurriculumModel();
         $this->view->data = $m->list();
 
+        $roles = new RoleModel();
+        $hasRights = $roles->verifyRights("ALL");
+
+		if(!$hasRights){
+			$this->unauthorized();
+			return false;
+		}
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -109,6 +128,19 @@ class AdminController extends Controller{
 
 
     public function create_subject(){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("ADD_SUBJECT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+        
         $this->view = new View("create_subject");
         $currModel = new CurriculumModel();
         $this->view->curriculumList = $currModel->list();
@@ -119,6 +151,19 @@ class AdminController extends Controller{
 
 
     public function edit_subject($id){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("EDIT_SUBJECT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
         $this->view = new View("edit_subject");
         $currModel = new CurriculumModel();
         $subjectModel = new SubjectModel();
@@ -138,6 +183,21 @@ class AdminController extends Controller{
 
 
     public function subject_list(){
+
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("VIEW_SUBJECT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
         $data = [];
 
         $this->view = new View("subject_list");
@@ -160,6 +220,18 @@ class AdminController extends Controller{
     }
 
     public function overview_teacher(){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("VIEW_TEACHER");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
         $this->view = new View("teacher_overview");
         $this->model = new TeacherModel();
         $this->view->teachers = $this->model->showAll();
@@ -169,6 +241,18 @@ class AdminController extends Controller{
     }
 
     public function create_teacher(){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("ADD_TEACHER");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
         $this->view = new View("add_teacher");
 
         $this->view->side_nav_data = $this->side_nav_data;
@@ -239,5 +323,167 @@ class AdminController extends Controller{
         $this->view = new View("add_news");
 
         $this->view->render();
+    }
+
+
+    public function manage_schedule(){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_SCHEDULE");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
+        $this->view = new View("schedules");
+        $schedModel = new ScheduleModel();
+        $curriculumModel = new CurriculumModel();
+        $this->view->data = $schedModel->scheduleList();
+
+        $levelNames = [];
+
+        foreach($this->view->data as $sched){
+            $result = $curriculumModel->schoolLevelInfo($sched['level_id']);
+
+            if($result !== false){
+                $levelNames[$result['level_id']] = $result['level_name'];
+            }
+            
+        }
+
+        $this->view->levelNames = $levelNames;
+
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+    public function create_schedule(){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("ADD_SCHEDULE");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
+        $this->view = new View("create_schedule");
+        $x= new ScheduleModel();
+
+        $currModel = new CurriculumModel();
+        $this->view->curriculumList = $currModel->list();
+
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+    public function add_section(){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("ADD_SECTION");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
+        $this->view = new View("add_section");
+
+        $currModel = new CurriculumModel();
+        $this->view->curriculumList = $currModel->list();
+
+        $teacherModel = new TeacherModel();
+        $this->view->teachers = $teacherModel->list();
+
+        $this->view->render();
+    }
+
+
+    public function edit_section($id){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("EDIT_SECTION");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
+        $this->view = new View("edit_section");
+        $sectionModel = new SectionModel();
+
+        $this->view->data = $sectionModel->info($id);
+
+        $curr_id = $this->view->data['curr_id'] ?? 0;
+
+
+        $currModel = new CurriculumModel();
+        $this->view->curriculumList = $currModel->list();
+
+        // The level this curriculum had
+        $this->view->levels  = $currModel->schoolLevels($curr_id);
+        
+
+        $teacherModel = new TeacherModel();
+        $this->view->teachers = $teacherModel->list();
+
+        $this->view->render();
+    }
+
+    public function section_list(){
+
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("VIEW_SECTION");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
+        $this->view = new View("sections");
+
+        $sectionModel = new SectionModel();
+        $this->view->data = $sectionModel->list();
+
+        $curriculumModel = new CurriculumModel();
+
+        foreach($this->view->data as $sched){
+            $result = $curriculumModel->schoolLevelInfo($sched['level_id']);
+
+            if($result !== false){
+                $levelNames[$result['level_id']] = $result['level_name'];
+            }
+            
+        }
+
+        $this->view->levelNames = $levelNames;
+        $this->view->render();
+
     }
 }

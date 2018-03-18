@@ -33,13 +33,16 @@ class RoleModel extends Model {
 	 */
 	public function verifyRights($rights_code)
 	{
-		session_start();
-		foreach ($_SESSION['userRights'] as $r) {
-			if (in_array($rights_code, $r)) {
-				return true;
+		@session_start();
+		if(isset($_SESSION['userRights'])){
+
+			foreach ($_SESSION['userRights'] as $r) {
+				if (in_array($rights_code, $r)) {
+					return true;
+				}
 			}
-			return false;
 		}
+		return false;
 	}
 
 	/**

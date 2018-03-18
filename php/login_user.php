@@ -45,6 +45,11 @@ if($isValid){
     $callback['code'] = "00";
     $callback['message'] = "Success";
 	$_SESSION['userRights'] = $roleModel->loadRights($_SESSION['user']['role_id']);
+    if($_SESSION['user']['teacher_id'] == "1"){
+        $callback['type'] = 'admin';
+    }else{
+        $callback['type'] = 'teacher';
+    }
 }else{
     /**
      * * * * * * * * * * * * * * * * * *
@@ -55,6 +60,7 @@ if($isValid){
 
     if($isValid){
         $callback['code'] = "00";
+        $callback['type'] = 'student';
         $callback['message'] = "Success";
 	    $_SESSION['userRights'] = $roleModel->loadRights($_SESSION['user']['role_id']);
     }else{
@@ -66,6 +72,7 @@ if($isValid){
         $isValid = $loginModel->parentLogin($getEmail, $getPassword);
         if($isValid){
             $callback['code'] = "00";
+            $callback['type'] = 'parent';
             $callback['message'] = "Success";
 	        $_SESSION['userRights'] = $roleModel->loadRights($_SESSION['user']['role_id']);
         }

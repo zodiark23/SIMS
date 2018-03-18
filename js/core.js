@@ -152,20 +152,28 @@ $("#publish-educational").on("click", function(){
 $("#create-subject-form").on('submit', function(){
     var data = "";
     var hasErrors = 0;
+
     $(this).find("[name]").each(function(){
         var name = $(this).attr('name');
 
         var value = $(this).val();
 
         if(name == "subject_name"){
-            if(value.length < 0){
+            if(value.length < 1){
                 hasErrors++;
+                alert("Please enter a subject name");
+                return false;
             }
 
         }
         if(name == "curr"){
-            if(value.length <= 0){
+            if(value == null){
                 hasErrors++;
+                alert("Please select a curriculum");
+                return false;
+            }else if(value.length <= 0){
+                hasErrors++;
+
             }
         }
 
@@ -364,7 +372,12 @@ $("#login-form").validate({
                 if(x.code == "01") {
                    alert(x.message);
                 }else {
-                    window.location = BASE_URL+"/account";
+                    if(x.type == "admin"){
+                        window.location = BASE_URL+"/admin/";
+                    }else{
+                        window.location = BASE_URL+"/account";
+                    }
+                    
                 }
             }
         });
@@ -621,7 +634,7 @@ $("#login-form").validate({
                 type : "post",
                 data : data,
                 success : function (data){
-                    console.log(data);
+                    
 
                     x = JSON.parse(data);
 
@@ -638,7 +651,192 @@ $("#login-form").validate({
     });
 
 
+    $("#cur_select").on("change", function(){
+        var data = {};
 
+        data['cid'] = $(this).val();
+        
+        $.ajax({
+            url : BASE_URL+"/php/school_level_list.php",
+            type : "post",
+            data : data,
+            beforeSend : function(){
+                $("#sched_school_level").html("Loading . . . ");
+            },
+            success : function(data){
+                if(data == "false"){
+                    alert("Unable to fetch proper school levels. Contact Support");
+                }
+                else{
+                    $("#sched_school_level").html(data);
+                }
+            }
+
+        });
+
+    });
+
+
+    $("#create-schedule-form").validate({
+        rules : {
+            schedule_name : {
+                required : true
+            },
+            curr : {
+                required : true
+            },
+            level : {
+                required : true
+            },
+            sched_year_start : {
+                required : true
+            },
+            sched_year_end : {
+                required : true
+            }
+
+        },
+        messages: {
+            schedule_name : {
+                required : "Please do not leave this empty"  
+            },
+            curr : {
+
+            },
+            level : {
+                required : "Please choose a level"
+            }
+
+        },
+        submitHandler : function(e){
+            var data = $(e).serialize();
+            $.ajax({
+                url : BASE_URL+"/php/create_schedule.php",
+                type : "post",
+                data : data,
+                success : function(data){
+                    var x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/manage-schedule";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+
+    });
+
+
+    $("#create-section-form").validate({
+        rules : {
+            section_name : {
+                required : true
+            },
+            curr : {
+                required : true
+            },
+            level : {
+                required : true
+            },
+            teacher_id : {
+                required : true
+            }
+
+        },
+        messages: {
+            schedule_name : {
+                required : "Please do not leave this empty"  
+            },
+            curr : {
+
+            },
+            level : {
+                required : "Please choose a level"
+            },
+            teacher_id : {
+                required : "Please select teacher id"
+            }
+
+        },
+        submitHandler : function(e){
+            var data = $(e).serialize();
+            $.ajax({
+                url : BASE_URL+"/php/create_section.php",
+                type : "post",
+                data : data,
+                success : function(data){
+                    var x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/section-list";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+
+    });
+
+    
+    $("#edit-section-form").validate({
+        rules : {
+            section_name : {
+                required : true
+            },
+            curr : {
+                required : true
+            },
+            level : {
+                required : true
+            },
+            teacher_id : {
+                required : true
+            }
+
+        },
+        messages: {
+            schedule_name : {
+                required : "Please do not leave this empty"  
+            },
+            curr : {
+
+            },
+            level : {
+                required : "Please choose a level"
+            },
+            teacher_id : {
+                required : "Please select teacher id"
+            }
+
+        },
+        submitHandler : function(e){
+            var data = $(e).serialize();
+            
+            var targetID = $(e).data('id');
+            
+            $.ajax({
+                url : BASE_URL+"/php/update_section.php",
+                type : "post",
+                data : data+"&section_id="+targetID,
+                success : function(data){
+                    var x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/section-list";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+
+    });
 
 
 

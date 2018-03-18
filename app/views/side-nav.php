@@ -11,11 +11,11 @@
                 <ul class="child-ul">
                     <li><a href="<?=BASE_URL?>/admin/education">Education Settings</a></li>
                     <li class="roles"><a href="<?=BASE_URL?>/admin/roles">Roles</a></li>
-                    <li><a href="">Privileges</a></li>
+                    <!-- <li><a href="">Privileges</a></li> -->
                     <li><a href="">Master List</a></li>
                     <li><a href="<?=BASE_URL?>/admin/news">News &amp; Announcements</a></li>
-                    <li><a href="">Management</a></li>
-                    <li><a href="">Payments</a></li>
+                    <!-- <li><a href="">Management</a></li> -->
+                    <!-- <li><a href="">Payments</a></li> -->
                     <li><a href="">Approvals</a></li>
                     <li><a href="">Parental Tools</a></li>
                 </ul>
@@ -51,7 +51,7 @@
                 <ul class="child-ul">
                     <li><a href="">View Schedules</a></li>
                     <li><a href="">My Schedule</a></li>
-                    <li><a href="">Manage Schedule</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/manage-schedule">Manage Schedule</a></li>
                 </ul>
             </li>
             <li class="parent-li">
@@ -65,12 +65,12 @@
             <li class="parent-li">
                 <a href="javascript:void(0);">Sections <span class="count">5</span></a>
                 <ul class="child-ul">
-                    <li><a href="">Section List</a></li>
-                    <li><a href="">Add Section</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/section-list">Section List</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/add-section">Add Section</a></li>
                     <li><a href="">Change Advisor</a></li>
                 </ul>
             </li>
-            <li class="parent-li">
+            <!-- <li class="parent-li">
                 <a href="javascript:void(0);">Logs <span class="count">5</span></a>
                 <ul class="child-ul">
                     <li><a href="">Grade Logs</a></li>
@@ -79,7 +79,7 @@
                     <li><a href="">Schedule Logs</a></li>
                     <li><a href="">Payment Logs</a></li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </div>
     <div class="admin-out">

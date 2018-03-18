@@ -13,17 +13,21 @@ $section->section_adviser = (int)$_POST['teacher_id'] ?? 0;
 $section->level_id = (int)$_POST['level'] ?? 0;
 $section->curr = (int)$_POST['curr'] ?? 0;
 $section->section_name = $_POST['section_name'];
+$section->section_id = (int)$_POST['section_id'] ?? 0;
 
 $sectionModel = new SectionModel();
 
 
 try {
 
-    $result = $sectionModel->create($section);
+    $result = $sectionModel->update($section);
 
     if($result === true){
         $callback['code'] = "00";
-        $callback['message'] = "Section was created.";
+        $callback['message'] = "Section updated.";
+    }else{
+        $callback['code'] = "01";
+        $callback['message'] = "Unexpected error occurred.";
     }
 
 } catch(Exception $e){
