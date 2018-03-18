@@ -368,6 +368,16 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
         }
     });
 
+    // View news content
+    $("#view-btn").on("click",function () {
+        $(".bg-modal").css("display","flex");
+    });
+
+    // Close view modal
+    $(".close-modal").on("click", function () {
+        $(".bg-modal").css("display","none");
+    });
+
 
 $("#login-form").validate({
         rules:

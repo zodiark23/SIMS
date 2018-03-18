@@ -23,6 +23,9 @@ Fix the UI @morbid
                             <th>Published</th>
                             <th>Action</th>
                         </tr>
+                        <div class="bg-modal">
+                            <div class="modal-content">
+                                <div class="close-modal">+</div>
 
                         <tr>
 
@@ -54,6 +57,10 @@ Fix the UI @morbid
 
 			                            // View button here
 			                            echo "<input type='button' class='outlined-button' value='VIEW' id='view-btn' name='view-btn'></td>";
+			                            echo "<div class='bg-modal'><div class='modal-content'><div class='close-modal'>+</div>".$result['news_title']."<br><br>".htmlspecialchars_decode($result['news_content'])."</td></div></div></div>";
+
+
+
 		                            } else {
 
 			                            // Title and Content
@@ -72,16 +79,25 @@ Fix the UI @morbid
 
 			                            // View button here
 			                            echo "<input type='button' class='outlined-button' value='VIEW' id='view-btn' name='view-btn'></td>";
+			                            echo "<div class='bg-modal'><div class='modal-content'><div class='close-modal'>+</div>".$result['news_title']."<br><br>".htmlspecialchars_decode($result['news_content'])."</td></div></div></div>";
 		                                
                                     }
 	                            }
                             }else {
                                 echo "<td>"."No data"."</td>";
                             }
+
+//                            echo "<div class='bg-modal'><div class='modal-content'><div class='close-modal'>+</div>".$result['news_title']."<br><br>".htmlspecialchars_decode($result['news_content'])."</td></div></div></div>";
                             ?>
 
                         </tr>
-                    </table>
+            </div>
+        </div>
+
+        </table>
+
+
+
 
                     <br>
                     <br>

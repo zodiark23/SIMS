@@ -40,6 +40,8 @@ class RoleModel extends Model {
 			}
 			return false;
 		}
+
+
 	}
 
 	/**
@@ -167,8 +169,25 @@ class RoleModel extends Model {
 	    return false;
     }
 
+
+
     public function deleteRole($role_id){
-    	$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_id = :role_id");
+
+    	$result = $this->deleteRights($role_id);
+
+    	if($result){
+    		$stmt = $this->db->prepare("DELETE FROM roles WHERE role_id = :role_id");
+    		$stmt->execute([":role_id"=>$role_id]);
+		    if($stmt){
+		    	return true;
+		    }
+
+	    }
+	    return false;
+
+
+
+    	/*$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_id = :role_id");
 
     	$stmt->execute([":role_id"=>$role_id]);
 
@@ -204,7 +223,7 @@ class RoleModel extends Model {
 		    return false;
 		    }
 
-	    }
+	    }*/
 
     }
 
