@@ -195,7 +195,12 @@ INSERT INTO `rights` (`rights_id`, `rights_code`) VALUES
 (14, 'ADD_TEACHER'),
 (15, 'EDIT_TEACHER'),
 (16, 'DELETE_TEACHER'),
-(17, 'VIEW_TEACHER');
+(17, 'VIEW_TEACHER'),
+(18, 'VIEW_SECTION'),
+(19, 'ADD_SECTION'),
+(20, 'EDIT_SECTION'),
+(21, 'ADD_SCHEDULE'),
+(22, 'MANAGE_SCHEDULE');
 
 -- --------------------------------------------------------
 
@@ -296,6 +301,8 @@ CREATE TABLE `school_levels` (
 CREATE TABLE `sections` (
   `section_id` int(6) NOT NULL,
   `section_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level_id` INT(10) NOT NULL,
+  `curr_id` INT(10) NOT NULL,
   `section_adviser` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
