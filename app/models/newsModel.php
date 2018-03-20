@@ -71,6 +71,13 @@ class NewsModel extends Model
 		    return false;
 	    }
     }
+
+    public function modalView($news_id){
+    	$stmt = $this->db->prepare("SELECT news_title,news_content FROM news WHERE news_id = :news_id");
+    	$stmt->execute([":news_id"=>$news_id]);
+    	$result = $stmt->fetchAll();
+    	return $result;
+    }
 }
 
 

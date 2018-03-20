@@ -262,6 +262,5 @@ class AdminController extends Controller{
     	$this->view->news_id = $id;
 
 	    $this->view->render();
-
     }
 }

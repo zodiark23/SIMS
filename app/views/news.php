@@ -56,8 +56,9 @@ Fix the UI @morbid
 
 
 			                            // View button here
-			                            echo "<input type='button' class='outlined-button' value='VIEW' id='view-btn' name='view-btn'></td>";
-			                            echo "<div class='bg-modal'><div class='modal-content'><div class='close-modal'>+</div>".$result['news_title']."<br><br>".htmlspecialchars_decode($result['news_content'])."</td></div></div></div>";
+			                            echo "<input type='button' data-newsid='".$result['news_id']."' class='view-btn' value='VIEW' name='view-btn'></td>";
+
+//			                            echo "<div class='bg-modal'><div class='modal-content'><div class='close-modal'>+</div>".$result['news_title']."<br><br>".htmlspecialchars_decode($result['news_content'])."</td></div></div></div>";
 
 
 
@@ -78,8 +79,8 @@ Fix the UI @morbid
 			                            echo "<input type='button' class='delete-btn' value='Delete' id='".$result['news_id']."' name='delete-btn'>";
 
 			                            // View button here
-			                            echo "<input type='button' class='outlined-button' value='VIEW' id='view-btn' name='view-btn'></td>";
-			                            echo "<div class='bg-modal'><div class='modal-content'><div class='close-modal'>+</div>".$result['news_title']."<br><br>".htmlspecialchars_decode($result['news_content'])."</td></div></div></div>";
+			                            echo "<input type='button' data-newsid='".$result['news_id']."' class='view-btn' value='VIEW' name='view-btn'></td>";
+//			                            echo "<div class='bg-modal'><div class='modal-content'><div class='close-modal'>+</div>".$result['news_title']."<br><br>".htmlspecialchars_decode($result['news_content'])."</td></div></div></div>";
 		                                
                                     }
 	                            }
@@ -95,7 +96,12 @@ Fix the UI @morbid
         </div>
 
         </table>
-
+<!--                    <div class='bg-modal'>-->
+<!--                        <div class='modal-content'>-->
+<!--                            <div class='close-modal'>+</div>-->
+<!--                            test-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
 
