@@ -12,6 +12,7 @@ class ScheduleItem {
     public $section_id;
     public $start_time;
     public $end_time;
+    public $subject_id;
     /**
      * The day for this schedule.
      * Typically Mon, Tue, Wed, Thu, Fri, Sat, Sun

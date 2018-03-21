@@ -65,7 +65,7 @@ class SubjectModel extends Model{
     public function list($curr_id = false){
         if($curr_id == false){
 
-            $stmt = $this->db->prepare("SELECT * FROM `subjects`");
+            $stmt = $this->db->prepare("SELECT * FROM `subjects` WHERE `status` = 1");
         }else{
             $stmt = $this->db->prepare("SELECT * FROM `subjects` WHERE `curriculum_id` = :curr_id AND `status`=1");
         }

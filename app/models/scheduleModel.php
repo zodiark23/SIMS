@@ -35,8 +35,56 @@ class ScheduleModel extends Model
      * Returns the information regarding the specified schedule
      */
     public function info(int $schedule_id){
+        $stmt = $this->db->prepare("SELECT * FROM `schedules` WHERE `schedule_id` = :sched_id");
+        $stmt->execute(["sched_id" => $schedule_id]);
 
+        $result = $stmt->fetchObject();
+        if($stmt && $result){
+            return $result;
+        }
 
+        return false;
+
+    }
+
+    /**
+     * Shows the schedule item info.
+     * Only returns the specific schedule item. Please check showScheduleItemList() to pull the complete records
+     * 
+     * @param int $schedule_item_id The specific target id you wish to retrieve
+     */
+    public function showScheduleItem(int $schedule_item_id){
+        $stmt = $this->db->prepare("SELECT * FROM `schedule_items` WHERE `sched_item_id` = :sched_item_id");
+        $stmt->execute(["sched_item_id" => $schedule_item_id]);
+
+        $result = $stmt->fetchAll();
+
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Returns all the schedule items the schedule have
+     * 
+     * @param int $schedule_id Unique id to filter the schedule items
+     * 
+     * @return bool|array
+     */
+    public function showScheduleItemList(int $schedule_id){
+        $stmt = $this->db->prepare("SELECT * FROM `schedule_items` WHERE `schedule_id` = :schedule_id");
+        $stmt->execute(["schedule_id" => $schedule_id]);
+
+        $result = $stmt->fetchAll();
+
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
     }
 
     /**

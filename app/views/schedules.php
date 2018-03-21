@@ -25,17 +25,20 @@
                 </tr>
 
                 <?php 
-
-                    foreach($this->data as $sched){
+                    if($this->data){
+                        foreach($this->data as $sched){
                 ?>
                 <tr>
                     <td><?= $sched['schedule_id'] ?></td>
                     <td><?= $sched['schedule_name']?></td>
                     <td><?= $sched['year_start']."-".$sched['year_end']?></td>
                     <td><?= $this->levelNames[$sched['level_id']]?></td>
-                    <td>Edit</td>
+                    <td><a href='<?=BASE_URL?>/admin/schedule/<?= $sched['schedule_id']?>'>Builder</a>| Edit</td>
                 </tr>
                 <?php
+                        }
+                    }else{
+                        echo "<td colspan='5'>No data</td>";
                     }
                 ?>
 

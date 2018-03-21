@@ -87,5 +87,34 @@ class TimeModel
 
         return $available;
     }
+
+
+
+    
+    /**
+     * Returns an option fields for select
+     * Accepts a custom start & end time.
+     * Optional. Selected time
+     * 
+     */
+    public function generateTime($start = "05:00", $end = "24:00", $selected_time = ""){
+            $string = "";
+            $start = strtotime($this->start = $start); //Start Time
+            $end = strtotime($this->end = $end);  //End Time
+            
+            
+            for ($i = $start; $i <= $end; $i += 900){
+                $selected = "";
+                if($selected_time == date("H:i:00",$i)){
+                    $selected = "selected";
+                }
+                $string .= "<option $selected value='". date('H:i:00', $i)."'>" . date('g:i a', $i);
+            }
+
+            return $string;
+    }
+   
+
+    
     
 }

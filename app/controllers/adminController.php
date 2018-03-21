@@ -10,6 +10,7 @@ use SIMS\App\Models\RoleModel;
 use SIMS\App\Models\NewsModel;
 use SIMS\App\Models\ScheduleModel;
 use SIMS\App\Models\SectionModel;
+use SIMS\App\Models\TimeModel;
 
 
 class AdminController extends Controller{
@@ -49,11 +50,13 @@ class AdminController extends Controller{
 
         $roles = new RoleModel();
         $hasRights = $roles->verifyRights("ALL");
+        $this->view->hasRights = $this->hasRights;
 
 		if(!$hasRights){
 			$this->unauthorized();
 			return false;
-		}
+        }
+        
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -80,6 +83,15 @@ class AdminController extends Controller{
 
 
     public function create_education(){
+        $roles = new RoleModel();
+        $hasRights = $roles->verifyRights("ALL");
+        $this->view->hasRights = $this->hasRights;
+
+		if(!$hasRights){
+			$this->unauthorized();
+			return false;
+        }
+
         $this->view = new View("admin_create_education");
         $this->model = new AdminModel();
 
@@ -91,6 +103,17 @@ class AdminController extends Controller{
 
 
     public function edit_education($id){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("ALL");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
 
         if(empty($id)){
             $this->error();
@@ -325,6 +348,51 @@ class AdminController extends Controller{
         $this->view->render();
     }
 
+    /**
+     * This is the actual adding of sched
+     */
+    public function schedule($id){
+        $this->view = new View("build_sched");
+
+        $schedModel = new ScheduleModel();
+        $this->view->schedInfo = $schedModel->info((int)$id);
+
+        $level_id = $this->view->schedInfo->level_id;
+
+        /** Get the sections to filtered by Level ID. Used in displaying in views */
+        $sectionModel = new SectionModel();
+        $sectionList = $sectionModel->list($level_id);
+        /** Get the teachers to be displayed when using the schedule builder */
+        $teacherModel = new TeacherModel();
+        $teacherList = $teacherModel->list();
+        /** Get CurriculumID and use that to fetch the subjects for this level */
+        $curriculumModel = new CurriculumModel();
+        $levelInfo = $curriculumModel->schoolLevelInfo($level_id);
+
+        $curriculumID = (int)$levelInfo['curriculum_id'] ?? 0;
+        /** Use the curriculum ID to find all the specific subjets */
+        $subjectModel = new SubjectModel();
+        $subjectList = $subjectModel->list($curriculumID);
+
+
+        $timeModel = new TimeModel();
+        $timeSelection = $timeModel->generateTime();
+        
+        /** Pass the data to the view */
+
+        $this->view->sectionList = $sectionList;
+        $this->view->teacherList = $teacherList;
+        $this->view->curriculumID = $curriculumID;
+        $this->view->subjectList = $subjectList;
+        $this->view->timeSelection = $timeSelection;
+
+
+
+
+
+        $this->view->render();
+    }
+
 
     public function manage_schedule(){
         // Check rights
@@ -346,14 +414,16 @@ class AdminController extends Controller{
         $this->view->data = $schedModel->scheduleList();
 
         $levelNames = [];
+        if($this->view->data){
 
-        foreach($this->view->data as $sched){
-            $result = $curriculumModel->schoolLevelInfo($sched['level_id']);
-
-            if($result !== false){
-                $levelNames[$result['level_id']] = $result['level_name'];
+            foreach($this->view->data as $sched){
+                $result = $curriculumModel->schoolLevelInfo($sched['level_id']);
+                
+                if($result !== false){
+                    $levelNames[$result['level_id']] = $result['level_name'];
+                }
+                
             }
-            
         }
 
         $this->view->levelNames = $levelNames;

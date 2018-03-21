@@ -1,9 +1,9 @@
 <?php
-//if the user's browser send a cookie for the session
-if( isset( $_COOKIE[ session_name()])) {
-    //empty the cookie
-    setcookie( session_name(), '', time()-86400, '/');
-}
+// //if the user's browser send a cookie for the session
+// if( isset( $_COOKIE[ session_name()])) {
+//     //empty the cookie
+//     setcookie( session_name(), '', time()-86400, '/');
+// }
 
 //start the session
 @session_start();
@@ -14,4 +14,4 @@ session_unset();
 session_destroy();
 
 
-header("Location: ../");
+@header("Location: ../");

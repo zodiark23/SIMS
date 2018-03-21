@@ -101,9 +101,17 @@ class SectionModel extends Model{
     /**
      * Returns the list of all sections
      */
-    public function list(){
-        $stmt = $this->db->prepare("SELECT * FROM `sections`");
-        $stmt->execute();
+    public function list($level_id = NULL){
+
+
+        if(!empty($level_id)){
+
+            $stmt = $this->db->prepare("SELECT * FROM `sections` WHERE `level_id` = :level_id");
+            $stmt->execute(["level_id" => $level_id]);
+        }else{
+            $stmt = $this->db->prepare("SELECT * FROM `sections`");
+            $stmt->execute();
+        }
 
         $result = $stmt->fetchAll();
 

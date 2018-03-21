@@ -99,7 +99,7 @@ class CurriculumModel extends Model{
         return false;
     }
 
-
+    
     /**
      * Returns the information about the level id
      * 

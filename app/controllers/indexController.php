@@ -44,9 +44,17 @@ class IndexController extends Controller
     }
 
     public function logout(){
-        $this->view = new View("logout");
+        @session_start();
+        //clear all session variables
+        session_unset();
+        //destroy the session
+        session_destroy();
 
-        $this->view->render();
+        
+        @header("Location: ../");
+        // $this->view = new View("logout");
+        // $this->view->render();
+
     }
 
 

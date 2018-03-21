@@ -729,6 +729,53 @@ $("#login-form").validate({
 
     });
 
+    $("#sched-builder-form").validate({
+        rules : {
+            section_id : {
+                required : true
+            },
+            teacher_id : {
+                required : true
+            },
+            subject_id : {
+                required : true
+            },
+            day : {
+                required : true
+            },
+            start_time : {
+                required : true
+            },
+            end_time : {
+                required : true
+            }
+        },
+        messages : {
+
+        },
+        submitHandler : function(e){
+            var formData = $(e).serialize();
+
+            var targ = $(e).data('arg');
+            
+            $.ajax({
+                url : BASE_URL+"/php/add_schedule_item.php",
+                type : "post",
+                data : formData+"&sched_id="+targ,
+                success : function(data){
+                    var x = JSON.parse(data);
+                    console.log(x, data);
+                    if(x.code == "00"){
+                        alert(x.message);
+                        //do additional stuff if valid
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            });
+        }
+    });
+
 
     $("#create-section-form").validate({
         rules : {
