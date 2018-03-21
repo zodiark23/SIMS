@@ -13,6 +13,6 @@ $news_id = $_POST['news_id'];
 $modalview = $newsModel->modalView($news_id);
 
 echo $modalview[0]['news_title'];
-//echo "<br><br>";
-//echo htmlspecialchars_decode($modalview[0]['news_content']);
+echo "<br><br>";
+echo htmlspecialchars_decode($modalview[0]['news_content']);
 
