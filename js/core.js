@@ -389,6 +389,20 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
         $(".bg-modal").css("display","none");
     });
 
+    // Sending of email
+    $("#leandro").on("click", function () {
+        var test = "this is leandro button";
+
+        $.ajax({
+            type: 'POST',
+            url: BASE_URL+"/php/send_email.php",
+            data: test,
+            success: function (data) {
+                alert(data);
+            }
+        })
+    });
+
 
 $("#login-form").validate({
         rules:

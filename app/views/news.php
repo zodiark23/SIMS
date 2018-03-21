@@ -101,12 +101,16 @@ Fix the UI @morbid
 
 
 
+
+
                     <br>
                     <br>
                     <button class="outlined-button" value="Add"><a href="<?=BASE_URL?>/admin/add_news">Add News</a></button>
 
                 </form>
+        <input type="button" id="leandro" name="leandro" value="leandro">
 			</div>
+
 
 
 			<?php include_once("side-nav.php") ?>

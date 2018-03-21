@@ -6,9 +6,7 @@
     "authors": [
         
     ],
-    "require": {
-        "phpmailer/phpmailer": "^6.0"
-    },
+    "require": {},
     "autoload": {
         "psr-4":{
             "SIMS\\App\\Controllers\\":"app/controllers",   
