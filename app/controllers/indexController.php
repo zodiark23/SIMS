@@ -1,5 +1,7 @@
 <?php namespace SIMS\App\Controllers;
 
+use SIMS\App\Entities\Student;
+use SIMS\App\Models\StudentModel;
 use SIMS\Classes\Controller;
 use SIMS\Classes\View;
 
@@ -42,6 +44,23 @@ class IndexController extends Controller
 
         }
     }
+
+	public function validate($id){
+
+
+		if(empty($id)){
+			$this->error();
+			return false;
+		}
+
+		$this->view = new View("validate");
+		$this->model = new StudentModel();
+
+		$this->model->tokenValidity($id);
+
+		$this->view->render();
+
+	}
 
     public function logout(){
         $this->view = new View("logout");

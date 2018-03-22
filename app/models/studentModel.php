@@ -203,5 +203,84 @@ class StudentModel extends Model {
     public function updateInfo(Student $student_info){
         // @todo check the rights
     }
-    
+
+    // Fetch student_id of the newly added student.
+	public function getStudentID(Student $student){
+    	$result = $this->create($student);
+		if($result){
+
+			$stmt = $this->db->prepare("SELECT student_id FROM students WHERE email = :email");
+			$stmt->execute([":email"=>$student->email]);
+			$result = $stmt->fetchAll();
+			foreach ($result as $r){
+				$student_id = $r['student_id'];
+			}
+			return $student_id;
+
+		}
+		return false;
+
+	}
+
+	// Generate access token
+	public function setToken(Student $student){
+    	$student_id = $this->getStudentID($student);
+
+    	$stmt = $this->db->prepare("SELECT student_id FROM access_token WHERE student_id = :student_id");
+    	$stmt->execute([":student_id"=>$student_id]);
+    	$result = $stmt->fetchAll();
+
+    	// If $result = true, the student_id is already saved on access_token table.
+    	if($result){
+    		return false;
+	    } else {
+		    $stmt = $this->db->prepare("INSERT INTO access_token (token_id,student_id,access_token,date_validity,status) VALUES (null,:student_id,:access_token,CURDATE()+6,'default')");
+		    $result = $stmt->execute([":student_id"=>$student_id,
+			    ":access_token"=>$student->password]);
+		    if($result){
+			    return true;
+		    }
+	    }
+		return false;
+	}
+
+	public function getToken(Student $student){
+    	$student_id = $this->getStudentID($student);
+
+    	$stmt = $this->db->prepare("SELECT * FROM access_token WHERE student_id = :student_id");
+    	$stmt->execute([":student_id"=>$student_id]);
+    	$result = $stmt->fetchAll();
+		foreach ($result as $r){
+			$access_token = $r['access_token'];
+		}
+
+    	if($result){
+    	    return $access_token;
+	    }
+	    return false;
+	}
+
+
+	// Set access token status to 1 if the user accessed the validity link within 7 days
+	public function tokenValidity($access_token){
+		$current_date = date("Y-m-d");
+    	$stmt = $this->db->prepare("SELECT * FROM access_token WHERE access_token = :access_token");
+    	$stmt->execute([":access_token"=>$access_token]);
+		$result = $stmt->fetchAll();
+		foreach ($result as $r){
+			$access_token = $r['access_token'];
+			$validity = $r['date_validity'];
+		}
+
+		if($validity >= $current_date){
+			$stmt = $this->db->prepare("UPDATE access_token SET status = 1 WHERE access_token = :access_token");
+			$result = $stmt->execute([":access_token"=>$access_token]);
+			if($result){
+				return true;
+			}
+		}
+		return false;
+
+	}
+
 }
