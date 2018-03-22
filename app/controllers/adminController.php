@@ -357,6 +357,11 @@ class AdminController extends Controller{
         $schedModel = new ScheduleModel();
         $this->view->schedInfo = $schedModel->info((int)$id);
 
+        if($this->view->schedInfo == false){
+            $this->error();
+            return false;
+        }
+
         $level_id = $this->view->schedInfo->level_id;
 
         /** Get the sections to filtered by Level ID. Used in displaying in views */
@@ -377,6 +382,9 @@ class AdminController extends Controller{
 
         $timeModel = new TimeModel();
         $timeSelection = $timeModel->generateTime();
+
+
+        $builderUI = $schedModel->scheduleBuilder($this->view->schedInfo->schedule_id);
         
         /** Pass the data to the view */
 
@@ -387,8 +395,7 @@ class AdminController extends Controller{
         $this->view->timeSelection = $timeSelection;
 
 
-
-
+        $this->view->builderUI = $builderUI;
 
         $this->view->render();
     }

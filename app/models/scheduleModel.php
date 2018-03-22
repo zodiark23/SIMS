@@ -32,6 +32,75 @@ class ScheduleModel extends Model
     }
 
     /**
+     * Create the visible array layout for easy looping
+     * 
+     * Algorithm
+     * 1. Create a unique set of time that was used
+     * 2. Extract Unique Sections
+     * 3. Assign the Teacher and subject at proper time
+     * 4. (html) Properly control the array to be looped
+     */
+    public function scheduleBuilder($scheduleID){
+        $schedules = $this->showScheduleItemList($scheduleID);
+
+        if($schedules == false){
+            return false;
+        }
+
+        /** Extract the unique times */
+        $timeArray = [];
+        $sectionArray = [];
+
+        /** Extracting Phase */
+        foreach($schedules as $sched){
+            $timeArray[$sched['start_time']] = $sched['start_time'];
+            $timeArray[$sched['end_time']] = $sched['end_time'];
+            $sectionArray[$sched['section_id']] = $sched['section_id'];
+        }
+
+        sort($timeArray, SORT_NUMERIC);
+
+        /**
+         * Building Phase
+         * 
+         * Generation of actual loopable array for table
+         */
+
+        $builderArray = [];
+        $body = []; //actual data schedules
+        $builderArray["sections"] = $sectionArray; // this will be used on TH looping
+        $builderArray["time"] = $timeArray; // this will be used on TH looping
+        
+        foreach($schedules as $sched){
+            /** detect position on rowspan */
+            $startPosition = array_search($sched['start_time'], $timeArray);
+            $endPosition = array_search($sched['end_time'], $timeArray);
+            $body[] = [
+                    "start_time" => $sched['start_time'],
+                    "end_time" => $sched['end_time'],
+                    "startPosition" => $startPosition,
+                    "endPosition" => $endPosition,
+                    "subject" => $sched['subject_id'],
+                    "section" => $sched['section_id'],
+                    "teacher" => $sched['teacher_id'] 
+                ];
+        }
+
+
+        $builderArray["body"] = $body;
+
+
+        if(!empty($builderArray)){
+            return $builderArray;
+        }
+
+        return false;
+    }
+    
+
+
+
+    /**
      * Returns the information regarding the specified schedule
      */
     public function info(int $schedule_id){
@@ -165,6 +234,7 @@ class ScheduleModel extends Model
                     schedule_id,
                     teacher_id,
                     section_id,
+                    subject_id,
                     start_time,
                     end_time
                 )
@@ -172,6 +242,7 @@ class ScheduleModel extends Model
                     :schedule_id,
                     :teacher_id,
                     :section_id,
+                    :subject_id,
                     :start_time,
                     :end_time
                 )
@@ -182,6 +253,7 @@ class ScheduleModel extends Model
                 "schedule_id" => $scheduleItem->schedule_id,
                 "teacher_id" => $scheduleItem->teacher_id,
                 "section_id" => $scheduleItem->section_id,
+                "subject_id" => $scheduleItem->subject_id,
                 "start_time" => $scheduleItem->start_time,
                 "end_time" => $scheduleItem->end_time
                 ]);
