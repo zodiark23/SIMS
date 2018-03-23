@@ -90,33 +90,43 @@ add styling on bottom note
                 width:100%;
                 position:relative;
                 overflow:scroll;
-                min-height:80%;
+                min-height:500px;
+                height:500px;
                 z-index:2;
             }
 
             .sched-item{
                 width: 100px;
-                height: 100px;
+                height: 97px; /*Due to border 3x bottom*/
                 background : #577f92;
                 position:absolute;
                 color: white;
                 z-index:10;
+                border-bottom: 3px solid #2f576b
+                
                 /* display:none; */
             }
 
             .scheduleBuilderTable .timeline{
+                margin-top:50px;
                 position:absolute;
                 width:100%;
                 height:100%;
                 z-index:1;
             }
 
+            .scheduleBuilderTable .timeline ul{
+                
+                width:100%;
+                height:100%;
+            }
+
             .scheduleBuilderTable .timeline ul li{
                 
                 list-style:none;
                 position:relative;
-                line-height:50px;
-                font-size:20px;
+                height:100px;
+                font-size:14px;
                 color:#7f7a7a;
             }
 
@@ -140,7 +150,8 @@ add styling on bottom note
                 background: #cec7c7;
             }
             .scheduleBuilderTable .events{
-                height:40px;
+                position:absolute;
+                height:100%;
             }
             .scheduleBuilderTable .events .top-info{
                 min-width: 100px;
@@ -182,7 +193,7 @@ add styling on bottom note
                 ";
                 
                 foreach($this->builderUI['time'] as  $time){
-                    echo "<li class='time-event' data-time='".$time."'>".date("H:i",strtotime($time))."</li>";
+                    echo "<li class='time-event' data-time='".$time."'><span>".date("H:i",strtotime($time))."</span></li>";
                 }
 
                 echo "</ul> 
@@ -202,7 +213,9 @@ add styling on bottom note
                     }
 
                     echo "<div class='sched-item' data-sname='".$subjectName."' data-sj='".$body['subject']."' data-section='".$body['section']."' data-teacher='".$body['teacher']."' data-sched-start-time='".$body['start_time']."' data-sched-end-time='".$body['end_time']."'>";
+                    echo "<div class='g'>";
                     echo $subjectName;
+                    echo "</div>";
                     echo "</div>";
                 }
             } else{
@@ -214,7 +227,10 @@ add styling on bottom note
             </div>
 
             <script>
+            delay = 0;
             $(".sched-item").each(function(){
+
+                var me = this;
                 
                 var subjectName = $(this).data('sname');
                 var start = $(this).data('sched-start-time');
@@ -223,26 +239,40 @@ add styling on bottom note
                 var teacher = $(this).data("teacher");
                 var subject = $(this).data("sj");
 
+                var height = $(this).height();
+                var width = $(this).width();
+                // console.log(height);
                 /** Find the position */
-                var posY = $(".time-event[data-time='"+start+"']").offsetTop;
-                var posX = 300;
-                // $(".events .top-info").each(function(){
-                //     var sid = $(this).data('sid');
+                var pos1 = $(".time-event[data-time='"+start+"']").position();
+                var pos2 = $(".events .top-info[data-sid='"+section+"']").position();
 
-                //     if(sid == subject){
-                //         posX = $(this).position();
-                //     }
-                // });
-                console.log(posX, posY);
+                /** Compute the height using start & end time*/
+                
+                var startLocation = $(".time-event[data-time='"+start+"']").position();
+                var endLocation = $(".time-event[data-time='"+end+"']").position();
+                var heightValue = endLocation.top - startLocation.top;
+                if(isNaN(heightValue)){
+                    alert("Invalid height value");
+                }
+                $(this).height(heightValue);
 
-                // if(!posX || !posY){
-                //     alert("Unknown error on the javascript scheduler");
-                // }
                 
-                var x = posY;
-                var y = 0;
                 
-                $(this).animate({top: x, left:y}, 200);
+                // console.log(pos1);
+                if(!pos1 || !pos2){
+                    alert("Unknown error on the javascript scheduler");
+                }
+                
+                //adding 50 due to li
+                var x = pos1.top + (50);
+                var y = pos2.left + 2;
+                
+                delay+=30;
+                setTimeout( function(){
+
+                $(me).animate({top: x, left:y}, 300);
+                
+                },delay);
                 
             });
             </script>

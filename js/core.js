@@ -767,6 +767,7 @@ $("#login-form").validate({
                     console.log(x, data);
                     if(x.code == "00"){
                         alert(x.message);
+                        location.reload();
                         //do additional stuff if valid
                     }else{
                         alert(x.message);

@@ -7,7 +7,7 @@
     <div class="nav-list">
         <ul class="parent-ul">
             <li class="parent-li">
-                <a href="javascript:void(0);">Admin</a>
+                <a href="javascript:void(0);">Administration</a>
                 <ul class="child-ul">
                     <li><a href="<?=BASE_URL?>/admin/education">Education Settings</a></li>
                     <li class="roles"><a href="<?=BASE_URL?>/admin/roles">Roles</a></li>
