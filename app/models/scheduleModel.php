@@ -82,7 +82,8 @@ class ScheduleModel extends Model
                     "endPosition" => $endPosition,
                     "subject" => $sched['subject_id'],
                     "section" => $sched['section_id'],
-                    "teacher" => $sched['teacher_id'] 
+                    "teacher" => $sched['teacher_id'],
+                    "sched_item_id" => $sched["sched_item_id"] 
                 ];
         }
 
@@ -203,6 +204,44 @@ class ScheduleModel extends Model
             "year_start" => $schedule->year_start,
             "year_end" => $schedule->year_end
         ]);
+
+        if($stmt->rowCount() > 0){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Method to delete the actual schedule not the schedule.
+     * 
+     * >Deletes all the schedule items before deleting the schedule
+     */
+    public function deleteSchedule(int $scheduleId){
+        if(empty($scheduleId)){
+            throw new Exception("No unique id detected.", 400);
+        }
+
+        $stmt = $this->db->prepare("DELETE FROM `schedule_items` WHERE `schedule_id`=:id");
+        $stmt->execute(["id" => $scheduleId]);
+
+        if($stmt->rowCount() > 0){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Method to delete an entry within the schedule
+     */
+    public function deleteScheduleItem(int $scheduleItemId){
+        if(empty($scheduleItemId)){
+            throw new Exception("No unique id detected.", 400);
+        }
+
+        $stmt = $this->db->prepare("DELETE FROM `schedule_items` WHERE `sched_item_id`=:id");
+        $stmt->execute(["id" => $scheduleItemId]);
 
         if($stmt->rowCount() > 0){
             return true;

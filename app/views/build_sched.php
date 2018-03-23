@@ -85,18 +85,26 @@ add styling on bottom note
             </form>    
 
             <style>
+            .scheduleWrapper{
+                width:100%;
+                overflow: auto;
+                margin-top:20px;
+                min-height:500px;
+                height:500px;
+            }
             .scheduleBuilderTable{
                 margin-top:20px;
-                width:100%;
+                min-width:100%;
+                width:1500px;
                 position:relative;
-                overflow:scroll;
+                
                 min-height:500px;
                 height:500px;
                 z-index:2;
             }
 
             .sched-item{
-                width: 100px;
+                width: 160px;
                 height: 97px; /*Due to border 3x bottom*/
                 background : #577f92;
                 position:absolute;
@@ -105,6 +113,37 @@ add styling on bottom note
                 border-bottom: 3px solid #2f576b
                 
                 /* display:none; */
+            }
+
+            .sched-item .item-close{
+                position:absolute;
+                top:6px;
+                right:3px;
+                color:white;
+                background:transparent;
+                border:none;
+                outline:0;
+            }
+            .sched-item .sched-cont{
+                margin:18px 9px;
+            }
+            .sched-item .sched-cont .title{
+                letter-spacing: 1.1px;
+                text-transform: uppercase;
+                display:block;
+                margin-bottom:10px;
+            }
+            .sched-item .sched-cont .text{
+                font-style:italic;
+
+            }
+
+            .sched-item .sched-cont .time{
+                position:absolute;
+                font-size:14px;
+                letter-spacing:1.1px;
+                bottom:5px;
+                right:6px;
             }
 
             .scheduleBuilderTable .timeline{
@@ -154,8 +193,8 @@ add styling on bottom note
                 height:100%;
             }
             .scheduleBuilderTable .events .top-info{
-                min-width: 100px;
-                width:20%;
+                min-width: 160px;
+                
                 background:#f6b067;
                 margin:2px;
                 float:left;
@@ -169,7 +208,8 @@ add styling on bottom note
             
             
             </style>
-            <div class='scheduleBuilderTable' style="width:100%">
+            <div class='scheduleWrapper'>
+                <div class='scheduleBuilderTable'>
             <?php
 
             
@@ -180,8 +220,18 @@ add styling on bottom note
                 //create the timeline
                 echo "<div class='events' >";
                     echo "<div data-sid='' class='top-info'>Time</div>";
-                    echo "<div data-sid='3' class='top-info'>Quigley</div>";
-                    echo "<div data-sid='1' class='top-info'>Mcketing</div>";
+                    foreach($this->builderUI['sections'] as $section){
+
+                        $sectionName = "err#";
+
+                        foreach($this->sectionList as $sl){
+                            if($sl['section_id'] == $section){
+                                $sectionName = $sl['section_name'];
+                            }
+                        }
+                        
+                        echo "<div data-sid='$section' class='top-info'>$sectionName</div>";
+                    }
                 echo "</div>";
 
                 echo $timeline = "
@@ -202,20 +252,29 @@ add styling on bottom note
                 
 
                 foreach($this->builderUI['body'] as $body){
-                    $difference = ($body['endPosition'] - $body['startPosition'] ) + 1;
-                    $expand = $difference > 1 ? $difference : 0;
+                    
                     $subjectName = "err#";
-
+                    $teacherName = "err#";
+                    
                     foreach($this->subjectList as $s){
                         if($s['subject_id'] == $body['subject']){
                             $subjectName =  $s['subject_name'];
                         }
                     }
 
+                    foreach($this->teacherList as $t){
+                        if($t['teacher_id'] == $body['teacher']){
+                            $teacherName =  $t['first_name']. " ".substr($t['last_name'],0,1).".";
+                        }
+                    }
+
                     echo "<div class='sched-item' data-sname='".$subjectName."' data-sj='".$body['subject']."' data-section='".$body['section']."' data-teacher='".$body['teacher']."' data-sched-start-time='".$body['start_time']."' data-sched-end-time='".$body['end_time']."'>";
-                    echo "<div class='g'>";
-                    echo $subjectName;
+                    echo "<div class='sched-cont'>";
+                    echo "<span class='title'>".$subjectName."</span>";
+                    echo "<span class='text'>".$teacherName."</span>";
+                    echo "<span class='time'>".date("H:i",strtotime($body['start_time']))."-".date("H:i",strtotime($body['end_time'])) ."</span>";
                     echo "</div>";
+                    echo "<button class='item-close' data-b80bb7740288fda1f201890375a60c8f='".$body['sched_item_id']."'>X</button>";
                     echo "</div>";
                 }
             } else{
@@ -224,10 +283,19 @@ add styling on bottom note
             
             
             ?>
+                </div>
             </div>
 
             <script>
             delay = 0;
+
+            function recomputeWidth(){
+                //recompute scheduleBuilderTable base on 
+                // @TODO => Finished the width computation adjustment
+
+            }
+
+
             $(".sched-item").each(function(){
 
                 var me = this;
@@ -260,7 +328,7 @@ add styling on bottom note
                 
                 // console.log(pos1);
                 if(!pos1 || !pos2){
-                    alert("Unknown error on the javascript scheduler");
+                    alert("Unknown error on the javascript scheduler. Javascript is required to view the builder.");
                 }
                 
                 //adding 50 due to li
@@ -275,12 +343,35 @@ add styling on bottom note
                 },delay);
                 
             });
+
+            $(".item-close").on("click", function(){
+                var cid = $(this).data("b80bb7740288fda1f201890375a60c8f");
+                
+                var c = confirm("This process is irreversible. Do you want to continue?");
+
+                if(c){
+                    $.ajax({
+                        url:BASE_URL+"/php/delete_schedule_item.php",
+                        data : {cid : cid},
+                        type : "post",
+                        success : function(data){
+                            x = JSON.parse(data);
+                            if(x.code == "00"){
+                                alert(x.message);
+                                location.reload();
+                            }else{
+                                alert(x.message);
+                            }
+                        }
+                    })
+                }
+            });
             </script>
             
 
         </div>
 
-        <?php //include_once("side-nav.php") ?>
+        <?php include_once("side-nav.php") ?>
     </div>
 </div>
 </div>
