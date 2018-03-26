@@ -448,6 +448,42 @@ $("#login-form").validate({
     }
 });
 
+    $("#update-student-password-form").validate({
+        rules: {
+            t_pass: {
+                required: true
+            },
+            t_pass_confirm : {
+                required: true,
+                equalTo : '#t_pass'
+            }
+        },
+        messages : {
+            t_pass_confirm : {
+                equalTo : "Password doesn't match"
+            }
+        },
+        submitHandler : function(){
+            var data = $("#update-student-password-form").serialize();
+
+            $.ajax({
+                url : BASE_URL+"/php/add_teacher.php",
+                type : "post",
+                data : data,
+                success : function(data){
+                    x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/overview-teacher";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+    });
+
 
 
     $("#create-teacher-form").validate({
@@ -654,6 +690,11 @@ $("#login-form").validate({
                 }
             });
         }
+    });
+
+    $("#update_pass").on("click", function () {
+       var s_pass = $("#s_pass_confirm").val();
+       alert(s_pass);
     });
 
 

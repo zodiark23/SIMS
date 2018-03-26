@@ -1,60 +1,50 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Page Not Found</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
 
-		* {
-			line-height: 1.2;
-			margin: 0;
-		}
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-		html {
-			color: #888;
-			display: table;
-			font-family: sans-serif;
-			height: 100%;
-			text-align: center;
-			width: 100%;
-		}
 
-		body {
-			display: table-cell;
-			vertical-align: middle;
-			margin: 2em auto;
-		}
+<!-- TODO :
+refactor hoshi inline widths here @morbid
+add styling on bottom note
+    -->
 
-		h1 {
-			color: #555;
-			font-size: 2em;
-			font-weight: 400;
-		}
+<div class="main-container">
+    <div class="content-container dashboard">
+        <div class="dashboard-container">
+            <div class="content-panel">
+                <h3 class="dashboard-section-title">Update student password</h3>
+                <form id="update-student-password-form">
+                    <br>
 
-		p {
-			margin: 0 auto;
-			width: 280px;
-		}
 
-		@media only screen and (max-width: 280px) {
+                    <br>
 
-			body, p {
-				width: 95%;
-			}
+                    <span class="input input--hoshi" style="width:45%">
+                    <input value="" class="input__field input__field--hoshi" type="password" id="s_pass"  name="s_pass">
+                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="s_pass">
+                        <span class="input__label-content input__label-content--hoshi">Password</span>
+                    </label>
+                </span>
 
-			h1 {
-				font-size: 1.5em;
-				margin: 0 0 0.3em;
-			}
+                    <span class="input input--hoshi" style="width:45%">
+                    <input value="" class="input__field input__field--hoshi" type="password" id="s_pass_confirm"  name="s_pass_confirm">
+                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="s_pass_confirm">
+                        <span class="input__label-content input__label-content--hoshi">Confirm Password</span>
+                    </label>
+                </span>
 
-		}
+                    <br>
 
-	</style>
-</head>
-<body>
-<h1>Unauthorized</h1>
-<p>Sorry, but you do not have the authority to access this page.</p>
-</body>
-</html>
-<!-- IE needs 512+ bytes: http://blogs.msdn.com/b/ieinternals/archive/2010/08/19/http-error-pages-in-internet-explorer.aspx -->
+                    <input type="submit" id="update_pass" class="outlined-button" value="Update" />
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+

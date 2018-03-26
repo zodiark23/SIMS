@@ -20,7 +20,7 @@ Fix the UI @morbid
                 <span class="input input--hoshi" style="width:45%">
                     <input value="<?php echo $this->role_name[0]['role_name']; ?>" class="input__field input__field--hoshi" type="text" id="r_name"  name="r_name" >
                     <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="r_name">
-                        <span class="input__label-content input__label-content--hoshi">Updaste Role Name</span>
+                        <span class="input__label-content input__label-content--hoshi">Update Role Name</span>
                     </label>
                 </span>
 

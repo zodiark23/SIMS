@@ -261,26 +261,6 @@ class StudentModel extends Model {
 	}
 
 
-	// Set access token status to 1 if the user accessed the validity link within 7 days
-	public function tokenValidity($access_token){
-		$current_date = date("Y-m-d");
-    	$stmt = $this->db->prepare("SELECT * FROM access_token WHERE access_token = :access_token");
-    	$stmt->execute([":access_token"=>$access_token]);
-		$result = $stmt->fetchAll();
-		foreach ($result as $r){
-			$access_token = $r['access_token'];
-			$validity = $r['date_validity'];
-		}
 
-		if($validity >= $current_date){
-			$stmt = $this->db->prepare("UPDATE access_token SET status = 1 WHERE access_token = :access_token");
-			$result = $stmt->execute([":access_token"=>$access_token]);
-			if($result){
-				return true;
-			}
-		}
-		return false;
-
-	}
 
 }

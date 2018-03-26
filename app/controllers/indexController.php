@@ -45,18 +45,18 @@ class IndexController extends Controller
         }
     }
 
-	public function validate($id){
+	public function validate(){
 
 
-		if(empty($id)){
-			$this->error();
-			return false;
-		}
+//		if(empty($id)){
+//			$this->error();
+//			return false;
+//		}
 
 		$this->view = new View("validate");
-		$this->model = new StudentModel();
-
-		$this->model->tokenValidity($id);
+//		$this->model = new StudentModel();
+//
+//		$this->model->tokenValidity($id);
 
 		$this->view->render();
 
