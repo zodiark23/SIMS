@@ -401,6 +401,41 @@ class AdminController extends Controller{
     }
 
 
+    /**
+     * Anyone with access can perform this action
+     */
+    public function delete_schedule($id){
+        if(empty($id)){
+            $this->error();
+            return false;
+        }
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_SCHEDULE");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
+        $scheduleModel = new ScheduleModel();
+        $result = $scheduleModel->deleteSchedule($id);
+        if($result){
+
+            header("Location: ../manage_schedule");
+            exit;
+        }else{
+            $this->error();
+            return false;
+        }
+    }
+
+
     public function manage_schedule(){
         // Check rights
         $userHasRights = $this->roleModel->verifyRights("ALL");

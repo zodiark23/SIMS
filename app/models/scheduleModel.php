@@ -225,8 +225,13 @@ class ScheduleModel extends Model
         $stmt = $this->db->prepare("DELETE FROM `schedule_items` WHERE `schedule_id`=:id");
         $stmt->execute(["id" => $scheduleId]);
 
-        if($stmt->rowCount() > 0){
-            return true;
+        if($stmt){
+            $query = $this->db->prepare("DELETE FROM `schedules` WHERE `schedule_id`=:id");
+            $query->execute(["id" => $scheduleId]);
+
+            if($query){
+                return true;
+            }
         }
 
         return false;
@@ -266,6 +271,10 @@ class ScheduleModel extends Model
         $hasConflict = $this->checkConflict($scheduleItem);
         if($hasConflict === true){
             throw new Exception("The teacher has time conflict on this schedule",409);
+        }
+        $sectionHasConflict = $this->sectionConflict($scheduleItem);
+        if($sectionHasConflict === true){
+            throw new Exception("The section already has schedule for the selected time period",409);
         }
         
         $stmt = $this->db->prepare("INSERT INTO `schedule_items` 
@@ -316,12 +325,43 @@ class ScheduleModel extends Model
      * 
      * @return bool True is conflict.
      */
-    public function checkConflict(ScheduleItem $schedule_item){
+    private function checkConflict(ScheduleItem $schedule_item){
         if(strtotime($schedule_item->start_time) >= strtotime($schedule_item->end_time)){
             throw new Exception("You specify incorrect time. End time must be higher than start time.", 500);
         }
 
         $list = $this->scheduleItemList((int)$schedule_item->schedule_id, (int)$schedule_item->teacher_id);
+        if($list == false){
+            // most likely no found items
+            return false;
+        }
+        $timeModel = new TimeModel();
+        foreach($list as $item){
+            $startTime = $item['start_time'];
+            $endTime = $item['end_time'];
+            $timeModel->setTime($startTime, $endTime);
+            $available = $timeModel->check_availability($schedule_item->start_time, $schedule_item->end_time);
+
+            if($available === false){
+                //not available
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the sections will overlap.
+     * 
+     * We will return true if section has a conflict with the schedule to be added
+     */
+    private function sectionConflict(ScheduleItem $schedule_item){
+        if(strtotime($schedule_item->start_time) >= strtotime($schedule_item->end_time)){
+            throw new Exception("You specify incorrect time. End time must be higher than start time.", 500);
+        }
+
+        $list = $this->scheduleItemBySection((int)$schedule_item->schedule_id, (int)$schedule_item->section_id);
         if($list == false){
             // most likely no found items
             return false;
@@ -354,6 +394,30 @@ class ScheduleModel extends Model
         $stmt = $this->db->prepare("SELECT * FROM `schedule_items` WHERE `schedule_id` = :sched_id AND `teacher_id` = :teacher_id ");
 
         $stmt->execute(["sched_id" => $schedule_id, "teacher_id" => $teacher_id]);
+
+        $result = $stmt->fetchAll();
+
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
+
+    }
+
+
+    /**
+     * Returns all the schedule items for the target schedule id with option to filter by sections
+     * 
+     * @param int $schedule_id The schedule id to limit the result
+     * @param int $Section The section id schedules to return
+     * 
+     * @return bool|array 
+     */
+    public function scheduleItemBySection(int $schedule_id = 0, int $section_id = 0){
+        $stmt = $this->db->prepare("SELECT * FROM `schedule_items` WHERE `schedule_id` = :sched_id AND `section_id` = :section_id ");
+
+        $stmt->execute(["sched_id" => $schedule_id, "section_id" => $section_id]);
 
         $result = $stmt->fetchAll();
 

@@ -291,7 +291,21 @@ add styling on bottom note
 
             function recomputeWidth(){
                 //recompute scheduleBuilderTable base on 
-                // @TODO => Finished the width computation adjustment
+                var width = 0;
+
+                $(".events .top-info").each(function(){
+                    var itemWidth = $(this).width();
+                    if(!isNaN(parseFloat(itemWidth))){
+                        width += parseFloat(itemWidth);
+                    }
+                });
+
+                if(width > 0){
+                    $(".scheduleBuilderTable").width(width);
+                }
+
+
+                
 
             }
 
@@ -322,6 +336,8 @@ add styling on bottom note
                 if(isNaN(heightValue)){
                     alert("Invalid height value");
                 }
+
+                heightValue = heightValue - 3;
                 $(this).height(heightValue);
 
                 
@@ -366,6 +382,8 @@ add styling on bottom note
                     })
                 }
             });
+
+            recomputeWidth();
             </script>
             
 
