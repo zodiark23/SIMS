@@ -3,10 +3,17 @@
         <img src="<?=BASE_URL?>/img/reyan.jpg" alt="" class="adm-img">
         <span class="adm-name">Reyan Tropia <i class="fas fa-user-secret"></i></i></span>
     </div>
+<?php
+$adminPointer = "";
+if($this->pointer == "roles"){
+    $adminPointer = "active";
+}
 
+
+?>
     <div class="nav-list">
         <ul class="parent-ul">
-            <li class="parent-li">
+            <li class="parent-li <?= $adminPointer ?>">
                 <a href="javascript:void(0);">Administration</a>
                 <ul class="child-ul">
                     <li><a href="<?=BASE_URL?>/admin/education">Education Settings</a></li>
@@ -17,7 +24,7 @@
                     <!-- <li><a href="">Management</a></li> -->
                     <!-- <li><a href="">Payments</a></li> -->
                     <li><a href="">Approvals</a></li>
-                    <li><a href="">Parental Tools</a></li>
+                    <li><a href="">Grade Scheme</a></li>
                 </ul>
             </li>
             <li class="parent-li">
@@ -67,7 +74,7 @@
                 <ul class="child-ul">
                     <li><a href="<?=BASE_URL?>/admin/section-list">Section List</a></li>
                     <li><a href="<?=BASE_URL?>/admin/add-section">Add Section</a></li>
-                    <li><a href="">Change Advisor</a></li>
+                    <!-- <li><a href="">Change Advisor</a></li> -->
                 </ul>
             </li>
             <!-- <li class="parent-li">

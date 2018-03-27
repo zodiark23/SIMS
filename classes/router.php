@@ -49,7 +49,8 @@ class Router {
             $controller->error();
             return false;
         }
-
+        // Pass the called action to the controller to detect the current page. Can be used in sidebar
+        $controller->pointer = $action;
         $controller->$action($id);
         
     }

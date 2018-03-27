@@ -83,12 +83,19 @@ class CurriculumModel extends Model{
      * Returns the school levels base on curr_id
      * 
      * @param int $curr_id The curriculum id of the school levels you wish to retrieve
+     * @param bool $showAll If true it will return all school levels even not published
      * 
      * @return bool|aray
      */
-    public function schoolLevels(int $curr_id){
-        $stmt = $this->db->prepare("SELECT * FROM `school_levels` WHERE curriculum_id = :cid AND `published` = 1");
-        $stmt->execute([ "cid" => $curr_id]);
+    public function schoolLevels(int $curr_id, $showAll = false){
+        if($showAll == false){
+
+            $stmt = $this->db->prepare("SELECT * FROM `school_levels` WHERE curriculum_id = :cid AND `published` = 1");
+            $stmt->execute([ "cid" => $curr_id]);
+        }else if ($showAll == true){
+            $stmt = $this->db->prepare("SELECT * FROM `school_levels` WHERE curriculum_id = :cid");
+            $stmt->execute([ "cid" => $curr_id]);
+        }
 
         $result = $stmt->fetchAll();
 

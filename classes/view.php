@@ -14,6 +14,10 @@ class View {
      * The data passed by controller
      */
     public $data = [];
+    /**
+     * The controller action will pass a pointer here
+     */
+    public $pointer;
 
 
     public function __construct($view){

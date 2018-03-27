@@ -50,6 +50,7 @@ if(!$this->hasRights){
                             <td><?= ($cur_data['description'] ?? "") ?></td>
                             <td><?= ($cur_data['year_duration'] ?? "") ?></td>
                             <td>
+                                <a class='tbl-info-btn' href="<?=BASE_URL?>/admin/show-education/<?=($cur_data['curriculum_id'] ?? "")?>">Info</a>
                                 <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-education/<?=($cur_data['curriculum_id'] ?? "")?>" >Edit</a>
                                 <a class="tbl-delete-btn" href="<?=BASE_URL?>/admin/delete-education/<?=($cur_data['curriculum_id'] ?? "")?>" >Delete</a>
                             </td>

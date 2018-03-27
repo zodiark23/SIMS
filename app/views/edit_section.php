@@ -78,7 +78,7 @@ add styling on bottom note
                 
                 <br>
                 <br>
-                <input type="submit" class="outlined-button" id="submit-edit-section" value="Create" />
+                <input type="submit" class="outlined-button" id="submit-edit-section" value="Update" />
             </form>
 
         </div>

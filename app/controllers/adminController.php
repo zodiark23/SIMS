@@ -61,6 +61,43 @@ class AdminController extends Controller{
         $this->view->render();
     }
 
+    public function show_education($id){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("ADD_SUBJECT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+        if(empty($id)){
+            $this->error();
+            return false;
+        }
+
+        $this->view = new View("show_education");
+        $model = new CurriculumModel();
+        $result = $model->schoolLevels($id, true);
+
+        $adminModel = new AdminModel();
+        $curriculumName = $adminModel->findById("curriculum_id",$id);
+        if(empty($curriculumName)){
+            $this->error();
+            return false;
+        }
+
+
+        $this->view->cur_name = $curriculumName[0]["description"] ?? "Err#";
+        $this->view->info = $result;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
 
     public function delete_education($id){
         if(empty($id)){
@@ -297,7 +334,7 @@ class AdminController extends Controller{
 		}
 
 		$this->view->roles = $role;
-
+        $this->view->pointer = $this->pointer;
 		$this->view->render();
 	}
 

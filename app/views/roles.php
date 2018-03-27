@@ -31,20 +31,22 @@ Fix the UI @morbid
                 <br>
                 <br>
 				<h3 class="dashboard-section-title">Manage Roles</h3>
-				<br>
-				<br>
-                <table style="width:100%" class="roles-table2">
+                <table style="width:100%" class="content-panel-table">
                     <tr>
-                            <a href='<?=BASE_URL?>/admin/manage_roles'>
+                        <th>Role Name</th>
+                        <th>Action</th>
+                    </tr>
+                    
                             <?php
 
                             foreach($this->roles as $row)
                             {
-	                            echo "<td><a class='outlined-button' name='role' href='".BASE_URL."/admin/manage_roles/".$row['role_id']."' id='".$row['role_id']."' >" . strtoupper($row['role_name']) . "</a></td>";
+                                echo "<tr>
+                                <td>" . strtoupper($row['role_name']) . "</td>
+                                <td><a  href='".BASE_URL."/admin/manage_roles/".$row['role_id']."' id='".$row['role_id']."' class='tbl-edit-btn'>Edit Rights</a></td>
+                                </tr>";
                             }
                             ?>
-                            </a>
-                    </tr>
 
                 </table>
                 <br>

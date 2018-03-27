@@ -65,6 +65,18 @@ textarea {
     background-size: cover;
     background-position: 0 0;
 }
+
+.sims-danger {
+    color : red;
+}
+
+.sims-success {
+    color : green;
+}
+.sims-primary {
+    color : #2196f3;
+}
+
 .login-modal {
     position: fixed;
     width: 100%;
@@ -534,7 +546,6 @@ textarea {
     margin-left: -4px;
     text-align: center;
     line-height: 31px;
-    border-left: 1px solid #ccc;
 }
 .content-container .dashboard-container .content-panel .content-head .search-btn img {
     width: 22px;
@@ -721,7 +732,7 @@ textarea {
     border-bottom: 2px solid #d3d0d0;
     text-align: center;
     vertical-align: middle;
-    height: 30px;
+    height: 40px;
     background: #fff;
 }
 .content-panel select {
