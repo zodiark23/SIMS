@@ -45,9 +45,9 @@ Fix the UI @morbid
                         <td><?= ($cur_data['first_name'] ?? "")." ". ($cur_data['last_name'] ?? "") ?></td>
                         <td><?= date("M dS, Y h:i:s a", strtotime( ($cur_data['create_date'] ?? "") ) ) ?></td>
                         <td><?= date("M dS, Y h:i:s a", strtotime( ($cur_data['last_modified'] ?? "") ) ) ?></td>
-                        <td class='success'><?= (($cur_data['status'] ?? "" ) == 1 ) ? "active" : "terminated" ?></td>
+                        <td class='sims-success'><?= (($cur_data['status'] ?? "" ) == 1 ) ? "active" : "terminated" ?></td>
                         <td>
-                            <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-teacher/<?=($cur_data['curriculum_id'] ?? "")?>" >Edit</a>
+                            <!-- <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-teacher/<?=($cur_data['curriculum_id'] ?? "")?>" >Edit</a> -->
                         
                             <a class="tbl-delete-btn" href="<?=BASE_URL?>/admin/Deactivate/<?=($cur_data['curriculum_id'] ?? "")?>" >Deactivate</a>
                         </td>

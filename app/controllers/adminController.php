@@ -36,10 +36,26 @@ class AdminController extends Controller{
         $teacherModel = new TeacherModel();
         $result = $teacherModel->showAll();
         $this->side_nav_data['teacherCount'] = 0;
+        $this->side_nav_data['teacherCount'] = count($result) > 0 ? (count($result) - 1) : 0;
+        
+        /**
+         * Schedules sidenav counter
+         */
+        $schedModel = new ScheduleModel();
+        $schedResult = $schedModel->scheduleList();
+        $this->side_nav_data['scheduleCount'] = count($schedResult) ?: 0;
 
-        if($result){
-            $this->side_nav_data['teacherCount'] = count($result) > 0 ? (count($result) - 1) : 0;
-        }
+        /**
+         * Subject sidenav counter
+         */
+         $subjectModel = new SubjectModel();
+         $subjectResult = $subjectModel->list();
+         $this->side_nav_data['subjectCount'] = count($subjectResult) ?: 0;
+         
+         $sectionModel= new SectionModel();
+         $sectionResult = $sectionModel->list();
+         $this->side_nav_data['sectionCount'] = count($sectionResult) ?: 0;
+         
     }
 
 
@@ -57,6 +73,7 @@ class AdminController extends Controller{
 			return false;
         }
         
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -94,6 +111,7 @@ class AdminController extends Controller{
 
         $this->view->cur_name = $curriculumName[0]["description"] ?? "Err#";
         $this->view->info = $result;
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -134,6 +152,7 @@ class AdminController extends Controller{
 
         $this->view->action = "new";
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -182,6 +201,7 @@ class AdminController extends Controller{
             return false;
         }
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -205,6 +225,7 @@ class AdminController extends Controller{
         $currModel = new CurriculumModel();
         $this->view->curriculumList = $currModel->list();
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -237,6 +258,7 @@ class AdminController extends Controller{
         $this->view->curriculumList = $currModel->list();
         $this->view->subjectInfo = $info[0];
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -275,6 +297,7 @@ class AdminController extends Controller{
 
         $this->view->data = $data;
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -296,6 +319,7 @@ class AdminController extends Controller{
         $this->model = new TeacherModel();
         $this->view->teachers = $this->model->showAll();
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -315,6 +339,7 @@ class AdminController extends Controller{
 
         $this->view = new View("add_teacher");
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -335,6 +360,7 @@ class AdminController extends Controller{
 
 		$this->view->roles = $role;
         $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
 		$this->view->render();
 	}
 
@@ -356,7 +382,8 @@ class AdminController extends Controller{
 		$this->view->role_id = $id;
 
 		$this->view->currentRights = $currentRights;
-
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
 		$this->view->render();
 
 	}
@@ -364,6 +391,8 @@ class AdminController extends Controller{
 	public function add_roles(){
     	$this->view = new View("add_roles");
 
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
 		$this->view->render();
 	}
 
@@ -375,13 +404,15 @@ class AdminController extends Controller{
     	$displayNews = $this->model->displayNews();
 
     	$this->view->displayNews = $displayNews;
-
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
     	$this->view->render();
 	}
 
 	public function add_news(){
         $this->view = new View("add_news");
-
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -434,6 +465,8 @@ class AdminController extends Controller{
 
         $this->view->builderUI = $builderUI;
 
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -507,6 +540,7 @@ class AdminController extends Controller{
 
         $this->view->levelNames = $levelNames;
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -532,6 +566,7 @@ class AdminController extends Controller{
         $currModel = new CurriculumModel();
         $this->view->curriculumList = $currModel->list();
 
+        $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
@@ -558,7 +593,8 @@ class AdminController extends Controller{
 
         $teacherModel = new TeacherModel();
         $this->view->teachers = $teacherModel->list();
-
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -595,7 +631,8 @@ class AdminController extends Controller{
 
         $teacherModel = new TeacherModel();
         $this->view->teachers = $teacherModel->list();
-
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -632,6 +669,8 @@ class AdminController extends Controller{
         }
 
         $this->view->levelNames = $levelNames;
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
 
     }
