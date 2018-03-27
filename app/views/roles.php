@@ -12,9 +12,8 @@ Fix the UI @morbid
 	<div class="content-container dashboard">
 		<div class="dashboard-container">
 			<div class="content-panel">
+                <h3 class="dashboard-section-title">Role</h3>
                 <form id="create-role-form">
-                    <br>
-                    <h3 class="dashboard-section-title">Role</h3>
                     <div class='error_role_form'></div>
                     <span class="input input--hoshi" style="width:45%">
                     <input value="" class="input__field input__field--hoshi" type="text" id="r_name"  name="r_name">
@@ -34,7 +33,7 @@ Fix the UI @morbid
 				<h3 class="dashboard-section-title">Manage Roles</h3>
 				<br>
 				<br>
-                <table style="width:100%">
+                <table style="width:100%" class="roles-table2">
                     <tr>
                             <a href='<?=BASE_URL?>/admin/manage_roles'>
                             <?php

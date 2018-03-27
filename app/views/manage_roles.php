@@ -14,8 +14,12 @@ Fix the UI @morbid
 			<div class="content-panel">
 				<h3 class="dashboard-section-title">Rights</h3>
 				<br>
-				<br>
-
+                <div class="legends">
+                    <ul>
+                        <li><div style="width: 10px; height: 10px; background: #4272d7;"></div> Active role</li>
+                        <li><div style="width: 10px; height: 10px; background: #c93c3c;"></div> No access</li>
+                    </ul>
+                </div>
                 <form method="post" id="rightsForm">
 				<table style="width:100%" class="roles-table">
 						<tr>

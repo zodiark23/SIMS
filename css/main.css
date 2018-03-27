@@ -161,7 +161,7 @@ textarea {
     width: 0;
     bottom: 0;
     height: 1px;
-    background: #4171bf;
+    background: #333;
     left: 0;
     right: 0;
     margin: auto;
@@ -173,7 +173,7 @@ textarea {
     width: 0;
     top: 0;
     height: 1px;
-    background: #4171bf;
+    background: #333;
     left: 0;
     right: 0;
     margin: auto;
@@ -181,7 +181,7 @@ textarea {
 }
 .main-container .header ul.top-nav li a:hover,
 .main-container .header ul.top-nav li a.active {
-    color: #4171bf;
+    color: #333;
 }
 .main-container .header ul.top-nav li a:hover:after,
 .main-container .header ul.top-nav li a.active:after,
@@ -324,6 +324,11 @@ textarea {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.content-container .ne-board .ne-content .ne-item .ne-item-details .ne-p.active {
+    overflow: visible;
+    text-overflow: initial;
+    white-space: normal;
 }
 .content-container .ne-board .ne-content .ne-item .ne-item-details .readmore {
     font-size: 12px;
@@ -496,9 +501,43 @@ textarea {
     height: 100%;
 }
 .content-container .dashboard-container .content-panel {
-    padding: 15px 15px 15px 265px;
-    height: calc(100vh - 30px);
+    padding: 0px 0px 15px 250px;
+    height: calc(100vh - 15px);
     overflow-y: scroll;
+}
+.content-container .dashboard-container .content-panel .content-head {
+    position: relative;
+    background: #4272d7;
+    color: #fff;
+}
+.content-container .dashboard-container .content-panel .content-head .input-group {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+.content-container .dashboard-container .content-panel .content-head .input-group .outlined-button {
+    border: 2px solid #fff;
+    color: #fff;
+}
+.content-container .dashboard-container .content-panel .content-head #search-box {
+    height: 27px;
+    padding: 0 10px;
+    color: #333;
+    display: inline-block;
+    vertical-align: top;
+    border: 2px solid #fff;
+}
+.content-container .dashboard-container .content-panel .content-head .search-btn {
+    width: 31px;
+    display: inline-block;
+    background: #fff;
+    margin-left: -4px;
+    text-align: center;
+    line-height: 31px;
+    border-left: 1px solid #ccc;
+}
+.content-container .dashboard-container .content-panel .content-head .search-btn img {
+    width: 22px;
 }
 .content-container .dashboard-container .content-panel .db-table {
     width: 100%;
@@ -622,6 +661,9 @@ textarea {
     font-family: LatoRegular, Segoe UI Light, sans-serif;
     font-size: 25px;
     letter-spacing: 0.2px;
+    background: #4272d7;
+    padding: 15px;
+    color: #fff;
 }
 .plain-button{
     min-width:90px;
@@ -668,33 +710,42 @@ textarea {
 }
 .content-panel .content-panel-table {
     border-collapse: collapse;
-    margin-top: 20px;
 }
 .content-panel .content-panel-table tr th {
     height: 40px;
     text-align: center;
     vertical-align: middle;
-    border: 1px solid #333;
     background: #ccc;
 }
 .content-panel .content-panel-table tr td {
-    border: 1px solid #333;
+    border-bottom: 2px solid #d3d0d0;
     text-align: center;
     vertical-align: middle;
     height: 30px;
     background: #fff;
 }
-.content-panel select[name="curr"] {
+.content-panel select {
     height: 31px;
     min-width: 150px;
     outline: none;
     border-color: #4272d7;
+}
+.content-panel form {
+    padding: 15px;
 }
 .content-panel .content-panel-table tr td .tbl-edit-btn {
     display: inline-block;
     vertical-align: middle;
     padding: 3px 5px;
     background: #4272d7;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+.content-panel .content-panel-table tr td .tbl-builder-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px 5px;
+    background: #0b7c62;
     color: #fff;
     border: 1px solid #ccc;
 }
@@ -748,6 +799,36 @@ textarea {
     font-weight: 700;
     letter-spacing: 5px;
     margin-top: 20px;
+}
+.content-panel .roles-table2 tr td {
+    text-align: center;
+}
+.content-panel #sched-builder-form {
+    padding-bottom: 0;
+}
+.content-panel #sched-builder-form select {
+    width: 40%;
+    float: left;
+    margin: 2px;
+}
+.content-panel #sched-builder-form input[type="submit"] {
+    display: block;
+    margin-left: auto;
+    width: 100px;
+    height: 40px;
+    background: #4272d7;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.content-panel .legends {
+    padding: 0 20px;
+    text-align: right;
+}
+.content-panel .legends ul li div {
+    display: inline-block;
+    vertical-align: middle;
 }
 /* ==========================================================================
    Media Queries

@@ -30,7 +30,7 @@
                                 <p class="ne-p">
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis amet minima alias sit dolorem nobis omnis deserunt officiis voluptates. Reiciendis eaque pariatur, aliquam enim sit cupiditate ad itaque officia consequuntur?
                                 </p>
-                                <a href="" class="readmore">Read more</a>
+                                <a href="javascript:void(0);" class="readmore">Read more</a>
                             </div>
                         </div>
                         <div class="ne-item">
@@ -41,7 +41,7 @@
                                 <p class="ne-p">
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis amet minima alias sit dolorem nobis omnis deserunt officiis voluptates. Reiciendis eaque pariatur, aliquam enim sit cupiditate ad itaque officia consequuntur?
                                 </p>
-                                <a href="" class="readmore">Read more</a>
+                                <a href="javascript:void(0);" class="readmore">Read more</a>
                             </div>
                         </div>
                     </div>
@@ -85,6 +85,10 @@
 
                 $(".close").on("click", function(){
                     $(this).parents().removeClass("active");
+                });
+
+                $(".readmore").click(function(){
+                    $(this).parent().find(".ne-p").addClass('active')
                 });
             });
         </script>

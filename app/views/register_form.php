@@ -112,6 +112,13 @@
                         </tr>
                     </tbody>
                 </table>
+                <table style="margin-top: 10px; text-align: center;">
+                    <tr>
+                        <td><input type="radio" id="new-student" name="enlistment"> <label for="new-student">New Student</label></td>
+                        <td><input type="radio" id="transferee" name="enlistment"> <label for="transferee">Transferee</label></td>
+                        <td><input type="radio" id="balik-skwela" name="enlistment"> <label for="balik-skwela">Balik-skwela</label></td>
+                    </tr>
+                </table>
                 <div class="acknowledgement">
                     <p>I understand that all information I provide in this form may be used by the Department of Education and I consent to such with the assurance that my personal details will be kept confidential.</p>
                 </div>

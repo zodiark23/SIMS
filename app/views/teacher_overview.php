@@ -12,11 +12,13 @@ Fix the UI @morbid
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Overview</h3>
-            <br>
-            <br>
-            
-
+            <div class="content-head">
+                <h3 class="dashboard-section-title">Overview</h3>
+                <div class="input-group">
+                    <input type="text" placeholder="Search" id="search-box">
+                    <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
+                </div>
+            </div>
             <table style="width:100%" class="content-panel-table">
                 <thead>
                     <tr>

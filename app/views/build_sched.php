@@ -13,11 +13,8 @@ add styling on bottom note
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Schedule Builder</h3>
-            <br>            
-
-
-            <form id="sched-builder-form" data-arg='<?= ($this->schedInfo->schedule_id ?? 0)?>'>
+            <h3 class="dashboard-section-title">Schedule Builder</h3>      
+            <form class="clearfix" id="sched-builder-form" data-arg='<?= ($this->schedInfo->schedule_id ?? 0)?>'>
                 <select name='section_id'>
                     <?php
 

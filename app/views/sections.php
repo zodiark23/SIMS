@@ -8,13 +8,15 @@
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Sections</h3>                        
-            <br>
-            <a class="outlined-button" href="<?=BASE_URL?>/admin/add-section">Create</a>
-            <br>
-            <br>
-            <br>
-            <table style="width:100%">
+            <div class="content-head">
+                <h3 class="dashboard-section-title">Sections</h3> 
+                <div class="input-group">                 
+                    <a class="outlined-button" href="<?=BASE_URL?>/admin/add-section">Create</a>
+                    <input type="text" id="search-box" placeholder="Search">
+                    <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
+                </div>      
+            </div>
+            <table style="width:100%" class="content-panel-table">
             
                 <tr>
                     <th>#</th>
@@ -33,7 +35,7 @@
                     <td><?= $sched['section_name']?></td>
                     
                     <td><?= $this->levelNames[$sched['level_id']]?></td>
-                    <td> <a href="<?=BASE_URL?>/admin/edit-section/<?=($sched['section_id'] ?? 0)?>">Edit</a> </td>
+                    <td> <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-section/<?=($sched['section_id'] ?? 0)?>">Edit</a> </td>
                 </tr>
                 <?php
                     }

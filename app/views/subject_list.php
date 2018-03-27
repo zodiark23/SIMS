@@ -13,7 +13,13 @@ add styling on bottom note
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Subjects Lists</h3>                        
+            <div class="content-head">
+                <h3 class="dashboard-section-title">Subjects Lists</h3>       
+                <div class="input-group">
+                    <input type="text" id="search-box" placeholder="Search">
+                    <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
+                </div>
+            </div>                 
             
             <table width=100% class="content-panel-table">
                 <thead>

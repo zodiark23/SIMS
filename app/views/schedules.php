@@ -8,13 +8,15 @@
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Schedules</h3>                        
-            <br>
-            <a class="outlined-button" href="<?=BASE_URL?>/admin/create-schedule">Create</a>
-            <br>
-            <br>
-            <br>
-            <table style="width:100%">
+            <div class="content-head">
+                <h3 class="dashboard-section-title">Schedules</h3>
+                <div class="input-group">               
+                    <a class="outlined-button" href="<?=BASE_URL?>/admin/create-schedule">Create</a>
+                    <input type="text" placeholder="Search" id="search-box">
+                    <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
+                </div>   
+            </div>
+            <table style="width:100%" class="content-panel-table">
             
                 <tr>
                     <th>#</th>
@@ -34,9 +36,9 @@
                     <td><?= $sched['year_start']."-".$sched['year_end']?></td>
                     <td><?= $this->levelNames[$sched['level_id']]?></td>
                     <td>
-                    <a href='<?=BASE_URL?>/admin/schedule/<?= $sched['schedule_id']?>'>Builder</a>| 
-                    Edit | 
-                    <a href='<?=BASE_URL?>/admin/delete-schedule/<?= $sched['schedule_id']?>'>Delete</a>
+                    <a class="tbl-builder-btn" href='<?=BASE_URL?>/admin/schedule/<?= $sched['schedule_id']?>'>Builder</a> | 
+                    <a class="tbl-edit-btn" href='<?=BASE_URL?>/admin/schedule/<?= $sched['schedule_id']?>'>Edit</a> | 
+                    <a class="tbl-delete-btn" href='<?=BASE_URL?>/admin/delete-schedule/<?= $sched['schedule_id']?>'>Delete</a>
                     </td>
                 </tr>
                 <?php
