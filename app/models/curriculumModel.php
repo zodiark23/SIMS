@@ -127,6 +127,27 @@ class CurriculumModel extends Model{
         return false;
     }
 
+    /**
+     * Returns the Grade Scheme Id that this level is using
+     * 
+     * @param int $level_id
+     */
+    public function schoolLevelGradeSchemeInfo(int $level_id){
+        if($level_id == 0 || empty($level_id)){
+            return false;
+        }
+
+        $stmt = $this->db->prepare("SELECT * FROM `grade_scheme_item_id` WHERE `school_level_id` = :level_id ");
+        $stmt->execute(["level_id" => $level_id]);
+
+        $result = $stmt->fetch();
+
+        if(count($result) > 0 ){
+            return $result;
+        }
+        return false;
+    }
+
 
     /**
      * Toggle the state of curriculum to `active` or `inactive`

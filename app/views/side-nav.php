@@ -5,7 +5,7 @@
     </div>
 <?php
 $adminPointer = "";
-if($this->pointer == "add_news" || $this->pointer == "edit_education" || $this->pointer == "show_education" || $this->pointer == "manage_roles" || $this->pointer == "roles" || $this->pointer == "education" || $this->pointer == "news" || $this->pointer == "grades_scheme"){
+if($this->pointer == "add_news" || $this->pointer == "level_configuration" || $this->pointer == "grade_schemes" || $this->pointer == "edit_grade_scheme" || $this->pointer == "add_grade_scheme" || $this->pointer == "edit_education" || $this->pointer == "show_education" || $this->pointer == "manage_roles" || $this->pointer == "roles" || $this->pointer == "education" || $this->pointer == "news" || $this->pointer == "grades_scheme"){
     $adminPointer = "active";
 }
 
@@ -42,7 +42,7 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                     <!-- <li><a href="">Management</a></li> -->
                     <!-- <li><a href="">Payments</a></li> -->
                     <li><a href="">Approvals</a></li>
-                    <li><a href="">Grade Scheme</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/grade-schemes">Grade Scheme</a></li>
                 </ul>
             </li>
             <li class="parent-li">

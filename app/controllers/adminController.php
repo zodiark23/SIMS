@@ -11,6 +11,7 @@ use SIMS\App\Models\NewsModel;
 use SIMS\App\Models\ScheduleModel;
 use SIMS\App\Models\SectionModel;
 use SIMS\App\Models\TimeModel;
+use SIMS\App\Models\GradeModel;
 
 
 class AdminController extends Controller{
@@ -78,6 +79,35 @@ class AdminController extends Controller{
         $this->view->render();
     }
 
+    public function level_configuration($id){
+        $this->view = new View("level_configuration");
+
+        $curriculumModel = new CurriculumModel();
+        $level_info = $curriculumModel->schoolLevelInfo($id);
+
+        
+        if(!$level_info){
+            $this->error();
+            return false;
+        }
+        $gradeSchemeResult = $curriculumModel->schoolLevelGradeSchemeInfo((int)$level_info['level_id'] ?? 0);
+        
+        
+        $gradeModel = new GradeModel();
+        $gradeSchemes = $gradeModel->gradeSchemeList();
+
+        $subjectModel = new SubjectModel();
+        $subjects = $subjectModel->list($level_info['curriculum_id']);
+
+        $this->view->selectedGradeScheme = $gradeSchemeResult["grade_scheme_id"] ?? 0;
+        $this->view->level_info = $level_info;
+        $this->view->gradeSchemes = $gradeSchemes;
+        $this->view->subjects = $subjects;
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
     public function show_education($id){
 
         // Check rights
@@ -108,7 +138,19 @@ class AdminController extends Controller{
             return false;
         }
 
+        // Get the Grade Scheme Info for each level
+        $gradeModel = new GradeModel();
+        $gradeSchemeArray = [];
+        foreach($result as $r){
+            $gradeSchemeResult = $model->schoolLevelGradeSchemeInfo( ((int)$r["level_id"] ?? 0) );
+            $gradeSchemeId = $gradeSchemeResult["grade_scheme_id"] ?? 0;
+            $gradeSchemeDetails = $gradeModel->gradeSchemeDetails((int)$gradeSchemeId);
 
+            $gradeSchemeArray[$r['level_id']] = $gradeSchemeDetails ?: [];
+        }
+
+
+        $this->view->gradeSchemes = $gradeSchemeArray;
         $this->view->cur_name = $curriculumName[0]["description"] ?? "Err#";
         $this->view->info = $result;
         $this->view->pointer = $this->pointer;
@@ -673,5 +715,41 @@ class AdminController extends Controller{
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
 
+    }
+
+    public function grade_schemes(){
+        $this->view = new View("grade_schemes");
+        $gradeModel = new GradeModel();
+
+        $lists = $gradeModel->gradeSchemeList();
+
+        $this->view->grade_schemes = $lists;
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+    public function add_grade_scheme(){
+        $this->view = new View("add_grade_scheme");
+        
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+    public function edit_grade_scheme($id){
+        if(empty($id)){
+            $this->error();
+            return false;
+        }
+        $this->view = new View("edit_grade_scheme");
+        $gradeModel = new GradeModel();
+
+        $info = $gradeModel->gradeSchemeDetails($id);
+        
+        $this->view->info = $info[0] ?? null;
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
     }
 }

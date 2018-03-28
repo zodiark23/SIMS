@@ -14,17 +14,21 @@
                     <th>Grade Scheme</th>
                     <th>Requirements</th>
                     <th>Published</th>
+                    <th>Action</th>
                 </tr>
 
                 <?php
                 if(count($this->info) > 0){
                     foreach($this->info as $level){
+                        $gradeScheme = $this->gradeSchemes[$level['level_id']][0]->pass_threshold ?? 0;
+                        $threshold = $gradeScheme > 0 ? "<span class='sims-primary'>".$gradeScheme . "/ 100</span>" : "<span class='sims-danger'>Not configured</span>";
                         echo "
                         <tr>
                             <td>".$level['level_name']."</td>
-                            <td><span class='sims-primary'>75 / 100</span></td>
+                            <td>$threshold</td>
                             <td><span class='sims-danger'>Not Configured</span></td>
                             <td>".(($level['published'] == 1) ? "<span class='sims-success'>Yes</span>" : "<span class='sims-danger'>No</span>")."</td>
+                            <td><a class='sims-primary' href='".BASE_URL."/admin/level-configuration/".$level['level_id']."'>Configure</a></td>
                         
 
                         </tr>

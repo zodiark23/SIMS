@@ -298,7 +298,7 @@ add styling on bottom note
                 });
 
                 if(width > 0){
-                    $(".scheduleBuilderTable").width(width);
+                    $(".scheduleBuilderTable").width(width + 30);
                 }
 
 

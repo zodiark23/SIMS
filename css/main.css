@@ -76,6 +76,22 @@ textarea {
 .sims-primary {
     color : #2196f3;
 }
+.informative-block{
+    font-size:13px;
+    color:#655f5f;
+    font-style: italic;
+    padding:4px;
+    background:#ccced8;
+    min-height:34px;
+}
+.informative-block img{
+    width: 37px;
+    height:37px;
+    position:relative;
+    float:left;
+    margin-right:10px;
+}
+
 
 .login-modal {
     position: fixed;

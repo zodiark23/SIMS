@@ -886,6 +886,85 @@ $("#login-form").validate({
 
     });
 
+    $("#create-grade-scheme-form").validate({
+        rules : {
+            gs_description : {
+                required : true
+            },
+            pass_threshold : {
+                required : true,
+                maxlength : 2,
+                max : 90,
+                number : true
+            }
+            
+        },
+        message : {
+            pass_threshold : {
+                maxlength : "Only 2 digit number is allowed",
+            }
+        },
+        submitHandler :  function(e){
+            var data = $(e).serialize();
+            
+            $.ajax({
+                url : BASE_URL+"/php/create_grade_scheme.php",
+                type : "post",
+                data : data,
+                success : function(data){
+                    var x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/grade-schemes";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+    });
+
+    $("#edit-grade-scheme-form").validate({
+        rules : {
+            gs_description : {
+                required : true
+            },
+            pass_threshold : {
+                required : true,
+                maxlength : 2,
+                max : 90,
+                number : true
+            }
+            
+        },
+        message : {
+            pass_threshold : {
+                maxlength : "Only 2 digit number is allowed",
+            }
+        },
+        submitHandler :  function(e){
+            var data = $(e).serialize();
+            var cid = $(e).data("cid");
+            
+            $.ajax({
+                url : BASE_URL+"/php/edit_grade_scheme.php",
+                type : "post",
+                data : data+"&cid="+cid,
+                success : function(data){
+                    var x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/grade-schemes";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+    });
+
 
 
 
