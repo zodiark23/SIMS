@@ -11,13 +11,13 @@ Fix the UI @morbid
 	<div class="content-container dashboard">
 		<div class="dashboard-container">
 			<div class="content-panel">
-                <form id="display-news-form" method="post">
-                    <br>
+                <div class="content-head">
                     <h3 class="dashboard-section-title">Publish News</h3>
+                </div>
+                <form id="display-news-form" method="post">
+                    
                     <div class='error_news_form'></div>
-                    <br>
-                    <br>
-                    <table style="width:100%">
+                    <table style="width:100%" class="content-panel-table">
                         <tr>
                             <th>News</th>
                             <th>Published</th>
@@ -36,7 +36,7 @@ Fix the UI @morbid
 
 		                            if (strlen(htmlspecialchars($result['news_content'])) > 250) {
 			                            // Title and Content
-			                            echo "<tr><td>".$result['news_title'];
+			                            echo "<tr><td style='padding: 5px 0 5px 15px; text-align: left; width: 400px;'>".$result['news_title'];
 			                            echo "<br><br>";
 			                            echo substr(htmlspecialchars_decode($result['news_content']),0,250)."..."."</td>";
 
@@ -46,14 +46,14 @@ Fix the UI @morbid
 
 
 			                            // Edit button here
-			                            echo "<td><a class='outlined-button' value='Edit' id='".$result['news_id']."' name='edit-btn' href='".BASE_URL."/admin/edit_news/".$result['news_id']."'>".'EDIT'."</a>";
-
+			                            echo "<td><a class='tbl-edit-btn' value='Edit' id='".$result['news_id']."' name='edit-btn' href='".BASE_URL."/admin/edit_news/".$result['news_id']."'>".'EDIT'."</a>";
+										echo " | ";
 			                            // Delete button here
-			                            echo "<input type='button' class='delete-btn' value='Delete' id='".$result['news_id']."' name='delete-btn'>";
-
+			                            echo "<input type='button' class='tbl-delete-btn delete-btn' value='Delete' id='".$result['news_id']."' name='delete-btn'>";
+										echo " | ";
 
 			                            // View button here
-			                            echo "<input type='button' data-newsid='".$result['news_id']."' class='view-btn' value='VIEW' name='view-btn'></td>";
+			                            echo "<input type='button' data-newsid='".$result['news_id']."' class='tbl-builder-btn view-btn' value='VIEW' name='view-btn'></td>";
 
 
 
@@ -62,7 +62,7 @@ Fix the UI @morbid
 		                            } else {
 
 			                            // Title and Content
-			                            echo "<tr><td>".$result['news_title'];
+			                            echo "<tr><td style='padding: 5px 0 5px 15px; text-align: left; width: 400px;'>".$result['news_title'];
 			                            echo "<br><br>";
 			                            echo htmlspecialchars_decode($result['news_content'])."</td>";
 
@@ -70,19 +70,19 @@ Fix the UI @morbid
 			                            echo "<td>".$result['news_publish'];
 
 			                            // Edit button here
-			                            echo "<td><a class='outlined-button' value='Edit' id='".$result['news_id']."' name='edit-btn' href='".BASE_URL."/admin/edit_news/".$result['news_id']."'>".'EDIT'."</a>";
-
+			                            echo "<td><a class='tbl-edit-btn' value='Edit' id='".$result['news_id']."' name='edit-btn' href='".BASE_URL."/admin/edit_news/".$result['news_id']."'>".'Edit'."</a>";
+										echo " | ";
 			                            // Delete button here
-			                            echo "<input type='button' class='delete-btn' value='Delete' id='".$result['news_id']."' name='delete-btn'>";
-
+			                            echo "<input type='button' class='delete-btn tbl-delete-btn' value='Delete' id='".$result['news_id']."' name='delete-btn'>";
+										echo " | ";
 			                            // View button here
-			                            echo "<input type='button' data-newsid='".$result['news_id']."' class='view-btn' value='VIEW' name='view-btn'></td>";
+			                            echo "<input type='button' data-newsid='".$result['news_id']."' class='view-btn tbl-builder-btn' value='VIEW' name='view-btn'></td>";
 
 
                                     }
 	                            }
                             }else {
-                                echo "<td>"."No data"."</td>";
+                                echo "<td colspan='3'>"."No data"."</td>";
                             }
 
                             ?>
@@ -93,9 +93,10 @@ Fix the UI @morbid
 
         </table>
                     <div class='bg-modal'>
+						
                         <div class='modal-content'>
-                            <div class='close-modal'>+</div>
-
+                            
+						<div class='close-modal'><i class="far fa-times-circle"></i></div>
                         </div>
                     </div>
 
@@ -105,10 +106,9 @@ Fix the UI @morbid
 
                     <br>
                     <br>
-                    <button class="outlined-button" value="Add"><a href="<?=BASE_URL?>/admin/add_news">Add News</a></button>
+                    <button class="outlined-button add-news" value="Add"><a href="<?=BASE_URL?>/admin/add_news">Add News</a></button>
 
                 </form>
-        <input type="button" id="leandro" name="leandro" value="leandro">
 			</div>
 
 

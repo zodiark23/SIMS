@@ -23,7 +23,7 @@
 
                     <div class="ne-content">
                         <div class="ne-item">
-                            <img src="<?=BASE_URL?>/img/lnhs.jpg" alt="" class="ne-item-img">
+                            <!-- <img src="<?=BASE_URL?>/img/lnhs.jpg" alt="" class="ne-item-img"> -->
                             <div class="ne-item-details">
                                 <a href="" class="ne-title">Sample Title 1</a>
                                 <p class="author-date">By: <a href="">admin</a> on <span class="date">02/26/18</span></p>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="ne-item">
-                            <img src="<?=BASE_URL?>/img/lnhs2.jpg" alt="" class="ne-item-img">
+                            <!-- <img src="<?=BASE_URL?>/img/lnhs2.jpg" alt="" class="ne-item-img"> -->
                             <div class="ne-item-details">
                                 <a href="" class="ne-title">Sample Title 2</a>
                                 <p class="author-date">By: <a href="">admin</a> on <span class="date">02/26/18</span></p>
