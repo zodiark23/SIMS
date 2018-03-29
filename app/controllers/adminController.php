@@ -1,5 +1,6 @@
 <?php namespace SIMS\App\Controllers;
 
+use SIMS\App\Models\StudentModel;
 use SIMS\Classes\Controller;
 use SIMS\Classes\View;
 use SIMS\App\Models\AdminModel;
@@ -778,6 +779,12 @@ class AdminController extends Controller{
 
 	public function approval(){
 		$this->view = new View("approval");
+
+		$this->model = new StudentModel();
+
+		$student = $this->model->getStudents();
+
+		$this->view->students = $student;
 
 		$this->view->render();
 	}

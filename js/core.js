@@ -658,12 +658,7 @@ $("#login-form").validate({
         }
     });
 
-    //stuudent password update
-    // $("#update_pass").on("click", function () {
-    //    var s_pass = $("#s_pass_confirm").val();
-    //    alert(s_pass);
-    // });
-
+    // Update student password
     $("#update-student-password-form").validate({
         rules: {
             s_pass: {
@@ -699,6 +694,52 @@ $("#login-form").validate({
                     }
                 }
             })
+        }
+    });
+
+    // Resend token
+    $("#resend-btn").on("click", function () {
+       var id = $(this).data('target');
+       var fname = $(this).data('f_name');
+       var email = $(this).data('email');
+
+       $.ajax({
+           url: BASE_URL+"/php/resend_token.php",
+           type: "POST",
+           data: "&sid="+id+"&fname="+fname+"&email="+email,
+           success: function (data) {
+               x = JSON.parse(data);
+
+               if(x.code == "00"){
+                   alert(x.message);
+                   window.location = BASE_URL+"/admin/approval";
+               }else{
+                   alert(x.message);
+               }
+           }
+       })
+    });
+
+    // Reject token
+    $("#reject-btn").on("click", function () {
+        var id = $(this).data('target');
+
+        if(confirm("Are you sure you want to reject this student?")){
+            $.ajax({
+                url: BASE_URL+"/php/reject_token.php",
+                type: "POST",
+                data: "&id="+id,
+                success: function(data){
+                    x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/approval";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            });
         }
     });
 

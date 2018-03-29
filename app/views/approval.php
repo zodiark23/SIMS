@@ -12,23 +12,32 @@ Fix the UI @morbid
 		<div class="dashboard-container">
 			<div class="content-panel">
                 <div class="content-head">
-                    <h3 class="dashboard-section-title">Publish News</h3>
+                    <h3 class="dashboard-section-title">Resend approval codes</h3>
                 </div>
-                <form id="display-news-form" method="post">
+                <form id="approval-form" method="post">
                     
                     <div class='error_news_form'></div>
                     <table style="width:100%" class="content-panel-table">
                         <tr>
-                            <th>News</th>
-                            <th>Published</th>
+                            <th>Student</th>
                             <th>Action</th>
                         </tr>
 
-                        <tr>
 
+	                    <?php
+	                    if($this->students){
+		                    foreach ($this->students as $student){
+			                    $f_name = $student['first_name'];
+			                    $s_name = $student['last_name'];
+			                    $student_id = $student['student_id'];
+			                    $email = $student['email'];
+		                    }
+		                    echo "<td>".$f_name." ".$s_name."</td>";
+		                    // Resend email to the student | Set the access_token to 1
+		                    echo "<td><input type='button' id='resend-btn' class='tbl-builder-btn view-btn' value='Resend' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'> | <input type='button' id='reject-btn' class='tbl-delete-btn' value='Reject' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'></td>";
+	                    }
+	                    ?>
 
-
-                        </tr>
             </div>
         </div>
 
@@ -36,15 +45,14 @@ Fix the UI @morbid
 
 
 
-
-
-
                     <br>
                     <br>
-                    <button class="outlined-button add-news" value="Add"><a href="<?=BASE_URL?>/admin/add_news">Add News</a></button>
+
 
                 </form>
-			</div>
+
+
+    </div>
 
 
 

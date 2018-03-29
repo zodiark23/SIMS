@@ -260,6 +260,41 @@ class StudentModel extends Model {
 	    return false;
 	}
 
+	public function getStudents(){
+    	$stmt = $this->db->prepare("SELECT * FROM students s JOIN access_token act ON s.student_id=act.student_id WHERE act.status = 0");
+    	$stmt->execute();
+    	$result = $stmt->fetchAll();
+		if($result){
+			return $result;
+		}
+		return false;
+	}
+
+	public function resendToken($student_id){
+    	$stmt = $this->db->prepare("SELECT * FROM access_token WHERE student_id = :student_id");
+    	$stmt->execute([":student_id"=>$student_id]);
+    	$result = $stmt->fetchAll();
+		foreach ($result as $r){
+			$access_token = $r['access_token'];
+		}
+
+		if($result){
+			return $access_token;
+		}
+		return false;
+	}
+
+	public function rejectToken($student_id){
+    	$token = $this->resendToken($student_id);
+
+    	$stmt = $this->db->prepare("UPDATE access_token SET status = 1 WHERE access_token = :access_token");
+    	$result = $stmt->execute([":access_token"=>$token]);
+		if($result){
+			return true;
+		}
+		return false;
+	}
+
 
 
 

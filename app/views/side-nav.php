@@ -41,7 +41,7 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                     <li><a href="<?=BASE_URL?>/admin/news">News &amp; Announcements</a></li>
                     <!-- <li><a href="">Management</a></li> -->
                     <!-- <li><a href="">Payments</a></li> -->
-                    <li><a href="">Approvals</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/approval">Approvals</a></li>
                     <li><a href="<?=BASE_URL?>/admin/grade-schemes">Grade Scheme</a></li>
                 </ul>
             </li>
