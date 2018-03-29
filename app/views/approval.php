@@ -26,7 +26,7 @@ Fix the UI @morbid
 
                         <tr>
 
-                          
+
 
                         </tr>
             </div>
