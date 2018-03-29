@@ -103,13 +103,21 @@ class RoleModel extends Model {
     }
 
 	public function deleteRights($role_id){
-		$stmt = $this->db->prepare("DELETE FROM role_privilege WHERE role_id=:role_id ");
-		$stmt->execute([":role_id"=>$role_id]);
+    	$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_id = :role_id");
+    	$stmt->execute([":role_id"=>$role_id]);
+    	$result = $stmt->fetchAll();
+    	foreach ($result as $r){
+    		$default = $r['default'];
+	    }
 
-		if($stmt){
-			return true;
-		}
+	    if($default != 1){
+		    $stmt = $this->db->prepare("DELETE FROM role_privilege WHERE role_id=:role_id ");
+		    $stmt->execute([":role_id"=>$role_id]);
 
+		    if($stmt){
+			    return true;
+		    }
+	    }
 		return false;
 
 	}
@@ -186,45 +194,6 @@ class RoleModel extends Model {
 	    }
 	    return false;
 
-
-
-    	/*$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_id = :role_id");
-
-    	$stmt->execute([":role_id"=>$role_id]);
-
-    	$result = $stmt->fetchAll();
-
-    	foreach ($result as $r){
-    		$role = $r['default'];
-	    }
-
-    	if($role == 1) {
-
-		    return false;
-
-	    }else {
-
-		    $stmt = $this->db->prepare("DELETE FROM role_privilege WHERE role_id = :role_id");
-
-		    $stmt->execute([":role_id" => $role_id]);
-
-		    if ($stmt) {
-
-			    $stmt = $this->db->prepare("DELETE FROM roles WHERE role_id = :role_id");
-
-			    $stmt->execute([":role_id" => $role_id]);
-
-			    if ($stmt) {
-				    return true;
-			    }
-				    return false;
-
-		    } else{
-
-		    return false;
-		    }
-
-	    }*/
 
     }
 
