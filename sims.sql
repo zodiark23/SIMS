@@ -793,6 +793,74 @@ ALTER TABLE `subjects`
 --
 ALTER TABLE `teachers`
   ADD CONSTRAINT `teachers_fk0` FOREIGN KEY (`gender`) REFERENCES `enum_table` (`enum_id`);
+  
+  -- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `news_id` int(10) NOT NULL,
+  `news_title` varchar(255) NOT NULL,
+  `news_author` text NOT NULL,
+  `create_date` date NOT NULL,
+  `last_updated` date NOT NULL,
+  `news_content` text NOT NULL,
+  `news_publish` int(2) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`news_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `news_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `access_token`
+--
+
+CREATE TABLE `access_token` (
+  `token_id` int(11) NOT NULL,
+  `student_id` int(10) NOT NULL,
+  `access_token` varchar(255) NOT NULL,
+  `date_validity` date NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `access_token`
+--
+ALTER TABLE `access_token`
+  ADD PRIMARY KEY (`token_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `access_token`
+--
+ALTER TABLE `access_token`
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
