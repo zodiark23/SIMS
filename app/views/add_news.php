@@ -13,7 +13,7 @@ Fix the UI @morbid
 			<div class="content-panel">
                 <form id="publish-news-form" method="post">
                     <br>
-                    <h3 class="dashboard-section-title">Publish News</h3>
+                    <h3 class="dashboard-section-title">Add News</h3>
                     <div class='error_news_form'></div>
                     <br>
                     <br>
@@ -48,24 +48,13 @@ Fix the UI @morbid
                     <br>
                     <br>
 
-                    <input type="submit" value="Add" id="dru">
+                    <input type="submit" value="Add" id="save-news">
 
                     <br>
                     <br>
                     <br>
                     <br>
 
-                    <div>
-                        <!-- TODO: display News title and content -->
-<!--		                --><?php
-//
-//		                foreach ($this->displayNews as $result){
-//                            echo htmlspecialchars_decode($result['news_content']);
-//		                }
-//
-//		                ?>
-
-                    </div>
                 </form>
 			</div>
 

@@ -154,6 +154,36 @@ textarea {
     right: 10px;
     cursor: pointer;
 }
+
+.bg-modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.modal-content{
+    width: 900px;
+    height: auto;
+    background: white;
+    border-radius: 4px;
+    /*text-align: center;*/
+    padding: 20px;
+    margin: 0 auto;
+    position: relative;
+}
+.close-modal{
+    position: absolute;
+    top: 0;
+    /*right: 14px;*/
+    font-size: 42px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
 .main-container {
     max-width: 1040px;
     margin: auto;

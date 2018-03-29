@@ -12,6 +12,7 @@ Fix the UI @morbid
 	<div class="content-container dashboard">
 		<div class="dashboard-container">
 			<div class="content-panel">
+                <form method="post" id="rightsForm">
 				<h3 class="dashboard-section-title">Rights</h3>
 				<br>
                 <div class="legends">
@@ -21,11 +22,23 @@ Fix the UI @morbid
                     </ul>
                 </div>
                 <form method="post" id="rightsForm">
+				<br>
+
+                <span class="input input--hoshi" style="width:45%">
+                    <input value="<?php echo $this->role_name[0]['role_name']; ?>" class="input__field input__field--hoshi" type="text" id="r_name"  name="r_name" >
+                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="r_name">
+                        <span class="input__label-content input__label-content--hoshi">Update Role Name</span>
+                    </label>
+                </span>
+
+                <br>
+                <br>
+
+
 				<table style="width:100%" class="roles-table">
 						<tr>
                             
                                 <?php
-
                                 foreach($this->rights_list as $row)
                                 {
                                     $checked = "";
@@ -47,6 +60,7 @@ Fix the UI @morbid
                 </table>
                     <div style="text-align: center;">
                         <input type="submit" data-target="<?= ($this->role_id ?? "" )?>" id="save-btn">
+                        <input type="submit" id="<?= ($this->role_id ?? "" )?>" class="delete-role-btn" value="DELETE">
                     </div>
                 </form>
 

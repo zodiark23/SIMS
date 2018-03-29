@@ -32,7 +32,9 @@ Fix the UI @morbid
 
 	                            foreach ($this->displayNews as $result) {
 
-		                            if (strlen(htmlspecialchars($result['news_content'])) > 10) {
+	                                $news_id = $result['news_id'];
+
+		                            if (strlen(htmlspecialchars($result['news_content'])) > 250) {
 			                            // Title and Content
 			                            echo "<tr><td>".$result['news_title'];
 			                            echo "<br><br>";
@@ -44,28 +46,71 @@ Fix the UI @morbid
 
 
 			                            // Edit button here
-			                            echo "<td><input type='button' class='outlined-button' value='Edit' id='edit-btn' name='edit-btn'></button>";
+			                            echo "<td><a class='outlined-button' value='Edit' id='".$result['news_id']."' name='edit-btn' href='".BASE_URL."/admin/edit_news/".$result['news_id']."'>".'EDIT'."</a>";
 
 			                            // Delete button here
-			                            echo "<input type='button' data-news-id=<? class='outlined-button' value='Delete' id='delete-btn' name='delete-btn'>";
+			                            echo "<input type='button' class='delete-btn' value='Delete' id='".$result['news_id']."' name='delete-btn'>";
+
+
 			                            // View button here
-			                            echo "<input type='button' class='outlined-button' value='VIEW' id='view-btn' name='view-btn'></td>";
-		                            }
+			                            echo "<input type='button' data-newsid='".$result['news_id']."' class='view-btn' value='VIEW' name='view-btn'></td>";
+
+
+
+
+
+		                            } else {
+
+			                            // Title and Content
+			                            echo "<tr><td>".$result['news_title'];
+			                            echo "<br><br>";
+			                            echo htmlspecialchars_decode($result['news_content'])."</td>";
+
+			                            // Published button here (YES/NO)
+			                            echo "<td>".$result['news_publish'];
+
+			                            // Edit button here
+			                            echo "<td><a class='outlined-button' value='Edit' id='".$result['news_id']."' name='edit-btn' href='".BASE_URL."/admin/edit_news/".$result['news_id']."'>".'EDIT'."</a>";
+
+			                            // Delete button here
+			                            echo "<input type='button' class='delete-btn' value='Delete' id='".$result['news_id']."' name='delete-btn'>";
+
+			                            // View button here
+			                            echo "<input type='button' data-newsid='".$result['news_id']."' class='view-btn' value='VIEW' name='view-btn'></td>";
+
+
+                                    }
 	                            }
                             }else {
                                 echo "<td>"."No data"."</td>";
                             }
+
                             ?>
 
                         </tr>
-                    </table>
+            </div>
+        </div>
+
+        </table>
+                    <div class='bg-modal'>
+                        <div class='modal-content'>
+                            <div class='close-modal'>+</div>
+
+                        </div>
+                    </div>
+
+
+
+
 
                     <br>
                     <br>
                     <button class="outlined-button" value="Add"><a href="<?=BASE_URL?>/admin/add_news">Add News</a></button>
 
                 </form>
+        <input type="button" id="leandro" name="leandro" value="leandro">
 			</div>
+
 
 
 			<?php include_once("side-nav.php") ?>

@@ -254,35 +254,11 @@ $("#edit-subject-form").on('submit', function(){
     return false;
 });
 
-    $("#save-btn").on("click",function () {
-
-       var id = $(this).data('target');
-
-       var dataString = $("#rightsForm").serialize();
-
-       $.ajax({
-           type:'POST',
-           url: BASE_URL+"/php/update_rights.php",
-           data: dataString+"&rid="+id,
-           success: function(data) {
-               x = JSON.parse(data);
-
-               if(x.code == "01") {
-                   alert(x.message);
-               }else{
-                   alert(x.message);
-               }
-           }
-       });
-       return false;
-    });
-
-
 $.validator.addMethod("regex", function(value, element, regexpr) {
     return regexpr.test(value);
   }, "Value doesn't match the required pattern.");
 
-
+    //  Publish news
     $("#publish-news-form").validate({
         rules:
             {
@@ -290,35 +266,28 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
                     required: true,
                     regex: /^[a-zA-Z\s]+$/,
                     minlength : 3
-                }/*,
-                newsContent: {
-                    required: true,
-                    minlength: 3
-                }*/
-
+                }
             },
         messages:
             {
                 newsTitle: {
-                    required: "Please provide a title.",
-                    regex: "Please enter a valid title."
-                }/*,
-                newsContent: {
-                    required: "Please add a content,"
-                }*/
+                    required : "Please provide a title.",
+                    regex : "Please enter a valid title"
+                }
             },
 
         submitHandler: function(){
-            $newsContent = tinymce.get('newsContent').getContent();
+            newsContent = tinymce.get('newsContent').getContent();
 
-            $newsTitle = $('#newsTitle').val();
+            newsTitle = $('#newsTitle').val();
+
 
             $.ajax({
                 type: 'POST',
                 url: BASE_URL+"/php/publish_news.php",
                 data: {
-                    newsTitle: $newsTitle,
-                    newsContent: $newsContent
+                    newsTitle: newsTitle,
+                    newsContent: newsContent
                 },
                 success: function (data) {
                     x = JSON.parse(data);
@@ -333,6 +302,113 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
             });
             return false;
         }
+    });
+
+
+    // Update news
+    $("#edit-news-form").validate({
+        rules:
+            {
+                newsTitle: {
+                    required: true,
+                    regex: /^[a-zA-Z\s]+$/,
+                    minlength : 3
+                }
+            },
+        messages:
+            {
+                newsTitle: {
+                    required: "Please provide a title.",
+                    regex: "Please enter a valid title."
+                }
+            },
+
+        submitHandler: function(){
+            newsContent = tinymce.get('newsContent').getContent();
+
+            newsTitle = $('#newsTitle').val();
+
+            target = $('#update-btn').data('target');
+
+            $.ajax({
+                type: 'POST',
+                url: BASE_URL+"/php/update_news.php",
+                data: {
+                    newsTitle: newsTitle,
+                    newsContent: newsContent,
+                    target: target
+                },
+                success: function (data) {
+                    x = JSON.parse(data);
+
+                    if(x.code == "01") {
+                        alert(x.message);
+                    }else {
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/news";
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+    // Delete News
+    $(".delete-btn").on("click", function () {
+        var del_id = $(this).attr('id');
+
+        if(confirm("Are you sure you want to delete this news?")){
+            $.ajax({
+                type:'POST',
+                url: BASE_URL+"/php/delete_news.php",
+                data: 'delete_id='+del_id,
+                success: function (data) {
+                    x = JSON.parse(data);
+
+                    if(x.code == "01") {
+                        alert(x.message);
+                    }else {
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/news";
+                    }
+                }
+            });
+        }
+    });
+
+    // View news content
+    $(".view-btn").on("click",function () {
+
+        var news_id = $(this).data('newsid');
+
+        $.ajax({
+            type: 'POST',
+            url: BASE_URL+"/php/view_news.php",
+            data: 'news_id='+news_id,
+            success: function(data) {
+                $(".bg-modal").show();
+                $(".modal-content").html(data);
+            }
+        })
+    });
+
+    // Close view modal
+    $(".close-modal").on("click", function () {
+        $(".bg-modal").css("display","none");
+    });
+
+    // Sending of email
+    $("#leandro").on("click", function () {
+        var test = "this is leandro button";
+
+        $.ajax({
+            type: 'POST',
+            url: BASE_URL+"/php/send_email.php",
+            data: test,
+            success: function (data) {
+                alert(data);
+            }
+        })
     });
 
 
@@ -384,6 +460,42 @@ $("#login-form").validate({
         return false;
     }
 });
+
+    $("#update-student-password-form").validate({
+        rules: {
+            t_pass: {
+                required: true
+            },
+            t_pass_confirm : {
+                required: true,
+                equalTo : '#t_pass'
+            }
+        },
+        messages : {
+            t_pass_confirm : {
+                equalTo : "Password doesn't match"
+            }
+        },
+        submitHandler : function(){
+            var data = $("#update-student-password-form").serialize();
+
+            $.ajax({
+                url : BASE_URL+"/php/add_teacher.php",
+                type : "post",
+                data : data,
+                success : function(data){
+                    x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/overview-teacher";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+    });
 
 
 
@@ -505,6 +617,8 @@ $("#login-form").validate({
     });
 
 
+
+    // Add roles
     $("#create-role-form").validate({
         rules:
             {
@@ -542,6 +656,58 @@ $("#login-form").validate({
         });
         return false;
     }
+    });
+
+    // Update rights and role name
+    $("#save-btn").on("click",function () {
+
+        var id = $(this).data('target');
+
+        var dataString = $("#rightsForm").serialize();
+
+        $.ajax({
+            type:'POST',
+            url: BASE_URL+"/php/update_rights.php",
+            data: dataString+"&rid="+id,
+            success: function(data) {
+                x = JSON.parse(data);
+
+                if(x.code == "01") {
+                    alert(x.message);
+                }else{
+                    alert(x.message);
+                }
+            }
+        });
+        return false;
+    });
+
+    // Delete Role
+    $(".delete-role-btn").on("click", function () {
+        var del_id = $(this).attr('id');
+
+        if(confirm("Are you sure you want to delete this Role?")){
+            $.ajax({
+                type:'POST',
+                url: BASE_URL+"/php/delete_role.php",
+                data: 'delete_id='+del_id,
+                success: function (data) {
+                    x = JSON.parse(data);
+
+                    if(x.code == "01") {
+                        alert(x.message);
+                    }else {
+                        alert(x.message);
+                        window.location = BASE_URL+"/admin/roles";
+                    }
+                }
+            });
+        }
+    });
+
+    $("#update_pass").on("click", function () {
+       var s_pass = $("#s_pass_confirm").val();
+       alert(s_pass);
     });
 
 
@@ -617,7 +783,7 @@ $("#login-form").validate({
         messages : {
             s_email : {
                 regex : "Please use a valid email format"
-            }  
+            }
         },
         submitHandler : function(e){
             var gender1 = $("#s-male").is(":checked");

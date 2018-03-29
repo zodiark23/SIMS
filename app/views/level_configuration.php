@@ -20,11 +20,14 @@
                         <select id="modify-gradeScheme" data-cid="<?= ($this->level_info['level_id'] ?? 0 )?>">
                             <option value="" selected disabled hidden>Not Set</option>
                             <?php
-                                foreach($this->gradeSchemes as $gs){
-                                    $selected = ($this->selectedGradeScheme == $gs->grade_scheme_id ) ? "selected" : "";
-                                    echo "
+                                if($this->gradeSchemes){
+
+                                    foreach($this->gradeSchemes as $gs){
+                                        $selected = ($this->selectedGradeScheme == $gs->grade_scheme_id ) ? "selected" : "";
+                                        echo "
                                         <option $selected value='".$gs->grade_scheme_id."'>".$gs->description."</option>
-                                    ";
+                                        ";
+                                    }
                                 }
                             ?>
                         </select>

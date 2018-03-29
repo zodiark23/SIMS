@@ -11,6 +11,9 @@ $roleModel = new RoleModel();
 
 $rightsid = $_POST['rights'] ?? "";
 
+$role_name = $_POST['r_name'];
+
+
 /**
  *
  * Check if the user checked atleast 1 checkbox
@@ -21,7 +24,7 @@ if(empty($rightsid)){
 	$callback['message'] = "Please select atleast 1.";
 }else {
 
-	$updateRights = $roleModel->updateRights($_POST['rid'], $_POST['rights']);
+	$updateRights = $roleModel->updateRights($_POST['rid'], $_POST['rights'], $role_name);
 	if($updateRights){
 
 		$callback['code'] = "00";
