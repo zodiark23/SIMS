@@ -775,4 +775,12 @@ class AdminController extends Controller{
 
 	    $this->view->render();
     }
+
+	public function approval(){
+		$this->view = new View("approval");
+
+		$this->view->render();
+	}
+
+
 }

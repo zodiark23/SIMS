@@ -3,22 +3,23 @@
 include_once("../config.php");
 include("../classes/autoloader.php");
 
-use SIMS\App\Models\accesstokenModel;
-
 loadPackage("../");
+
+use SIMS\App\Models\accesstokenModel;
 
 $accessTokenModel = new AccessTokenModel();
 
-$confirmPass = $_POST['s_pass_confirm'];
+$pass =$_POST['s_pass_confirm'];
+$student_id = $_POST['sid'];
 
-$isValid = $accessTokenModel->addRole($getRole);
+$isValid = $accessTokenModel->setPassword($student_id,$pass);
 
 if($isValid){
 	$callback['code'] = "00";
-	$callback['message'] = "Success";
+	$callback['message'] = "Successfully updated your password";
 }else{
 	$callback['code'] = "01";
-	$callback['message'] = "Role already exists.";
+	$callback['message'] = "Failed.";
 }
 
 

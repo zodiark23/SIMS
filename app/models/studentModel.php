@@ -234,7 +234,7 @@ class StudentModel extends Model {
     	if($result){
     		return false;
 	    } else {
-		    $stmt = $this->db->prepare("INSERT INTO access_token (token_id,student_id,access_token,date_validity,status) VALUES (null,:student_id,:access_token,CURDATE()+6,'default')");
+		    $stmt = $this->db->prepare("INSERT INTO access_token (token_id,student_id,access_token,date_validity,status) VALUES (null,:student_id,:access_token,DATE_ADD(CURDATE(), INTERVAL 7 DAY),'default')");
 		    $result = $stmt->execute([":student_id"=>$student_id,
 			    ":access_token"=>$student->password]);
 		    if($result){

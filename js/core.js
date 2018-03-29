@@ -397,19 +397,6 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
         $(".bg-modal").css("display","none");
     });
 
-    // Sending of email
-    $("#leandro").on("click", function () {
-        var test = "this is leandro button";
-
-        $.ajax({
-            type: 'POST',
-            url: BASE_URL+"/php/send_email.php",
-            data: test,
-            success: function (data) {
-                alert(data);
-            }
-        })
-    });
 
 
 $("#login-form").validate({
@@ -461,41 +448,7 @@ $("#login-form").validate({
     }
 });
 
-    $("#update-student-password-form").validate({
-        rules: {
-            t_pass: {
-                required: true
-            },
-            t_pass_confirm : {
-                required: true,
-                equalTo : '#t_pass'
-            }
-        },
-        messages : {
-            t_pass_confirm : {
-                equalTo : "Password doesn't match"
-            }
-        },
-        submitHandler : function(){
-            var data = $("#update-student-password-form").serialize();
 
-            $.ajax({
-                url : BASE_URL+"/php/add_teacher.php",
-                type : "post",
-                data : data,
-                success : function(data){
-                    x = JSON.parse(data);
-
-                    if(x.code == "00"){
-                        alert(x.message);
-                        window.location = BASE_URL+"/admin/overview-teacher";
-                    }else{
-                        alert(x.message);
-                    }
-                }
-            })
-        }
-    });
 
 
 
@@ -705,9 +658,48 @@ $("#login-form").validate({
         }
     });
 
-    $("#update_pass").on("click", function () {
-       var s_pass = $("#s_pass_confirm").val();
-       alert(s_pass);
+    //stuudent password update
+    // $("#update_pass").on("click", function () {
+    //    var s_pass = $("#s_pass_confirm").val();
+    //    alert(s_pass);
+    // });
+
+    $("#update-student-password-form").validate({
+        rules: {
+            s_pass: {
+                required: true
+            },
+            s_pass_confirm : {
+                required: true,
+                equalTo : '#s_pass'
+            }
+        },
+        messages : {
+            s_pass_confirm : {
+                equalTo : "Password doesn't match"
+            }
+        },
+        submitHandler : function(){
+            var dataString = $("#update-student-password-form").serialize();
+            var id = $("#update_pass").data('sid');
+            var token = $("#update_pass").data('token');
+
+            $.ajax({
+                url : BASE_URL+"/php/update_student_password.php",
+                type : "post",
+                data : dataString+"&sid="+id+"&token="+token,
+                success : function(data){
+                    x = JSON.parse(data);
+
+                    if(x.code == "00"){
+                        alert(x.message);
+                        window.location = BASE_URL+"/home/";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
     });
 
 

@@ -79,7 +79,7 @@ if(!empty($studentResult['student_id'])){
 		    $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
 		    $mail->SMTPAuth = true;                               // Enable SMTP authentication
 		    $mail->Username = 'jd1388813@gmail.com';              // SMTP username
-		    $mail->Password = 'tempass';                          // SMTP password
+		    $mail->Password = 'lalalakakaka';                          // SMTP password
 		    $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 		    $mail->Port = 465;                                    // TCP port to connect to; 465 for ssl and 587 for TLS
 
@@ -92,7 +92,7 @@ if(!empty($studentResult['student_id'])){
 		    //Content
 		    $mail->isHTML(true);                                  // Set email format to HTML
 		    $mail->Subject = 'Verify account for SIMS';
-		    $mail->Body    = 'Please validate your account here <b>http://localhost/sims/home/validate/'.$getToken.'</b>';
+		    $mail->Body    = 'Please validate your account here <b>'.BASE_URL.'/home/validate/'.$getToken.'</b>';
 		    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 		    $mail->send();

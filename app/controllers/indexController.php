@@ -2,6 +2,7 @@
 
 use SIMS\App\Entities\Student;
 use SIMS\App\Models\StudentModel;
+use SIMS\App\Models\AccessTokenModel;
 use SIMS\Classes\Controller;
 use SIMS\Classes\View;
 
@@ -45,18 +46,43 @@ class IndexController extends Controller
         }
     }
 
-	public function validate(){
+	public function validate($id){
 
 
-//		if(empty($id)){
-//			$this->error();
-//			return false;
-//		}
+		if(empty($id)){
+			$this->error();
+			return false;
+		}
 
 		$this->view = new View("validate");
 //		$this->model = new StudentModel();
 //
 //		$this->model->tokenValidity($id);
+        $this->model = new AccessTokenModel();
+
+        $status = $this->model->getStatus($id);
+
+        if($status === '1'){
+            $this->unauthorized();
+            return false;
+        }
+
+        // Get the student_id based on the access_token
+        $student_id = $this->model->getStudentID($id);
+        $this->view->student_id = $student_id;
+
+        // Get the access_token
+        $token = $this->model->getToken($id);
+        $this->view->token = $token;
+
+
+        // If date_validity is lower than current date, student cannot access the update password page
+        $validity = $this->model->getValidity($id);
+
+        if($validity){
+	        $this->unauthorized();
+	        return false;
+        }
 
 		$this->view->render();
 
