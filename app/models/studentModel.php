@@ -305,18 +305,4 @@ class StudentModel extends Model {
 		return false;
 	}
 
-	public function rejectToken($student_id){
-    	$token = $this->resendToken($student_id);
-
-    	$stmt = $this->db->prepare("UPDATE access_token SET status = 1 WHERE access_token = :access_token");
-    	$result = $stmt->execute([":access_token"=>$token]);
-		if($result){
-			return true;
-		}
-		return false;
-	}
-
-
-
-
 }

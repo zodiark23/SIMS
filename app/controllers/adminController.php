@@ -13,6 +13,7 @@ use SIMS\App\Models\ScheduleModel;
 use SIMS\App\Models\SectionModel;
 use SIMS\App\Models\TimeModel;
 use SIMS\App\Models\GradeModel;
+use SIMS\App\Models\RejectModel;
 
 
 class AdminController extends Controller{

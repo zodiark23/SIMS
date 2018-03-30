@@ -721,7 +721,7 @@ $("#login-form").validate({
     });
 
     // Reject token
-    $("#reject-btn").on("click", function () {
+    $(".reject-btn").on("click", function () {
         var id = $(this).data('target');
 
         if(confirm("Are you sure you want to reject this student?")){
@@ -738,6 +738,7 @@ $("#login-form").validate({
                     }else{
                         alert(x.message);
                     }
+
                 }
             });
         }

@@ -24,23 +24,20 @@ $resendToken = $studentModel->resendToken($student_id);
 
 if(!empty($student_id)){
 
-        
-
 	    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
 	    try {
 		    //Server settings
-		    // $mail->SMTPDebug = 2;                                 // Enable verbose debug output, 1 or 2
 		    $mail->isSMTP();                                      // Set mailer to use SMTP
 		    $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
 		    $mail->SMTPAuth = true;                               // Enable SMTP authentication
-		    $mail->Username = 'simstestemail@gmail.com';              // SMTP username
-		    $mail->Password = 'sims1234!@#$';                          // SMTP password
+		    $mail->Username = 'simstestemail10@gmail.com';        // SMTP username
+		    $mail->Password = 'sims1234!@#';                     // SMTP password
 		    $mail->SMTPSecure = 'TLS';                            // Enable TLS encryption, `ssl` also accepted
 		    $mail->Port = 587;                                    // TCP port to connect to; 465 for ssl and 587 for TLS
 
 		    //Recipients
 		    $mail->setFrom('simsofficial@gmail.com', 'SIMS'); // Sender (SIMS)
-		    $mail->addAddress($email, $fname);     // Add a recipient; Name is optional
+		    $mail->addAddress($email, $fname);                              // Add a recipient; Name is optional
 		    $mail->addReplyTo('noreply@sims.com', 'Information');
 
 

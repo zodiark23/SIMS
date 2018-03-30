@@ -4,24 +4,16 @@ include("../config.php");
 include("../classes/autoloader.php");
 loadPackage("../");
 
-use SIMS\App\Models\StudentModel;
-use SIMS\App\Entities\Student;
-use SIMS\App\Entities\EducationalAttainment;
-// Import PHPMailer classes into the global namespace
-// These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-//Load Composer's autoloader
-require '../phpmailer/autoload.php';
+use SIMS\App\Models\RejectModel;
 
 
-$studentModel = new StudentModel();
-$student_id = $_POST['id'];
+$student_id = new RejectModel();
 
-$rejectStudent = $studentModel->rejectToken($student_id);
+$id = $student_id->getStudentID($_POST['id']);
+$reject = $student_id->deleteStudentDetails($id);
 
-if($rejectStudent){
+
+if($reject){
 
         $callback['code'] = "00";
         $callback['message'] = "Successfully rejected the student.";
