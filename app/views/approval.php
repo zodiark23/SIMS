@@ -20,6 +20,7 @@ Fix the UI @morbid
                     <table style="width:100%" class="content-panel-table">
                         <tr>
                             <th>Student</th>
+                            <th>Email</th>
                             <th>Action</th>
                         </tr>
 
@@ -30,11 +31,14 @@ Fix the UI @morbid
 			                    $f_name = $student['first_name'];
 			                    $s_name = $student['last_name'];
 			                    $student_id = $student['student_id'];
-			                    $email = $student['email'];
+								$email = $student['email'];
+								echo "<tr>";
+								echo "<td>".$f_name." ".$s_name."</td>";
+								echo "<td>".$email."</td>";
+								// Resend email to the student | Set the access_token to 1
+								echo "<td><input type='button'  class='tbl-builder-btn resend-btn' value='Resend' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'> | <input type='button' id='reject-btn' class='tbl-delete-btn' value='Reject' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'></td>";
+								echo "</tr>";
 		                    }
-		                    echo "<td>".$f_name." ".$s_name."</td>";
-		                    // Resend email to the student | Set the access_token to 1
-		                    echo "<td><input type='button' id='resend-btn' class='tbl-builder-btn view-btn' value='Resend' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'> | <input type='button' id='reject-btn' class='tbl-delete-btn' value='Reject' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'></td>";
 	                    }
 	                    ?>
 

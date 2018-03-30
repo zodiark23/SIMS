@@ -698,7 +698,7 @@ $("#login-form").validate({
     });
 
     // Resend token
-    $("#resend-btn").on("click", function () {
+    $(".resend-btn").on("click", function () {
        var id = $(this).data('target');
        var fname = $(this).data('f_name');
        var email = $(this).data('email');

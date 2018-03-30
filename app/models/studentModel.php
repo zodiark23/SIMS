@@ -6,7 +6,7 @@ use SIMS\Classes\Model;
 use SIMS\Classes\Database;
 use SIMS\App\Entities\Student;
 use SIMS\App\Entities\EducationalAttainment;
-
+use PDO;
 
 class StudentModel extends Model {
     
@@ -86,6 +86,27 @@ class StudentModel extends Model {
             return ["student_id" => $last_id ?? false];
         }
 
+
+        return false;
+    }
+
+
+    /**
+     * Return the list of students. You can pass level_id to filter the result
+     * 
+     * Please use showListBySection() to return students by section
+     * 
+     * 
+     */
+    public function showList($level_id = null){
+        $stmt = $this->db->prepare("SELECT * FROM `students` WHERE `status`=1");
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        if(count($result) > 0){
+            return $result;
+        }
 
         return false;
     }
@@ -234,7 +255,7 @@ class StudentModel extends Model {
     	if($result){
     		return false;
 	    } else {
-		    $stmt = $this->db->prepare("INSERT INTO access_token (token_id,student_id,access_token,date_validity,status) VALUES (null,:student_id,:access_token,DATE_ADD(CURDATE(), INTERVAL 7 DAY),'default')");
+		    $stmt = $this->db->prepare("INSERT INTO access_token (token_id,student_id,access_token,date_validity) VALUES (null,:student_id,:access_token,DATE_ADD(CURDATE(), INTERVAL 7 DAY))");
 		    $result = $stmt->execute([":student_id"=>$student_id,
 			    ":access_token"=>$student->password]);
 		    if($result){
@@ -261,7 +282,7 @@ class StudentModel extends Model {
 	}
 
 	public function getStudents(){
-    	$stmt = $this->db->prepare("SELECT * FROM students s JOIN access_token act ON s.student_id=act.student_id WHERE act.status = 0");
+    	$stmt = $this->db->prepare("SELECT * FROM students s LEFT JOIN access_token act ON s.student_id=act.student_id WHERE act.status = 0");
     	$stmt->execute();
     	$result = $stmt->fetchAll();
 		if($result){

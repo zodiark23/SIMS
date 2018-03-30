@@ -24,18 +24,17 @@ $resendToken = $studentModel->resendToken($student_id);
 
 if(!empty($student_id)){
 
-        $callback['code'] = "00";
-        $callback['message'] = "Successfully forwarded the approval code.";
+        
 
 	    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
 	    try {
 		    //Server settings
-		    $mail->SMTPDebug = 2;                                 // Enable verbose debug output, 1 or 2
+		    // $mail->SMTPDebug = 2;                                 // Enable verbose debug output, 1 or 2
 		    $mail->isSMTP();                                      // Set mailer to use SMTP
 		    $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
 		    $mail->SMTPAuth = true;                               // Enable SMTP authentication
-		    $mail->Username = 'jd1388813@gmail.com';              // SMTP username
-		    $mail->Password = 'temppass';                          // SMTP password
+		    $mail->Username = 'simstestemail@gmail.com';              // SMTP username
+		    $mail->Password = 'sims1234!@#$';                          // SMTP password
 		    $mail->SMTPSecure = 'TLS';                            // Enable TLS encryption, `ssl` also accepted
 		    $mail->Port = 587;                                    // TCP port to connect to; 465 for ssl and 587 for TLS
 
@@ -51,11 +50,14 @@ if(!empty($student_id)){
 		    $mail->Body    = 'Please validate your account here <b>'.BASE_URL.'/home/validate/'.$resendToken.'</b>';
 		    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-		    $mail->send();
-		    echo 'Message has been sent';
+			$mail->send();
+			
+			$callback['code'] = "00";
+			$callback['message'] = "Successfully forwarded the approval code.";
+		    
 	    } catch (Exception $e) {
-		    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-		    return false;
+		    $callback['code'] = 500;
+		    $callback['message'] =  'Message could not be sent. Mailer Error: '. $mail->ErrorInfo;
 	    }
     }else{
         $callback['code'] = "01";
