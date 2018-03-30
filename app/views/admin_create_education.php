@@ -112,12 +112,13 @@
                             </form>
                         </div>
                         <?php if(!$published){ ?>
+                            <div class='btn-container'>
                             <input type="button" class="outlined-button" data-curr-id="<?= ($this->data["adminModel"]["curriculum_id"] ?? "" ) ?>" id="submit-educational" value="<?= ($this->action == "new" ? "Create" : "Save") ?>" />
                             <?php if($this->action == "edit"){ ?>
                                 <input type="button" class="outlined-button" data-curr-id="<?= ($this->data["adminModel"]["curriculum_id"] ?? "" ) ?>" id="publish-educational" value="Publish" />
-                            
                             <?php 
                             }
+                            echo "</div>";
                         
                         } //end of $published block
                         else{
