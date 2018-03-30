@@ -899,6 +899,12 @@ textarea {
     display: block;
     margin-left: auto;
 }
+.content-panel .btn-container {
+    padding: 0 30px;
+}
+.content-panel .btn-container input {
+    display: inline-block;
+}
 /* ==========================================================================
    Media Queries
    ========================================================================== */
