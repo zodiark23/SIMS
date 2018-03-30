@@ -38,14 +38,36 @@
                 <tr>
                     <th colspan=2 style='text-align:left;padding-left:15px;'>Subjects</th>
                 </tr>
-                <tr>
-                    <td colspan="2">No data</td>
-                </tr>
+                <?php
+
+                if($this->requiredSubjects){
+                        foreach($this->requiredSubjects as $rs){
+                            //find the subject name
+                            $subject_name = "err#";
+
+                            foreach($this->subjects as $s){
+                                if($s['subject_id'] == $rs->subject_id){
+                                    $subject_name = $s['subject_name'];
+                                }
+                            }
+                            echo "<tr>
+                                <td>".$subject_name."</td>
+                                <td> <a class='detachSubject tbl-delete-btn' data-lid='".$rs->level_id."' data-cid='".$rs->subject_id."'>Remove</a></td>
+                                </tr>
+                            ";
+                        }
+                }else{
+                    echo "<tr>
+                            <td colspan=2>No data</td>
+                        </tr>";
+                }
+                ?>
+                
             </table>
 
             <h3 class="dashboard-section-title" style="background:transparent;color:#303030">Add Required Subjects</h3>  
-            <form id="add-level-requirements">
-                <select>
+            <form id="add-level-requirements" data-cid="<?= ($this->level_info['level_id'] ?? 0 )?>">
+                <select name='subject'>
                     <option value="">Choose Subject</option>
                     <?php
                         foreach($this->subjects as $s){
@@ -87,6 +109,28 @@
                     })
 
                     
+                });
+                $(".detachSubject").on('click', function(){
+                    var cid = $(this).data('cid');
+                    var lid = $(this).data('lid');
+                    var me = $(this);
+
+                    var c = confirm("Are you sure?");
+                    if(c){
+                        $.ajax({
+                            url : BASE_URL+"/php/detach_subject.php",
+                            data : {subject : cid , level : lid},
+                            type : "post", 
+                            success : function(data){
+                                var x = JSON.parse(data);
+                                
+                                alert(x.message);
+                                if(x.code == '00'){
+                                    me.parent().parent().remove();
+                                }
+                            }
+                        })
+                    }
                 });
             });
         </script>

@@ -387,7 +387,7 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
             data: 'news_id='+news_id,
             success: function(data) {
                 $(".bg-modal").show();
-                $(".modal-content").html(data);
+                $(".modal-content .real-content").html(data);
             }
         })
     });
@@ -1156,6 +1156,33 @@ $("#login-form").validate({
                     if(x.code == "00"){
                         alert(x.message);
                         window.location = BASE_URL+"/admin/grade-schemes";
+                    }else{
+                        alert(x.message);
+                    }
+                }
+            })
+        }
+    });
+
+
+    $("#add-level-requirements").validate({
+        rules : {
+            subject : {
+                required : true
+            }
+        },
+        submitHandler : function(e){
+            var data = $(e).serialize();
+            var level = $(e).data("cid");
+            $.ajax({
+                url: BASE_URL+"/php/attach_subject.php",
+                data : data+"&level="+level,
+                type : 'post',
+                success : function(data){
+                    var x = JSON.parse(data);
+                    if(x.code == "00"){
+                        alert(x.message);
+                        location.reload();
                     }else{
                         alert(x.message);
                     }

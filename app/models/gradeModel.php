@@ -187,6 +187,25 @@ class GradeModel extends Model {
         
     }
 
+    /**
+     * Returns the lists of levels that uses this grade scheme
+     * 
+     * @param int $scheme_id
+     * 
+     * @return array|bool 
+     */
+    public function getSchemeReferences(int $scheme_id){
+        $stmt = $this->db->prepare("SELECT * FROM `grade_scheme_item_id` WHERE `grade_scheme_id` = :gsi ");
+        $stmt->execute(['gsi' => $scheme_id]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        if(count($result) > 0){
+            return $result;
+        }
+        return false;
+    }
+
 
 
 

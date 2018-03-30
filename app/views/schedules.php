@@ -30,7 +30,7 @@
                     if($this->data){
                         foreach($this->data as $sched){
                 ?>
-                <tr>
+                <tr class='search_index'>
                     <td><?= $sched['schedule_id'] ?></td>
                     <td><?= $sched['schedule_name']?></td>
                     <td><?= $sched['year_start']."-".$sched['year_end']?></td>
@@ -59,7 +59,9 @@
                 <?php } ?>
             </table>
 
-
+            <script>
+                    $("#search-box").quicksearch('.search_index');
+            </script>
             
 
         </div>

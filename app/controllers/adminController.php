@@ -45,18 +45,18 @@ class AdminController extends Controller{
          */
         $schedModel = new ScheduleModel();
         $schedResult = $schedModel->scheduleList();
-        $this->side_nav_data['scheduleCount'] = count($schedResult) ?: 0;
+        $this->side_nav_data['scheduleCount'] = $schedResult ? count($schedResult) : 0;
 
         /**
          * Subject sidenav counter
          */
          $subjectModel = new SubjectModel();
          $subjectResult = $subjectModel->list();
-         $this->side_nav_data['subjectCount'] = count($subjectResult) ?: 0;
+         $this->side_nav_data['subjectCount'] = $subjectResult ? count($subjectResult) : 0;
          
          $sectionModel= new SectionModel();
          $sectionResult = $sectionModel->list();
-         $this->side_nav_data['sectionCount'] = count($sectionResult) ?: 0;
+         $this->side_nav_data['sectionCount'] = $sectionResult ? count($sectionResult) : 0;
          
     }
 
@@ -86,6 +86,9 @@ class AdminController extends Controller{
         $curriculumModel = new CurriculumModel();
         $level_info = $curriculumModel->schoolLevelInfo($id);
 
+        $getRequiredSubjects = $curriculumModel->showLevelRequiredSubjects((int)$id);
+        
+
         
         if(!$level_info){
             $this->error();
@@ -100,6 +103,7 @@ class AdminController extends Controller{
         $subjectModel = new SubjectModel();
         $subjects = $subjectModel->list($level_info['curriculum_id']);
 
+        $this->view->requiredSubjects = $getRequiredSubjects;
         $this->view->selectedGradeScheme = $gradeSchemeResult["grade_scheme_id"] ?? 0;
         $this->view->level_info = $level_info;
         $this->view->gradeSchemes = $gradeSchemes;
@@ -115,7 +119,7 @@ class AdminController extends Controller{
         $userHasRights = $this->roleModel->verifyRights("ALL");
         if(!$userHasRights){
             // Check users with this rights
-            $commonRights = $this->roleModel->verifyRights("ADD_SUBJECT");
+            $commonRights = $this->roleModel->verifyRights("MANAGE_EDUCATION");
             if(!$commonRights){
 
                 $this->unauthorized();
@@ -142,15 +146,22 @@ class AdminController extends Controller{
         // Get the Grade Scheme Info for each level
         $gradeModel = new GradeModel();
         $gradeSchemeArray = [];
+        // Get also if required subject is configured
+        $levelRequirements = [];
         foreach($result as $r){
             $gradeSchemeResult = $model->schoolLevelGradeSchemeInfo( ((int)$r["level_id"] ?? 0) );
             $gradeSchemeId = $gradeSchemeResult["grade_scheme_id"] ?? 0;
             $gradeSchemeDetails = $gradeModel->gradeSchemeDetails((int)$gradeSchemeId);
 
             $gradeSchemeArray[$r['level_id']] = $gradeSchemeDetails ?: [];
+
+
+            $requiredSubject = $model->showLevelRequiredSubjects( ((int)$r['level_id'] ?? 0) ) ;
+
+            $levelRequirements[$r['level_id']] = $requiredSubject == false ? false : true;
         }
 
-
+        $this->view->requirements = $levelRequirements;
         $this->view->gradeSchemes = $gradeSchemeArray;
         $this->view->cur_name = $curriculumName[0]["description"] ?? "Err#";
         $this->view->info = $result;
@@ -728,7 +739,15 @@ class AdminController extends Controller{
         $gradeModel = new GradeModel();
 
         $lists = $gradeModel->gradeSchemeList();
+        $references = [];
 
+        foreach($lists as $list){
+            $reference = $gradeModel->getSchemeReferences( ($list->grade_scheme_id ?? 0 ) );    
+
+            $references[($list->grade_scheme_id ?? "")] = $reference != false ? count($reference) : 0;
+        }
+
+        $this->view->references = $references;
         $this->view->grade_schemes = $lists;
         $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;

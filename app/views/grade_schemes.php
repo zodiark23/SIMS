@@ -29,18 +29,24 @@
                 if(count($this->grade_schemes) <= 0){
                     echo "<tr><td colspan='5'>No data</td></tr>";
                 }else{
-                    foreach($this->grade_schemes as $gs){
-                        echo "
+                    if($this->grade_schemes){
+
+                        foreach($this->grade_schemes as $gs){
+                            $reference = $this->references[$gs->grade_scheme_id];
+                            echo "
                             <tr>
-                                <td>".($gs->grade_scheme_id ?? "err#")."</td>
-                                <td>".($gs->description ?? "")."</td>
-                                <td class='sims-primary'>".($gs->pass_threshold ?? "")."/100</td>
-                                <td>".($gs->date_implemented ?? "")."</td>
-                                <td>0</td>
-                                <td> <a href='".BASE_URL."/admin/edit-grade-scheme/".($gs->grade_scheme_id ?? "")."'>Edit</a></td>
+                            <td>".($gs->grade_scheme_id ?? "err#")."</td>
+                            <td>".($gs->description ?? "")."</td>
+                            <td class='sims-primary'>".($gs->pass_threshold ?? "")."/100</td>
+                            <td>".($gs->date_implemented ?? "")."</td>
+                            <td>$reference</td>
+                            <td> <a href='".BASE_URL."/admin/edit-grade-scheme/".($gs->grade_scheme_id ?? "")."'>Edit</a></td>
                             </tr>
-                        
-                        ";
+                            
+                            ";
+                        }
+                    }else{
+                        echo "<tr><td colspan='6'>No Data</td></tr>";
                     }
                 }
                 

@@ -30,7 +30,7 @@
 
                     foreach($this->data as $sched){
                 ?>
-                <tr>
+                <tr class='search_index'>
                     <td><?= $sched['section_id'] ?></td>
                     <td><?= $sched['section_name']?></td>
                     
@@ -52,7 +52,9 @@
                 <?php } ?>
             </table>
 
-
+            <script>
+                    $("#search-box").quicksearch('.search_index');
+            </script>
             
 
         </div>

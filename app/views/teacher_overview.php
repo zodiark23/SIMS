@@ -40,7 +40,7 @@ Fix the UI @morbid
 
                         $count++;
                     ?>
-                    <tr>
+                    <tr class='search_index'>
                         <td><?= ($count) ?></td>
                         <td><?= ($cur_data['first_name'] ?? "")." ". ($cur_data['last_name'] ?? "") ?></td>
                         <td><?= date("M dS, Y h:i:s a", strtotime( ($cur_data['create_date'] ?? "") ) ) ?></td>
@@ -58,6 +58,10 @@ Fix the UI @morbid
                     ?>
                 </tbody>
             </table>
+
+            <script>
+                    $("#search-box").quicksearch('.search_index');
+            </script>
 
         </div>
 

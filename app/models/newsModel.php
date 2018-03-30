@@ -20,7 +20,7 @@ class NewsModel extends Model
 
     public function addNews($role_id, $title, $content)
     {
-        $stmt = $this->db->prepare("INSERT INTO news (news_id,news_title,news_author,create_date,news_content,news_publish) VALUES (NULL,:news_title,:news_author,CURRENT_TIMESTAMP,:news_content,0)");
+        $stmt = $this->db->prepare("INSERT INTO news (news_id,news_title,news_author,create_date,last_updated,news_content,news_publish) VALUES (NULL,:news_title,:news_author,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,:news_content,0)");
 
         $stmt->execute([":news_title" => $title, ":news_author" => $role_id, ":news_content" => $content]);
 

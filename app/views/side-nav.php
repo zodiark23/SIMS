@@ -74,7 +74,7 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
             <li class="parent-li <?= $schedulePointer?>">
                 <a href="javascript:void(0);">Schedules <span class="count"><?=($this->side_nav_data['scheduleCount'] ?? 0)?></span></a>
                 <ul class="child-ul">
-                    <li><a href="">View Schedules</a></li>
+                    <!-- <li><a href="">View Schedules</a></li> -->
                     <li><a href="">My Schedule</a></li>
                     <li><a href="<?=BASE_URL?>/admin/manage-schedule">Manage Schedule</a></li>
                 </ul>
@@ -82,9 +82,9 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
             <li class="parent-li <?= $subjectPointer?>">
                 <a href="javascript:void(0);">Subjects <span class="count"><?=($this->side_nav_data['subjectCount'] ?? 0)?></span></a>
                 <ul class="child-ul">
-                    <li><a href="">Overview</a></li>
+                    <!-- <li><a href="">Overview</a></li> -->
                     <li><a href="<?=BASE_URL?>/admin/subject-list">Lists</a></li>
-                    <li><a href="<?=BASE_URL?>/admin/create-subject">Manage Subjects</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/create-subject">Create Subjects</a></li>
                 </ul>
             </li>
             <li class="parent-li <?= $sectionPointer?>">

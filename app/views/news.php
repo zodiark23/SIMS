@@ -13,6 +13,11 @@ Fix the UI @morbid
 			<div class="content-panel">
                 <div class="content-head">
                     <h3 class="dashboard-section-title">Publish News</h3>
+                    <div class="input-group">                 
+                        <a class="outlined-button" href="<?=BASE_URL?>/admin/add_news">Create</a>
+                        <input type="text" id="search-box" placeholder="Search">
+                        <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
+                    </div> 
                 </div>
                 <form id="display-news-form" method="post">
                     
@@ -97,6 +102,7 @@ Fix the UI @morbid
                         <div class='modal-content'>
                             
 						<div class='close-modal'><i class="far fa-times-circle"></i></div>
+                        <div class='real-content'></div>
                         </div>
                     </div>
 
@@ -106,7 +112,7 @@ Fix the UI @morbid
 
                     <br>
                     <br>
-                    <button class="outlined-button add-news" value="Add"><a href="<?=BASE_URL?>/admin/add_news">Add News</a></button>
+                    
 
                 </form>
 			</div>

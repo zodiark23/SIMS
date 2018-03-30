@@ -45,7 +45,7 @@ if(!$this->hasRights){
                         $count++;
                     ?>
                     
-                        <tr>
+                        <tr class='search_index'>
                             <td><?= ($count) ?></td>
                             <td><?= ($cur_data['description'] ?? "") ?></td>
                             <td><?= ($cur_data['year_duration'] ?? "") ?></td>
@@ -56,9 +56,18 @@ if(!$this->hasRights){
                             </td>
                         </tr>
                     
-                    <?php } ?>
+                    <?php } 
+                         
+                        if(!$this->data){
+                            echo "<tr><td colspan='4'>No Data</td></tr>";
+                        }
+                    ?>
                 </tbody>
             </table>
+
+            <script>
+                    $("#search-box").quicksearch('.search_index');
+            </script>
 
         </div>
 

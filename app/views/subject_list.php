@@ -46,7 +46,7 @@ add styling on bottom note
 
                                 foreach($subjects as $s){
                     ?>
-                            <tr>
+                            <tr class='search_index'>
                                 <td><?= ($s['subject_name'] ?? "") ?></td>
                                 <td><?= ($curriculum ?? "") ?></td>
                                 <td>
@@ -94,6 +94,10 @@ add styling on bottom note
                     });
                 }
              });
+            
+            
+             $("#search-box").quicksearch('.search_index');
+             
         </script>
     </div>
 </div>
