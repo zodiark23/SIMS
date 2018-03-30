@@ -903,7 +903,7 @@ textarea {
     padding: 0 30px;
 }
 .content-panel .btn-container input {
-    display: inline-block;
+    display: inline-block !important;
 }
 /* ==========================================================================
    Media Queries
