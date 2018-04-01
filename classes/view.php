@@ -31,6 +31,10 @@ class View {
         require_once ("app/views/master.layout.php");
     }
 
+    public function raw_view(){
+        require_once("app/views/".$this->view.".php");
+    }
+
 
     public function error(){
         require_once ("app/views/404.php");

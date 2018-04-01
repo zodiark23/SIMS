@@ -6,6 +6,7 @@ use SIMS\Classes\Database;
 
 
 use SIMS\App\Entities\Section;
+use PDO;
 use Exception;
 
 class SectionModel extends Model{
@@ -63,6 +64,36 @@ class SectionModel extends Model{
         return false;
     }
 
+    /**
+     * Returns the sections this teacher manage
+     */
+    public function getSectionByAdvisor($teacher_id){
+        $stmt = $this->db->prepare("SELECT * FROM `sections` WHERE section_adviser = :teacher_id");
+        $stmt->execute(["teacher_id" => $teacher_id]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the student this section has.
+     * Default status `In Progress`
+     */
+    public function getStudents($section_id, $status = "In Progress"){
+        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE section_id = :section_id ");
+        $stmt->execute(["section_id" => $section_id ]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        if(count($result) > 0){
+            return $result;
+        }
+        return false;
+    }
 
     /**
      * Updates the target section

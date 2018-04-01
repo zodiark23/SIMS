@@ -3,6 +3,7 @@
 use SIMS\Classes\Model;
 use SIMS\Classes\Database;
 use SIMS\App\Entities\GradeScheme;
+use SIMS\App\Entities\Grade;
 use PDO;
 /**
  * Tied with 3 tables
@@ -131,7 +132,71 @@ class GradeModel extends Model {
      * @note Checks if the current user has rights ADD GRADE
      */
     public function encodeGrade(Grade $grade){
-        
+        $stmt = $this->db->prepare("INSERT INTO `grades` (
+                        `section_id`,                               
+                        `student_id`,                               
+                        `subject_id`,                               
+                        `grade`,                               
+                        `created_date`,                               
+                        `modified_date`,                               
+                        `flags`,                               
+                        `result`                               
+                         ) 
+                        VALUES (
+                            :section_id,
+                            :student_id,
+                            :subject_id,
+                            :grade,
+                            :created_date,
+                            :modified_date,
+                            :flags,
+                            :result
+                        )
+                    ");
+        $stmt->execute([
+            "section_id" => $grade->section_id,
+            "student_id" => $grade->student_id,
+            "subject_id" => $grade->subject_id,
+            "grade" => $grade->grade,
+            "created_date" => $grade->created_date,
+            "modified_date" => $grade->modified_date,
+            "flags" => $grade->flags,
+            "result" => $grade->result
+
+        ]);
+
+        if($stmt->rowCount() > 0){
+            return $this->db->lastInsertId();
+        }
+        return false;
+    }
+
+    /**
+     * Edits the grade using the grade id
+     */
+    public function amendGrade(Grade $grade){
+        $updateStmt = $this->db->prepare("UPDATE `grades` SET `grade`=:grade WHERE `grade_id` =:grade_id");
+        $updateStmt->execute(["grade" => $grade->grade , "grade_id" => $grade->grade_id]);
+
+        if($updateStmt->rowCount() > 0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns all the grade this student have on particular section
+     */
+    public function getGrades(int $student_id, int $section_id){
+        $stmt = $this->db->prepare("SELECT * FROM `grades` WHERE `student_id`=:student_id AND `section_id` =:section_id");
+        $stmt->execute(["student_id" => $student_id , "section_id" => $section_id]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
     }
 
     /** 

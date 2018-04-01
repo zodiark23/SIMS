@@ -98,6 +98,38 @@ class TeacherModel extends Model{
         
     }
 
+    /**
+     * Get the students under this teacher
+     */
+    public function myStudents($teacher_id){
+        $sectionModel = new SectionModel();
+        $studentModel = new StudentModel();
+        $sections = $sectionModel->getSectionByAdvisor($teacher_id);
+
+        if(!$sections){
+            return false;
+        }
+        $list = [];
+        foreach($sections as $s){
+
+            $students = $sectionModel->getStudents($s->section_id);
+            $sectionStudents = array();
+            if($students){
+
+                foreach($students as $student){
+
+                    $student_id = $student->student_id;
+                    $result = $studentModel->findById("student_id",$student_id);
+                    $sectionStudents[] = $result;
+                }
+            }
+            $list[$s->section_id] = ["section_name" => $s->section_name, "data" => $sectionStudents];
+        }
+
+        return $list;
+
+    }
+
 
     /**
      * Add grade to the student

@@ -10,7 +10,7 @@ if($this->pointer == "approval" || $this->pointer == "create_education" || $this
 }
 
 $teacherPointer = "";
-if($this->pointer == "create_teacher" || $this->pointer == "overview_teacher"){
+if($this->pointer == "create_teacher" || $this->pointer == "overview_teacher" || $this->pointer == "my_students"){
     $teacherPointer = "active";
 }
 
@@ -65,7 +65,14 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                 <ul class="child-ul">
                     <li><a href="<?=BASE_URL?>/admin/overview-teacher">Overview</a></li>
                     <li><a href="<?=BASE_URL?>/admin/create-teacher">Add Teacher</a></li>
-                    <li><a href="">Grade Management</a></li>
+                    <?php 
+                        $teacher = $_SESSION['user']['teacher_id'] ?? null;
+                        if(!empty($teacher) && $teacher > 1){
+                        // prevent displaying on non teacher
+                    ?>
+                    <li><a href="<?=BASE_URL?>/account/my-students">My Students</a></li>
+                        <?php }?>
+                    <li><a href="<?=BASE_URL?>/account/grade-management">Grade Management</a></li>
                 </ul>
             </li>
             <!-- disabled for now not included in the system
