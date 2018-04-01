@@ -14,7 +14,22 @@ use SIMS\App\Models\StudentModel;
 class AccountController extends Controller{
 
     public function __construct(){
-        $this->view = new View("dashboard");
+	    @session_start();
+	    $id = $_SESSION['user']['role_id'] ?? 0;
+
+
+	    if($id == 1 || $id == 2) { // Admin / teacher
+		    $this->view = new View("profile_teacher");
+
+	    }elseif($id == 3){ // Student
+		    $this->view = new View("profile_student");
+
+	    }elseif($id == 4){ // Parent
+		    $this->view = new View("profile_parent");
+	    }else{
+
+		    return false;
+	    }
 
 
         $m = new CurriculumModel();
@@ -59,7 +74,23 @@ class AccountController extends Controller{
 
 
     public function account(){
-        $this->view = new View("dashboard");
+	    @session_start();
+	    $id = $_SESSION['user']['role_id'];
+
+	    if($id == 1 || $id == 2) { // Admin / teacher
+		    $this->view = new View("update_profile_teacher");
+		    $this->view->render();
+	    }elseif($id == 3){ // Student
+		    $this->view = new View("update_profile_student");
+		    $this->view->render();
+	    }elseif($id == 4){ // Parent
+		    $this->view = new View("update_profile_parent");
+		    $this->view->render();
+	    }
+	    else{
+		    $this->error();
+		    return false;
+	    }
     }
 
     public function grade_management(){
@@ -103,25 +134,49 @@ class AccountController extends Controller{
         $this->view->render();
     }
 
-    public function update($id){
-	    if(empty($id)){
-		    $this->error();
-		    return false;
-	    }
+	public function profile(){
+		@session_start();
+		$id = $_SESSION['user']['role_id'];
 
-	    if($id == 1 || $id == 2) { // Admin / teacher
-		    $this->view = new View("update_profile_teacher");
-		    $this->view->render();
-	    }elseif($id == 3){ // Student
-		    $this->view = new View("update_profile_student");
-		    $this->view->render();
-	    }elseif($id == 4){ // Parent
-		    $this->view = new View("update_profile_parent");
-		    $this->view->render();
-	    }
-	    else{
-		    $this->error();
-		    return false;
-	    }
-    }
+		if($id == 1 || $id == 2) { // Admin / teacher
+			$this->view = new View("profile_teacher");
+			$this->view->render();
+		}elseif($id == 3){ // Student
+			$this->view = new View("profile_student");
+			$this->view->render();
+		}elseif($id == 4){ // Parent
+			$this->view = new View("profile_parent");
+			$this->view->render();
+		}
+		else{
+			$this->error();
+			return false;
+		}
+	}
+
+	public function update(){
+		@session_start();
+		$id = $_SESSION['user']['role_id'];
+
+		if($id == 1 || $id == 2) { // Admin / teacher
+			$this->view = new View("update_profile_teacher");
+			$this->view->render();
+		}elseif($id == 3){ // Student
+			$this->view = new View("update_profile_student");
+			$this->view->render();
+		}elseif($id == 4){ // Parent
+			$this->view = new View("update_profile_parent");
+			$this->view->render();
+		}
+		else{
+			$this->error();
+			return false;
+		}
+	}
+
+	public function pic(){
+		$this->view = new View("pic");
+		$this->view->render();
+	}
+
 }

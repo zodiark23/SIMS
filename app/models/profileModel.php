@@ -13,6 +13,16 @@ class ProfileModel extends Model {
 
 	}
 
+	public function userImg($user_id){
+		$stmt = $this->db->prepare("SELECT * FROM profileimg WHERE userid = :userid");
+		$stmt->execute([":userid"=>$user_id]);
+		$result = $stmt->fetchAll();
+		if($result){
+			return true;
+		}
+		return false;
+	}
+
 	public function setTeacher($teacher_id,$f_name,$m_name,$l_name,$email,$pass,$civil_status,$address){
 		$stmt = $this->db->prepare("SELECT * FROM teachers WHERE teacher_id = :teacher_id");
 		$stmt->execute([":teacher_id"=>$teacher_id]);

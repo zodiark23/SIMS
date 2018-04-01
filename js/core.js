@@ -951,6 +951,7 @@ $("#login-form").validate({
 		}
 	});
 	
+	
 	// Update parent profile
 	$("#update-profile-parent-form").validate({
 		rules: {

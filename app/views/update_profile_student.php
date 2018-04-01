@@ -14,10 +14,21 @@ add styling on bottom note
     <div class="dashboard-container">
         <div class="content-panel">
             <h3 class="dashboard-section-title">Update Profile</h3>
-            <form id="update-profile-student-form">
+            <form id="update-profile-student-form" method="POST" enctype="multipart/form-data">
                 <br>
                 <h4>Account Info</h4>
                 <div class='error_profile_student_form'></div>
+
+                <br>
+                <br>
+                <label>Upload image:</label>
+                <br>
+                <br>
+                <input type="file" id="file" name="file">
+
+                <br>
+                <br>
+
                 <span class="input input--hoshi" style="width:45%">
                     <input value="<?= $_SESSION['user']['email'] ?>" class="input__field input__field--hoshi" type="text" id="student_email"  name="student_email">
                     <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="student_email">
