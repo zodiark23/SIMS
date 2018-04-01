@@ -5,13 +5,18 @@
     </div>
 <?php
 $adminPointer = "";
-if($this->pointer == "add_news" || $this->pointer == "level_configuration" || $this->pointer == "grade_schemes" || $this->pointer == "edit_grade_scheme" || $this->pointer == "add_grade_scheme" || $this->pointer == "edit_education" || $this->pointer == "show_education" || $this->pointer == "manage_roles" || $this->pointer == "roles" || $this->pointer == "education" || $this->pointer == "news" || $this->pointer == "grades_scheme"){
+if($this->pointer == "approval" || $this->pointer == "create_education" || $this->pointer == "add_news" || $this->pointer == "level_configuration" || $this->pointer == "grade_schemes" || $this->pointer == "edit_grade_scheme" || $this->pointer == "add_grade_scheme" || $this->pointer == "edit_education" || $this->pointer == "show_education" || $this->pointer == "manage_roles" || $this->pointer == "roles" || $this->pointer == "education" || $this->pointer == "news" || $this->pointer == "grades_scheme"){
     $adminPointer = "active";
 }
 
 $teacherPointer = "";
 if($this->pointer == "create_teacher" || $this->pointer == "overview_teacher"){
     $teacherPointer = "active";
+}
+
+$studentPointer = "";
+if($this->pointer == "enroll_student"){
+    $studentPointer = "active";
 }
 
 $schedulePointer = "";
@@ -25,6 +30,7 @@ if($this->pointer == "subject_list" || $this->pointer == "edit_subject"  || $thi
 }
 $sectionPointer = "";
 if($this->pointer == "section_list" || $this->pointer == "add_section"){
+    
     $sectionPointer = "active";
 }
 
@@ -45,12 +51,12 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                     <li><a href="<?=BASE_URL?>/admin/grade-schemes">Grade Scheme</a></li>
                 </ul>
             </li>
-            <li class="parent-li">
+            <li class="parent-li <?= $studentPointer ?>">
                 <a href="javascript:void(0);">Students <span class="count"><?=($this->side_nav_data['studentCount'] ?? 0)?></span></a>
                 <ul class="child-ul">
-                    <li><a href="">Overview</a></li>
-                    <li><a href="">Create New</a></li>
-                    <li><a href="">Manage Student</a></li>
+                    <li><a href="<?=BASE_URL?>/admin/student-overview">Overview</a></li>
+                    <!-- <li><a href="">Create New</a></li> -->
+                    <!-- <li><a href="">Manage Student</a></li> -->
                     <li><a href="">Academic Status</a></li>
                 </ul>
             </li>

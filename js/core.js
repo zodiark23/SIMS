@@ -1152,7 +1152,7 @@ $("#login-form").validate({
             type : "post",
             data : data,
             beforeSend : function(){
-                $("#sched_school_level").html("Loading . . . ");
+                $("#sched_school_level").html("<option val=''>Loading . . .</option> ");
             },
             success : function(data){
                 if(data == "false"){
@@ -1160,6 +1160,32 @@ $("#login-form").validate({
                 }
                 else{
                     $("#sched_school_level").html(data);
+                }
+            }
+
+        });
+
+    });
+
+    $(".loadSections").on("change", function(){
+        var data = {};
+
+        data['cid'] = $(this).val();
+        
+        $.ajax({
+            url : BASE_URL+"/php/load_section_list.php",
+            type : "post",
+            data : data,
+            beforeSend : function(){
+                $("#section_select").html("<option val=''>Loading . . .</option> ");
+            },
+            success : function(data){
+                if(data == "false"){
+                    alert("Unable to fetch proper school sections. Contact Support");
+                    $("#section_select").html("");
+                }
+                else{
+                    $("#section_select").html(data);
                 }
             }
 
@@ -1480,6 +1506,45 @@ $("#login-form").validate({
                     }
                 }
             })
+        }
+    });
+
+    $("#enrollStudentForm").validate({
+        rules : {
+            curr : {
+                required : true
+            }
+        },
+        submitHandler : function(e){
+            var data = $(e).serialize();
+
+            var student = $(e).data('cid');
+            
+            var schoolLevel = $("#sched_school_level").val();
+            var section = $("#section_select").val();
+            
+            if(schoolLevel == "" || section == ""){
+                alert("Please complete the form");
+            }else{
+                $.ajax({
+                    url : BASE_URL+"/php/enroll_student.php",
+                    type : "post",
+                    data : data+"&student_id="+student,
+                    success : function(data){
+                        var x = JSON.parse(data);
+
+                        alert(x.message);
+                        if(x.code == "00"){
+                            // redirect 
+                            window.location = BASE_URL+"/admin/student_overview"
+                        }
+                    }
+                });
+            }
+
+
+            
+
         }
     });
 

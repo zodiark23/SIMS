@@ -7,6 +7,7 @@ use SIMS\Classes\Database;
 use SIMS\App\Entities\Student;
 use SIMS\App\Entities\EducationalAttainment;
 use PDO;
+use Exception;
 
 class StudentModel extends Model {
     
@@ -161,6 +162,99 @@ class StudentModel extends Model {
     }
 
     /**
+     * Enroll a student to a section
+     */
+    public function enroll(int $student_id , int $level_id, int $section_id, $custom_level = "", $status = "In Progress"){
+        if($student_id == 0  || $level_id == 0 || $section_id == 0){
+            throw new Exception("Invalid argument passed for id.", 400);
+        }
+
+        // check if there's in progress for this student. Throw an error if true
+        $hasProgress = $this->checkInProgress($student_id);
+        if($hasProgress === true){
+            throw new Exception("This student currently has in progress status. The system will not proceed with the process.", 409);
+        }
+
+
+        $stmt = $this->db->prepare("INSERT INTO `student_educational`(student_id,level_id,section_id,status,custom_level,create_date,modified_date) 
+                            VALUES (
+                                :student_id,
+                                :level_id,
+                                :section_id,
+                                :status,
+                                :custom_level,
+                                :create_date,
+                                :modified_date
+                            )
+                            
+        ");
+
+        $stmt->execute([
+            "student_id" => $student_id,
+            "level_id" => $level_id,
+            "section_id" => $section_id,
+            "status" => $status,
+            "custom_level" => $custom_level,
+            "create_date" => date("Y-m-d H:i:s"),
+            "modified_date" => date("Y-m-d H:i:s")
+         ]);
+
+
+        if($stmt){
+
+            if($stmt->rowCount() > 0){
+                return true;   
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * Return all the educational information this student is tied to
+     * 
+     * @param int $student_id The student id to query
+     * 
+     * @return bool|array False if no info found
+     */
+    public function studentEducationalList(int $student_id){
+        if(empty($student_id) || $student_id == 0){
+            throw new Exception("Missing required information", 400);
+        }
+
+        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE `student_id` = :student_id");
+        $stmt->execute(["student_id" => $student_id]);
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        if($result && count($result) > 0){
+            return $result;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks for In Progress status on `student_educational` table
+     * 
+     * @param int $student_id The student to check
+     * 
+     * @return bool True if found
+     */
+    private function checkInProgress(int $student_id){
+        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE `student_id` = :student_id AND `status` = 'In Progress' ");
+        $stmt->execute(["student_id" => $student_id]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        if($result){
+            if(count($result) > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks whether the email is already existing
      * 
      * @param string $email The email to be checked
@@ -206,6 +300,24 @@ class StudentModel extends Model {
      */
     public function viewPayment($student_id){
         
+    }
+
+    /**
+     * Return the information about the student
+     * 
+     * @param int $student_id The student id you wish to query
+     */
+    public function studentInfo(int $student_id){
+        $stmt = $this->db->prepare("SELECT * FROM `students` WHERE `student_id` = :student_id");
+        $stmt->execute(["student_id" => $student_id ]);
+
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if($result && count($result) > 0){
+            return $result;
+        }
+
+        return false;
     }
 
 

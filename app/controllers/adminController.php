@@ -40,6 +40,10 @@ class AdminController extends Controller{
         $result = $teacherModel->showAll();
         $this->side_nav_data['teacherCount'] = 0;
         $this->side_nav_data['teacherCount'] = count($result) > 0 ? (count($result) - 1) : 0;
+
+        $studentModel = new StudentModel();
+        $studentResult = $studentModel->showList();
+        $this->side_nav_data['studentCount'] = $studentResult ? count($studentResult) : 0;
         
         /**
          * Schedules sidenav counter
@@ -736,6 +740,20 @@ class AdminController extends Controller{
     }
 
     public function grade_schemes(){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_GRADE_SCHEME");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
         $this->view = new View("grade_schemes");
         $gradeModel = new GradeModel();
 
@@ -756,6 +774,18 @@ class AdminController extends Controller{
     }
 
     public function add_grade_scheme(){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_GRADE_SCHEME");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
         $this->view = new View("add_grade_scheme");
         
         $this->view->pointer = $this->pointer;
@@ -764,6 +794,18 @@ class AdminController extends Controller{
     }
 
     public function edit_grade_scheme($id){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_GRADE_SCHEME");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
         if(empty($id)){
             $this->error();
             return false;
@@ -780,6 +822,18 @@ class AdminController extends Controller{
     }
 
     public function edit_news($id){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("EDIT_NEWS");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
     	if(empty($id)){
     		$this->error();
     		return false;
@@ -793,11 +847,24 @@ class AdminController extends Controller{
     	$this->view->news_content = $news_content;
 
     	$this->view->news_id = $id;
-
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
 	    $this->view->render();
     }
 
 	public function approval(){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("APPROVE_STUDENT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
 		$this->view = new View("approval");
 
 		$this->model = new StudentModel();
@@ -805,9 +872,86 @@ class AdminController extends Controller{
 		$student = $this->model->getStudents();
 
 		$this->view->students = $student;
-
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
 		$this->view->render();
-	}
+    }
+    
+
+    public function student_overview(){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_STUDENT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+        $this->view = new View("student_overview");
+
+        $studentModel = new StudentModel();
+        $result = $studentModel->showList();
+
+        $this->view->studentList = $result != false ? $result : [];
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+    public function enroll_student($id){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_STUDENT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+        $studentModel = new StudentModel();
+        $student = $studentModel->studentInfo((int)$id);
+
+        if($student == false || empty($student)){
+            $this->error();
+            return false;
+        }
+
+        
+        
+        $currModel = new CurriculumModel();
+        $sectionModel = new SectionModel();
+        
+        
+
+        
+        
+        $this->view = new View("enroll_student");
+        $this->view->studentEducational = $studentModel->studentEducationalList((int)$id);
+        $this->view->student = $student;
+        $this->view->curriculumList = $currModel->list();
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->sectionList = $sectionModel->list();
+
+        //get the proper name for the level
+        $levelNames = [];
+        foreach($this->view->curriculumList as $cl){
+            $levels = $currModel->schoolLevels($cl['curriculum_id']);
+            
+            foreach($levels as $level){
+                $levelNames[$level['level_id']] = $currModel->schoolLevelInfo($level['level_id']);
+            }
+        }
+        $this->view->levelNames = $levelNames ?? [];
+        $this->view->render();
+    }
 
 
 }
