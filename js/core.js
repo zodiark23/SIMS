@@ -743,12 +743,303 @@ $("#login-form").validate({
             });
         }
     });
+    
+    // Update teacher profile
+	$("#update-profile-teacher-form").validate({
+		rules: {
+			teacher_email: {
+				required: true,
+				regex : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+			},
+			teacher_pass: {
+				required: true
+			},
+			teacher_pass_confirm : {
+				required: true,
+				equalTo : '#teacher_pass'
+			},
+			teacher_first_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/,
+				minlength : 2,
+			},
+			teacher_middle_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			},
+			teacher_last_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			},
+			teacher_civil_status : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			},
+			teacher_address : {
+				required : true
+			}
+		},
+		messages : {
+			teacher_email : {
+				regex : 'Please enter a valid email'
+			},
+			teacher_pass_confirm : {
+				equalTo : "Password doesn't match"
+			},
+			teacher_first_name : {
+				minlength : "Name must be at least 2 characters",
+				regex : "Only letters are allowed",
+			},
+			teacher_middle_name : {
+				regex : "Only letters are allowed",
+			},
+			teacher_last_name : {
+				regex : "Only letters are allowed",
+			},
+			teacher_civil_status : {
+				regex : "Only letters are allowed"
+			}
+		},
+		submitHandler : function(){
+			var data = $("#update-profile-teacher-form").serialize();
+			var id = $(".t_update-btn").data('id');
+			
+			if(confirm("Are you sure you want to update your profile? You are required to re-login after saving your profile.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_teacher.php",
+					type: "post",
+					data: data + "&tid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
+	
+	// Update student profile
+	$("#update-profile-student-form").validate({
+		rules: {
+			student_email: {
+				required: true,
+				regex : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+			},
+			student_pass: {
+				required: true,
+				minlength : 4
+			},
+			student_pass_confirm : {
+				required: true,
+				equalTo : '#student_pass'
+			},
+			student_first_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/,
+				minlength : 2
+			},
+			student_middle_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			},
+			student_last_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			},
+			student_tel_num : {
+				required : true,
+				regex : /^[0-9]+$/
+			},
+			student_cell_num : {
+				required : true,
+				regex : /^[0-9]+$/
+			},
+			student_house_num : {
+				required : true,
+				regex : /^[a-zA-Z0-9]*$/
+			},
+			student_barangay : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			},
+			student_town : {
+				required: true,
+				regex: /^[a-zA-Z\s]+$/
+			},
+			student_province : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			}
+		},
+		messages : {
+			student_email : {
+				required : "Please enter a valid email",
+				regex : 'Please enter a valid email'
+			},
+            student_pass : {
+			    required : "Please enter a valid password",
+                minlength : "Password must be at least 4 characters"
+            },
+			student_pass_confirm : {
+				equalTo : "Password doesn't match"
+			},
+			student_first_name : {
+				required : "Please enter a valid first name",
+				minlength : "Name must be at least 2 characters",
+				regex : "Only letters are allowed"
+			},
+			student_middle_name : {
+				required : "Please enter a valid middle name",
+				regex : "Only letters are allowed"
+			},
+			student_last_name : {
+				required : "Please enter a valid last name",
+				regex : "Only letters are allowed"
+			},
+			student_tel_num : {
+				required : "Please enter a valid telephone number. It can be the same as you cellphone number.",
+				regex : "Only numbers are allowed"
+			},
+			student_cell_num : {
+				required : "Please enter a valid cellphone number.",
+				regex : "Only numbers are allowed"
+			},
+			student_barangay: {
+				required : "Barangay is required.",
+				regex : "Only letters are allowed"
+			},
+			student_house_num : {
+				required : "House / Street number is required.",
+				regex : "Please enter a valid house number / street."
+			},
+			student_town: {
+				required : "Town / City is required.",
+				regex : "Only letters are allowed"
+			},
+			student_province : {
+				required : "Province is required.",
+				regex : "Only letters are allowed"
+			}
+			
+		},
+		submitHandler : function(){
+			var data = $("#update-profile-student-form").serialize();
+			var id = $(".s_update-btn").data('id');
+			if(confirm("Are you sure you want to update your profile? You are required to re-login after saving your profile.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_student.php",
+					type: "post",
+					data: data + "&sid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
+	
+	// Update parent profile
+	$("#update-profile-parent-form").validate({
+		rules: {
+			parent_email: {
+				required: true,
+				regex : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+			},
+			parent_pass: {
+				required: true,
+				minlength : 4
+			},
+			parent_pass_confirm : {
+				required: true,
+				equalTo : '#parent_pass'
+			},
+			parent_first_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/,
+				minlength : 2
+			},
+			parent_middle_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			},
+			parent_last_name : {
+				required : true,
+				regex : /^[a-zA-Z\s]+$/
+			},
+			parent_contact : {
+				required : true,
+				regex : /^[0-9]+$/
+			}
+		},
+		messages : {
+			parent_email : {
+				required : "Please enter a valid email",
+				regex : 'Please enter a valid email'
+			},
+			parent_pass : {
+				required : "Please enter a valid password",
+				minlength : "Password must be at least 4 characters"
+			},
+			parent_pass_confirm : {
+				equalTo : "Password doesn't match"
+			},
+			parent_first_name : {
+				required : "Please enter a valid first name",
+				minlength : "Name must be at least 2 characters",
+				regex : "Only letters are allowed"
+			},
+			parent_middle_name : {
+				required : "Please enter a valid middle name",
+				regex : "Only letters are allowed"
+			},
+			parent_last_name : {
+				required : "Please enter a valid last name",
+				regex : "Only letters are allowed"
+			},
+			parent_contact : {
+				required : "Please enter a valid contact number.",
+				regex : "Only numbers are allowed"
+			}
+			
+		},
+		submitHandler : function(){
+			var data = $("#update-profile-parent-form").serialize();
+			var id = $(".p_update-btn").data('id');
+			
+			if(confirm("Are you sure you want to update your profile? You are required to re-login after saving your profile.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_parent.php",
+					type: "post",
+					data: data + "&pid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
 
-
-
-
-
-
+	
     $("#student-form").validate({
         rules : {
             s_last_name : {

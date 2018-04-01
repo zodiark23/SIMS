@@ -95,6 +95,12 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                     <!-- <li><a href="">Change Advisor</a></li> -->
                 </ul>
             </li>
+
+
+            <!-- Side nave dru -->
+            <li class="parent-li">
+                <a href="<?= BASE_URL ?>/account/update/<?= $_SESSION['user']['role_id'] ?>">My Profile</a>
+            </li>
             <!-- <li class="parent-li">
                 <a href="javascript:void(0);">Logs <span class="count">5</span></a>
                 <ul class="child-ul">

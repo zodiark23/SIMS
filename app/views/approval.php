@@ -12,7 +12,7 @@ Fix the UI @morbid
 		<div class="dashboard-container">
 			<div class="content-panel">
                 <div class="content-head">
-                    <h3 class="dashboard-section-title">Resend approval codes</h3>
+                    <h3 class="dashboard-section-title">Send approval codes</h3>
                 </div>
                 <form id="approval-form" method="post">
                     
@@ -36,7 +36,7 @@ Fix the UI @morbid
 								echo "<td>".$f_name." ".$s_name."</td>";
 								echo "<td>".$email."</td>";
 								// Resend email to the student | Set the access_token to 1
-								echo "<td><input type='button'  class='tbl-builder-btn resend-btn' value='Resend' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'> | <input type='button'  class='tbl-delete-btn reject-btn' value='Reject' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'></td>";
+								echo "<td><input type='button'  class='tbl-builder-btn resend-btn' value='Send' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'> | <input type='button'  class='tbl-delete-btn reject-btn' value='Reject' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'></td>";
 								echo "</tr>";
 		                    }
 	                    }
