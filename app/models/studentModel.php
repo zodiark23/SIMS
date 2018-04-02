@@ -10,7 +10,7 @@ use PDO;
 use Exception;
 
 class StudentModel extends Model {
-    
+
     /**
      * Represents all student related Business Logic
      */
@@ -23,11 +23,11 @@ class StudentModel extends Model {
     /**
      * Create a new student with a pending status
      * Status 0 by default.
-     * 
+     *
      * Returns true if successful.
-     * 
+     *
      * @param Student $student The student representation to be created
-     * 
+     *
      * @return array|bool False if failed. Array with student id will be return in case of success
      */
     public function create(Student $student){
@@ -94,10 +94,10 @@ class StudentModel extends Model {
 
     /**
      * Return the list of students. You can pass level_id to filter the result
-     * 
+     *
      * Please use showListBySection() to return students by section
-     * 
-     * 
+     *
+     *
      */
     public function showList($level_id = null){
         $stmt = $this->db->prepare("SELECT * FROM `students` WHERE `status`=1");
@@ -114,13 +114,13 @@ class StudentModel extends Model {
 
     /**
      * Inserts the value to the educational_attainment table
-     * 
+     *
      * Student previous school can be listed here
-     * 
+     *
      * curriculum_id will become 0 if not existed in the educational list in admin settings
-     * 
+     *
      * @param EducationalAttainment $educ The representation of Edu Attainment the student achieved
-     * 
+     *
      * @return bool True if success
      */
     public function addEducationAttainment(EducationalAttainment $educ){
@@ -203,7 +203,7 @@ class StudentModel extends Model {
         if($stmt){
 
             if($stmt->rowCount() > 0){
-                return true;   
+                return true;
             }
         }
         return false;
@@ -212,9 +212,9 @@ class StudentModel extends Model {
 
     /**
      * Return all the educational information this student is tied to
-     * 
+     *
      * @param int $student_id The student id to query
-     * 
+     *
      * @return bool|array False if no info found
      */
     public function studentEducationalList(int $student_id){
@@ -235,9 +235,9 @@ class StudentModel extends Model {
 
     /**
      * Checks for In Progress status on `student_educational` table
-     * 
+     *
      * @param int $student_id The student to check
-     * 
+     *
      * @return bool True if found
      */
     private function checkInProgress(int $student_id){
@@ -256,9 +256,9 @@ class StudentModel extends Model {
 
     /**
      * Checks whether the email is already existing
-     * 
+     *
      * @param string $email The email to be checked
-     * 
+     *
      * @return bool True if found. False if not duplicate
      */
     public function checkDuplicateEmail($email) : bool{
@@ -272,13 +272,13 @@ class StudentModel extends Model {
     }
 
     /**
-     * 
+     *
      * Returns the list of grades of the target student
-     * 
-     * 
+     *
+     *
      * @param int $student_id The id of student to view
      * @param int|bool $level The year level to target. If false returns all grade
-     * 
+     *
      * @return Grades Grade Model
      */
     public function viewGrade($student_id, $level = false){
@@ -287,24 +287,24 @@ class StudentModel extends Model {
 
 
     /**
-     * 
+     *
      * Return the payment list / information related
-     * 
+     *
      * @param int $student_id The target ID to retrieve payment
-     * 
-     * 
-     * @return mixed 
-     * 
+     *
+     *
+     * @return mixed
+     *
      * @todo This should implement a Payment Model
-     * 
+     *
      */
     public function viewPayment($student_id){
-        
+
     }
 
     /**
      * Return the information about the student
-     * 
+     *
      * @param int $student_id The student id you wish to query
      */
     public function studentInfo(int $student_id){
@@ -323,14 +323,14 @@ class StudentModel extends Model {
 
     /**
      * Update the student information
-     * 
+     *
      * Check if the student_id on the entity is the same with the session
-     * 
+     *
      * If different ask for Role & Rights - Will not proceed if the executor dont have proper privilege
-     * 
+     *
      * Rights :: UPDATE_STUDENT_INFO
-     * 
-     * 
+     *
+     *
      * @param Student $student_info The student
      */
     public function updateInfo(Student $student_info){
@@ -409,10 +409,15 @@ class StudentModel extends Model {
     	$result = $stmt->fetchAll();
 		foreach ($result as $r){
 			$access_token = $r['access_token'];
+
 		}
 
 		if($result){
+		    $stmt = $this->db->prepare("UPDATE access_token SET date_validity = DATE_ADD(CURDATE(), INTERVAL 7 DAY) WHERE student_id = :student_id");
+		    $result = $stmt->execute([":student_id"=>$student_id]);
+		    if($result){
 			return $access_token;
+            }
 		}
 		return false;
 	}

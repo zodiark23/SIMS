@@ -440,7 +440,7 @@ $("#login-form").validate({
                     }else{
                         window.location = BASE_URL+"/account";
                     }
-                    
+
                 }
             }
         });
@@ -743,7 +743,7 @@ $("#login-form").validate({
             });
         }
     });
-    
+
     // Update teacher profile
 	$("#update-profile-teacher-form").validate({
 		rules: {
@@ -803,7 +803,7 @@ $("#login-form").validate({
 		submitHandler : function(){
 			var data = $("#update-profile-teacher-form").serialize();
 			var id = $(".t_update-btn").data('id');
-			
+
 			if(confirm("Are you sure you want to update your profile? You are required to re-login after saving your profile.")) {
 				$.ajax({
 					url: BASE_URL + "/php/update_teacher.php",
@@ -811,7 +811,7 @@ $("#login-form").validate({
 					data: data + "&tid=" + id,
 					success: function (data) {
 						x = JSON.parse(data);
-						
+
 						if (x.code == "00") {
 							alert(x.message);
 							window.location = BASE_URL + "/home/logout";
@@ -823,7 +823,7 @@ $("#login-form").validate({
 			}
 		}
 	});
-	
+
 	// Update student profile
 	$("#update-profile-student-form").validate({
 		rules: {
@@ -926,7 +926,7 @@ $("#login-form").validate({
 				required : "Province is required.",
 				regex : "Only letters are allowed"
 			}
-			
+
 		},
 		submitHandler : function(){
 			var data = $("#update-profile-student-form").serialize();
@@ -938,7 +938,7 @@ $("#login-form").validate({
 					data: data + "&sid=" + id,
 					success: function (data) {
 						x = JSON.parse(data);
-						
+
 						if (x.code == "00") {
 							alert(x.message);
 							window.location = BASE_URL + "/home/logout";
@@ -950,8 +950,8 @@ $("#login-form").validate({
 			}
 		}
 	});
-	
-	
+
+
 	// Update parent profile
 	$("#update-profile-parent-form").validate({
 		rules: {
@@ -1014,12 +1014,12 @@ $("#login-form").validate({
 				required : "Please enter a valid contact number.",
 				regex : "Only numbers are allowed"
 			}
-			
+
 		},
 		submitHandler : function(){
 			var data = $("#update-profile-parent-form").serialize();
 			var id = $(".p_update-btn").data('id');
-			
+
 			if(confirm("Are you sure you want to update your profile? You are required to re-login after saving your profile.")) {
 				$.ajax({
 					url: BASE_URL + "/php/update_parent.php",
@@ -1027,7 +1027,7 @@ $("#login-form").validate({
 					data: data + "&pid=" + id,
 					success: function (data) {
 						x = JSON.parse(data);
-						
+
 						if (x.code == "00") {
 							alert(x.message);
 							window.location = BASE_URL + "/home/logout";
@@ -1040,7 +1040,8 @@ $("#login-form").validate({
 		}
 	});
 
-	
+
+
     $("#student-form").validate({
         rules : {
             s_last_name : {
@@ -1126,7 +1127,7 @@ $("#login-form").validate({
                 type : "post",
                 data : data,
                 success : function (data){
-                    
+
 
                     x = JSON.parse(data);
 
@@ -1147,7 +1148,7 @@ $("#login-form").validate({
         var data = {};
 
         data['cid'] = $(this).val();
-        
+
         $.ajax({
             url : BASE_URL+"/php/school_level_list.php",
             type : "post",
@@ -1172,7 +1173,7 @@ $("#login-form").validate({
         var data = {};
 
         data['cid'] = $(this).val();
-        
+
         $.ajax({
             url : BASE_URL+"/php/load_section_list.php",
             type : "post",
@@ -1216,7 +1217,7 @@ $("#login-form").validate({
         },
         messages: {
             schedule_name : {
-                required : "Please do not leave this empty"  
+                required : "Please do not leave this empty"
             },
             curr : {
 
@@ -1275,7 +1276,7 @@ $("#login-form").validate({
             var formData = $(e).serialize();
 
             var targ = $(e).data('arg');
-            
+
             $.ajax({
                 url : BASE_URL+"/php/add_schedule_item.php",
                 type : "post",
@@ -1314,7 +1315,7 @@ $("#login-form").validate({
         },
         messages: {
             schedule_name : {
-                required : "Please do not leave this empty"  
+                required : "Please do not leave this empty"
             },
             curr : {
 
@@ -1348,7 +1349,7 @@ $("#login-form").validate({
 
     });
 
-    
+
     $("#edit-section-form").validate({
         rules : {
             section_name : {
@@ -1367,7 +1368,7 @@ $("#login-form").validate({
         },
         messages: {
             schedule_name : {
-                required : "Please do not leave this empty"  
+                required : "Please do not leave this empty"
             },
             curr : {
 
@@ -1382,9 +1383,9 @@ $("#login-form").validate({
         },
         submitHandler : function(e){
             var data = $(e).serialize();
-            
+
             var targetID = $(e).data('id');
-            
+
             $.ajax({
                 url : BASE_URL+"/php/update_section.php",
                 type : "post",
@@ -1415,7 +1416,7 @@ $("#login-form").validate({
                 max : 90,
                 number : true
             }
-            
+
         },
         message : {
             pass_threshold : {
@@ -1424,7 +1425,7 @@ $("#login-form").validate({
         },
         submitHandler :  function(e){
             var data = $(e).serialize();
-            
+
             $.ajax({
                 url : BASE_URL+"/php/create_grade_scheme.php",
                 type : "post",
@@ -1454,7 +1455,7 @@ $("#login-form").validate({
                 max : 90,
                 number : true
             }
-            
+
         },
         message : {
             pass_threshold : {
@@ -1464,7 +1465,7 @@ $("#login-form").validate({
         submitHandler :  function(e){
             var data = $(e).serialize();
             var cid = $(e).data("cid");
-            
+
             $.ajax({
                 url : BASE_URL+"/php/edit_grade_scheme.php",
                 type : "post",
@@ -1520,10 +1521,10 @@ $("#login-form").validate({
             var data = $(e).serialize();
 
             var student = $(e).data('cid');
-            
+
             var schoolLevel = $("#sched_school_level").val();
             var section = $("#section_select").val();
-            
+
             if(schoolLevel == "" || section == ""){
                 alert("Please complete the form");
             }else{
@@ -1536,7 +1537,7 @@ $("#login-form").validate({
 
                         alert(x.message);
                         if(x.code == "00"){
-                            // redirect 
+                            // redirect
                             window.location = BASE_URL+"/admin/student_overview"
                         }
                     }
@@ -1544,7 +1545,7 @@ $("#login-form").validate({
             }
 
 
-            
+
 
         }
     });

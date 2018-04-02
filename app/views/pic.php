@@ -14,14 +14,14 @@ add styling on bottom note
     <div class="dashboard-container">
         <div class="content-panel">
             <h3 class="dashboard-section-title">Update Profile</h3>
-            <form enctype="multipart/form-data" method="POST">
+            <form enctype="multipart/form-data" method="POST" action="<?= BASE_URL ?>/php/pic_update.php">
                 <br>
                 <h4>Account Info</h4>
 
 
                 <p>Upload your file</p>
                 <input type="file" name="uploaded_file" id="uploaded_file"><br />
-                <input type="submit" value="Upload">
+                <input type="submit" id="s_update-gtn" value="Upload">
 
                 <br>
                 <br>
@@ -29,25 +29,27 @@ add styling on bottom note
 <!--                <input type="submit" data-id="--><!--" class="outlined-button s_upload-btn" value="Update" name="submit"/>-->
 <!--                <input type="submit" class="outlined-button s_upload-btn" value="Upload">-->
 
-     <?php
 
-	            if(!empty($_FILES['uploaded_file']))
-	            {
 
-                    var_dump($_FILES);
-		            $path = "user_uploads/";
-		            $pathfile = $_SESSION['user']['student_id']. basename( $_FILES['uploaded_file']['name']);
+<!--	            if(!empty($_FILES['uploaded_file']))-->
+<!--	            {-->
+<!---->
+<!--                    var_dump($_FILES);-->
+<!--//		            $path = "../app/views/upload";-->
+<!--                    $path = "\upload";-->
+<!--		            $pathfile = $_SESSION['user']['student_id']. basename( $_FILES['uploaded_file']['name']);-->
+<!---->
+<!--		            var_dump(is_writable($path));-->
+<!--		            var_dump($path);-->
+<!--		            if(move_uploaded_file($_FILES["uploaded_file"]["tmp_name"], $path)) {-->
+<!--			            echo "The file ".  basename( $_FILES['uploaded_file']['name']).-->
+<!--				            " has been uploaded";-->
+<!--		            } else{-->
+<!--			            echo "There was an error uploading the file, please try again!";-->
+<!--			            echo __DIR__ ;-->
+<!--		            }-->
+<!--	            }-->
 
-		            var_dump(is_writable($path));
-		            var_dump($path);
-		            if(move_uploaded_file($_FILES["uploaded_file"]["tmp_name"], $path)) {
-			            echo "The file ".  basename( $_FILES['uploaded_file']['name']).
-				            " has been uploaded";
-		            } else{
-			            echo "There was an error uploading the file, please try again!";
-		            }
-	            }
-	            ?>
             </form>
 
         </div>

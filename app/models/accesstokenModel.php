@@ -85,7 +85,11 @@ class AccessTokenModel extends Model {
 			$stmt = $this->db->prepare("UPDATE `access_token` SET status = 1 WHERE student_id = :student_id");
 			$result = $stmt->execute([":student_id" => $student_id]);
 			if ($result) {
-				return true;
+			    $stmt = $this->db->prepare("UPDATE `students` SET status = 1 WHERE student_id = :student_id");
+			    $result = $stmt->execute([":student_id" => $student_id]);
+			    if($result) {
+                    return true;
+                }
 			}
 		}
 		return false;

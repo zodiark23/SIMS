@@ -9,6 +9,21 @@ use SIMS\App\Models\ProfileModel;
 
 
 $profileModel = new ProfileModel();
+
+var_dump($_FILES);
+//		            $path = "../app/views/upload";
+$path = "\upload";
+$pathfile = $_SESSION['user']['student_id']. basename( $_FILES['uploaded_file']['name']);
+
+var_dump(is_writable($path));
+var_dump($path);
+if(move_uploaded_file($_FILES["uploaded_file"]["tmp_name"], $path)) {
+    echo "The file ".  basename( $_FILES['uploaded_file']['name']).
+        " has been uploaded";
+} else{
+    echo "There was an error uploading the file, please try again!";
+    echo __DIR__ ;
+}
 // File saving
 //$file = $_FILES['file'];
 //var_dump($_FILES);
