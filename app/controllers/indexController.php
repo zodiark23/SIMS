@@ -5,6 +5,7 @@ use SIMS\App\Models\StudentModel;
 use SIMS\App\Models\AccessTokenModel;
 use SIMS\Classes\Controller;
 use SIMS\Classes\View;
+use SIMS\App\Models\NewsModel;
 
 class IndexController extends Controller
 {
@@ -13,6 +14,12 @@ class IndexController extends Controller
 
     public function __construct(){
         $this->view = new View("index");
+
+        $this->model = new NewsModel();
+
+        $displayNewsIndex = $this->model->displayNewsIndex();
+
+        $this->view->displayNewsIndex = $displayNewsIndex;
     }
 
     public function register(){

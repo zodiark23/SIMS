@@ -25,23 +25,54 @@
                         <div class="ne-item">
                             <!-- <img src="<?=BASE_URL?>/img/lnhs.jpg" alt="" class="ne-item-img"> -->
                             <div class="ne-item-details">
-                                <a href="" class="ne-title">Sample Title 1</a>
-                                <p class="author-date">By: <a href="">admin</a> on <span class="date">02/26/18</span></p>
-                                <p class="ne-p">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis amet minima alias sit dolorem nobis omnis deserunt officiis voluptates. Reiciendis eaque pariatur, aliquam enim sit cupiditate ad itaque officia consequuntur?
-                                </p>
-                                <a href="javascript:void(0);" class="readmore">Read more</a>
-                            </div>
-                        </div>
-                        <div class="ne-item">
-                            <!-- <img src="<?=BASE_URL?>/img/lnhs2.jpg" alt="" class="ne-item-img"> -->
-                            <div class="ne-item-details">
-                                <a href="" class="ne-title">Sample Title 2</a>
-                                <p class="author-date">By: <a href="">admin</a> on <span class="date">02/26/18</span></p>
-                                <p class="ne-p">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis amet minima alias sit dolorem nobis omnis deserunt officiis voluptates. Reiciendis eaque pariatur, aliquam enim sit cupiditate ad itaque officia consequuntur?
-                                </p>
-                                <a href="javascript:void(0);" class="readmore">Read more</a>
+
+	                            <?php
+	                            if ($this->displayNewsIndex) {
+
+		                            foreach ($this->displayNewsIndex as $result) {
+
+			                            $news_id = $result['news_id'];
+
+			                            if (strlen(htmlspecialchars($result['news_content'])) > 250) {
+			                                // News Title
+				                            echo "<a href='' class='ne-title'>".$result['news_title']."</a>";
+				                            // Publisher and date
+                                            echo "<p class='author-date'>"."By: "."<a href='''>"."admin "."</a>". " on " ."<span class='date'>".$result['create_date']."</span></p>";
+                                            echo "<p class='ne-p'>";
+                                            // Content
+                                            echo substr(htmlspecialchars_decode($result['news_content']),0,250)."..."."</td>";
+                                            echo "</p>";
+                                            // View button
+                                            echo "<input type='button' data-newsid='".$result['news_id']."' class='tbl-builder-btn home-view-btn' value='VIEW' name='view-btn'>";
+
+			                            } else {
+			                                // News title
+				                            echo "<a href='' class='ne-title'>".$result['news_title']."</a>";
+				                            // Publisher and date
+				                            echo "<p class='author-date'>"."By: "."<a href='''>"."admin "."</a>". " on " ."<span class='date'>".$result['create_date']."</span></p>";
+				                            echo "<p class='ne-p'>";
+				                            // News content
+				                            echo htmlspecialchars_decode($result['news_content'])."</td>";
+				                            echo "</p>";
+
+				                            //View button
+				                            echo "<input type='button' data-newsid='".$result['news_id']."' class='tbl-builder-btn home-view-btn' value='VIEW' name='view-btn'>";
+			                            }
+		                            }
+	                            }else {
+		                            echo "No data";
+	                            }
+
+	                            ?>
+
+                                <div class='bg-modal'>
+
+                                    <div class='modal-content'>
+
+                                        <div class='close-modal'><i class="far fa-times-circle"></i></div>
+                                        <div class='real-content'></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

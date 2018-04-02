@@ -19,12 +19,7 @@ add styling on bottom note
                 <h4>Account Info</h4>
                 <div class='error_profile_student_form'></div>
 
-                <br>
-                <br>
-                <label>Upload image:</label>
-                <br>
-                <br>
-                <input type="file" id="file" name="file">
+
 
                 <br>
                 <br>

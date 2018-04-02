@@ -396,6 +396,27 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
     $(".close-modal").on("click", function () {
         $(".bg-modal").css("display","none");
     });
+	
+	// View news content
+	$(".home-view-btn").on("click",function () {
+		
+		var news_id = $(this).data('newsid');
+		
+		$.ajax({
+			type: 'POST',
+			url: BASE_URL+"/php/view_news.php",
+			data: 'news_id='+news_id,
+			success: function(data) {
+				$(".bg-modal").show();
+				$(".modal-content .real-content").html(data);
+			}
+		})
+	});
+	
+	// Close view modal
+	$(".close-modal").on("click", function () {
+		$(".bg-modal").css("display","none");
+	});
 
 
 

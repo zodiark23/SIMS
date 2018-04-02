@@ -32,7 +32,7 @@ class NewsModel extends Model
 
     public function displayNews()
     {
-        $stmt = $this->db->prepare("SELECT * FROM news");
+        $stmt = $this->db->prepare("SELECT * FROM news LIMIT 10");
         $stmt->execute();
         $result = $stmt->fetchAll();
 
@@ -78,6 +78,16 @@ class NewsModel extends Model
     	$result = $stmt->fetchAll();
     	return $result;
     }
+
+	public function displayNewsIndex()
+	{
+		$stmt = $this->db->prepare("SELECT * FROM news ORDER BY create_date DESC LIMIT 5");
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+
+		return $result;
+
+	}
 }
 
 

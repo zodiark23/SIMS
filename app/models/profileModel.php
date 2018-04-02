@@ -106,5 +106,53 @@ class ProfileModel extends Model {
 		return false;
 	}
 
+	public function setProfileImage($role_id,$email,$full_path){
+		$stmt = $this->db->prepare("SELECT * FROM profile_img WHERE email = :email");
+		$stmt->execute([":email"=>$email]);
+		$result = $stmt->fetchAll();
+
+		if($result){
+			$stmt = $this->db->prepare("UPDATE profile_img SET role_id = :role_id, email = :email, full_path = :full_path, `status` = 1");
+			$result = $stmt->execute([":role_id"=>$role_id,
+				":email"=>$email,
+				":full_path"=>$full_path]);
+			if($result){
+				return true;
+			}
+		} else {
+			$stmt = $this->db->prepare("INSERT INTO profile_img (id,role_id,email,full_path,`status`) VALUES (null,:role_id,:email,:full_path,1)");
+			$result = $stmt->execute([":role_id"=>$role_id,
+				":email"=>$email,
+				":full_path"=>$full_path]);
+			if($result){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function getProfileImage($email){
+		$stmt = $this->db->prepare("SELECT * FROM profile_img WHERE email = :email");
+		$stmt->execute([":email"=>$email]);
+		$result = $stmt->fetchAll();
+		foreach ($result as $r){
+			$_SESSION['full_path'] = $r['full_path'];
+		}
+		if($result){
+			return true;
+		}else{
+			$stmt = $this->db->prepare("SELECT * FROM profile_img WHERE email = 'default'");
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			foreach ($result as $a){
+				$_SESSION['full_path'] = $a['full_path'];
+			}
+			if($result) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 }
