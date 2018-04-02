@@ -84,8 +84,8 @@ class SectionModel extends Model{
      * Default status `In Progress`
      */
     public function getStudents($section_id, $status = "In Progress"){
-        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE section_id = :section_id ");
-        $stmt->execute(["section_id" => $section_id ]);
+        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE section_id = :section_id AND `status`=:status");
+        $stmt->execute(["section_id" => $section_id , "status" => $status]);
 
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 

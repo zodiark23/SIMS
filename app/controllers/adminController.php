@@ -722,17 +722,19 @@ class AdminController extends Controller{
         $this->view->data = $sectionModel->list();
 
         $curriculumModel = new CurriculumModel();
+        if($this->view->data){
 
-        foreach($this->view->data as $sched){
-            $result = $curriculumModel->schoolLevelInfo($sched['level_id']);
-
-            if($result !== false){
-                $levelNames[$result['level_id']] = $result['level_name'];
+            foreach($this->view->data as $sched){
+                $result = $curriculumModel->schoolLevelInfo($sched['level_id']);
+                
+                if($result !== false){
+                    $levelNames[$result['level_id']] = $result['level_name'];
+                }
             }
             
         }
 
-        $this->view->levelNames = $levelNames;
+        $this->view->levelNames = $levelNames ?? [];
         $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
@@ -759,11 +761,13 @@ class AdminController extends Controller{
 
         $lists = $gradeModel->gradeSchemeList();
         $references = [];
+        if($lists){
 
-        foreach($lists as $list){
-            $reference = $gradeModel->getSchemeReferences( ($list->grade_scheme_id ?? 0 ) );    
-
-            $references[($list->grade_scheme_id ?? "")] = $reference != false ? count($reference) : 0;
+            foreach($lists as $list){
+                $reference = $gradeModel->getSchemeReferences( ($list->grade_scheme_id ?? 0 ) );    
+                $references[($list->grade_scheme_id ?? "")] = $reference != false ? count($reference) : 0;
+            }
+            
         }
 
         $this->view->references = $references;
@@ -944,13 +948,45 @@ class AdminController extends Controller{
         $levelNames = [];
         foreach($this->view->curriculumList as $cl){
             $levels = $currModel->schoolLevels($cl['curriculum_id']);
-            
-            foreach($levels as $level){
-                $levelNames[$level['level_id']] = $currModel->schoolLevelInfo($level['level_id']);
+            if($levels){
+                foreach($levels as $level){
+                    $levelNames[$level['level_id']] = $currModel->schoolLevelInfo($level['level_id']);
+                }
             }
+
         }
         $this->view->levelNames = $levelNames ?? [];
         $this->view->render();
+    }
+
+
+    public function print_form($id){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_STUDENT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
+        $studentModel = new StudentModel();
+        $studentInfo = $studentModel->studentInfo($id);
+
+        if(!$studentInfo){
+            $this->error();
+            return false;
+        }
+
+        $this->view = new View("print_form");
+        $this->view->student = $studentInfo;
+        $this->view->raw_view();
+
+
     }
 
 

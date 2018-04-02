@@ -865,3 +865,77 @@ ALTER TABLE `access_token`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+--
+-- Table structure for table `student_educational`
+--
+
+CREATE TABLE `student_educational` (
+  `sse` int(10) NOT NULL,
+  `student_id` int(10) NOT NULL,
+  `level_id` int(10) NOT NULL,
+  `section_id` int(10) NOT NULL,
+  `status` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `custom_level` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `create_date` datetime NOT NULL,
+  `modified_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `student_educational`
+--
+ALTER TABLE `student_educational`
+  ADD PRIMARY KEY (`sse`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `student_educational`
+--
+ALTER TABLE `student_educational`
+  MODIFY `sse` int(10) NOT NULL AUTO_INCREMENT;COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+--
+-- Table structure for table `school_level_subjects`
+--
+
+CREATE TABLE `school_level_subjects` (
+  `sls_id` int(10) NOT NULL,
+  `subject_id` int(10) NOT NULL,
+  `level_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+--
+-- Indexes for table `school_level_subjects`
+--
+ALTER TABLE `school_level_subjects`
+  ADD PRIMARY KEY (`sls_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `school_level_subjects`
+--
+ALTER TABLE `school_level_subjects`
+  MODIFY `sls_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

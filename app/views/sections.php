@@ -27,9 +27,10 @@
                 </tr>
 
                 <?php 
+                    if($this->data){
 
-                    foreach($this->data as $sched){
-                ?>
+                        foreach($this->data as $sched){
+                            ?>
                 <tr class='search_index'>
                     <td><?= $sched['section_id'] ?></td>
                     <td><?= $sched['section_name']?></td>
@@ -38,6 +39,7 @@
                     <td> <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-section/<?=($sched['section_id'] ?? 0)?>">Edit</a> </td>
                 </tr>
                 <?php
+                        }
                     }
                 ?>
 

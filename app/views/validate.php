@@ -12,7 +12,7 @@ add styling on bottom note
 <div class="main-container">
     <div class="content-container dashboard">
         <div class="dashboard-container">
-            <div class="content-panel">
+            <div class="content-panel" style="padding:0px 250px 15px 250px">
                 <h3 class="dashboard-section-title">Update your password</h3>
                 <form method="post" id="update-student-password-form" >
                     <br>

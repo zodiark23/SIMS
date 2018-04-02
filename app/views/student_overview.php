@@ -21,7 +21,7 @@
                         echo "<tr>";
                         echo "<td>".$sl->first_name." ".$sl->middle_name." ".$sl->last_name."</td>";
                         echo "<td>".$sl->create_date."</td>";
-                        echo "<td>View | <a href='".BASE_URL."/admin/enroll-student/".$sl->student_id."'>Enroll</a></td>";
+                        echo "<td><a href='".BASE_URL."/admin/print-form/".$sl->student_id."'>Form 137</a> | <a href='".BASE_URL."/admin/enroll-student/".$sl->student_id."'>Enroll</a></td>";
                         echo "</tr>";
                     }
                 ?>

@@ -99,7 +99,7 @@
 							}
 						?>
 
-						<th>Final</th>
+						<th colspan='<?= $subjectCount?>'>Final</th>
 						
 					</tr>
 					<tr>
@@ -126,7 +126,8 @@
 
 					<?php 
 					if(empty($this->studentSection['data'])){
-						$totalSpan = $subjectCount * count($flags) + 1;
+						// we add +1 on flags because of final grade
+						$totalSpan = $subjectCount * (count($flags) + 1) + 1;
 						echo "<tr><td colspan='$totalSpan'>No Students</td></tr>";
 					}					
 					foreach($this->studentSection['data'] as $student){
@@ -165,13 +166,18 @@
 								$finalGrade = 0;
 								foreach($flags as $flag){
 									$studentGrade = $this->studentGrades[$student[0]['student_id']] ?? [];
-									$finalGrade += (int)$studentGrade[$flag['flag_id']][$subject[0]['subject_id']]->grade ?? 0;
+									$grade = $studentGrade[$flag['flag_id']][$subject[0]['subject_id']]->grade ?? 0;
+									$finalGrade = (int)$finalGrade + (int)$grade;
 									$uid = $studentGrade[$flag_id][$subject[0]['subject_id']]->grade_id ?? 0;
 								}
 
 								$finalGrade = $finalGrade / count($flag);
 								
 								$colorStatus = $finalGrade > $this->pass_threshold ? 'sims-success' : 'sims-danger';
+								if($finalGrade == 0){
+									$colorStatus = "";
+									$finalGrade = "";
+								}
 								echo "<td class='$colorStatus'>$finalGrade</td>";
 							}
 
