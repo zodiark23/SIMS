@@ -905,6 +905,25 @@ textarea {
 .content-panel .btn-container input {
     display: inline-block !important;
 }
+.t_cancel_btn {
+    min-width: 90px;
+    padding: 5px 14px;
+    background: transparent;
+    border: 2px solid #c93c3c;
+    color: #c93c3c;
+}
+#finalize-grade {
+    margin-top: 20px;
+    min-width: 90px;
+    padding: 5px 14px;
+    background: transparent;
+    border: 2px solid #4272d7;
+    color: #4272d7;
+    display: block;
+    margin: auto;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
 /* ==========================================================================
    Media Queries
    ========================================================================== */
