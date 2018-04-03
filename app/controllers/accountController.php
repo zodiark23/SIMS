@@ -18,16 +18,21 @@ class AccountController extends Controller{
 	    @session_start();
 	    $id = $_SESSION['user']['role_id'] ?? 0;
 	    $email = $_SESSION['user']['email'] ?? 0;
+	    $student_id = $_SESSION['user']['student_id'] ?? 0;
 //
 	    $profileModel = new ProfileModel();
 //
 	    $profileModel->getProfileImage($email);
+	    $educ = $profileModel->getEducAttain($student_id);
+
+
 
 	    if($id == 1 || $id == 2) { // Admin / teacher
 		    $this->view = new View("profile_teacher");
 //		    $this->view->image = $image;
 	    }elseif($id == 3){ // Student
 		    $this->view = new View("profile_student");
+		    $this->view->educ = $educ;
 //		    $this->view->image = $image;
 	    }elseif($id == 4){ // Parent
 		    $this->view = new View("profile_parent");

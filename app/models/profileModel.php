@@ -112,7 +112,7 @@ class ProfileModel extends Model {
 		$result = $stmt->fetchAll();
 
 		if($result){
-			$stmt = $this->db->prepare("UPDATE profile_img SET role_id = :role_id, email = :email, full_path = :full_path, `status` = 1");
+			$stmt = $this->db->prepare("UPDATE profile_img SET role_id = :role_id, email = :email, full_path = :full_path, `status` = 1 WHERE email = :email");
 			$result = $stmt->execute([":role_id"=>$role_id,
 				":email"=>$email,
 				":full_path"=>$full_path]);
@@ -150,6 +150,16 @@ class ProfileModel extends Model {
 			if($result) {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	public function getEducAttain($student_id){
+		$stmt = $this->db->prepare("SELECT * FROM educational_attainment WHERE student_id = :student_id");
+		$stmt->execute([":student_id"=>$student_id]);
+		$result = $stmt->fetchAll();
+		if($result){
+			return $result;
 		}
 		return false;
 	}

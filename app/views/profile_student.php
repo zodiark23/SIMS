@@ -105,6 +105,29 @@ add styling on bottom note
                     <span ><?php echo $_SESSION['user']['cell_number']; ?></span>
                 </label>
 
+                <hr>
+                <label>Educational attainment: </label>
+                <table style="width:100%" class="content-panel-table">
+                    <tr>
+                        <th>School</th>
+                        <th>Address</th>
+                        <th>Year</th>
+                    </tr>
+                    <tr>
+                        <?php
+                        if($this->educ){
+                            foreach ($this->educ as $result){
+                                echo "<tr><td>". $result['description']."</td>";
+	                            echo "<td>". $result['address']."</td>";
+	                            echo "<td>". $result['year_completed']."</td></tr>";
+                            }
+                        }
+                        ?>
+
+                    </tr>
+                </table>
+
+
                 <br>
                 <br>
                 <br>

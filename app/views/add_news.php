@@ -33,6 +33,7 @@ Fix the UI @morbid
                     <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
                     <script>
                         tinymce.init({
+	                        menubar: false,
                             selector: ".tinymce",
                             plugins: [
                                 "advlist autolink lists link image charmap print preview anchor",
@@ -48,7 +49,7 @@ Fix the UI @morbid
                     <br>
                     <br>
 
-                    <input type="submit" value="Add" id="save-news">
+                    <input type="submit" class="outlined-button" value="Add" id="save-news">
 
                     <br>
                     <br>
