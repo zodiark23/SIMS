@@ -1,6 +1,10 @@
 <div class="side-nav">
     <div class="admin">
-        <img src="<?= BASE_URL ?><?php echo $_SESSION['full_path'] ?>" alt="" class="adm-img">
+    <?php
+    
+    $imgSrc = isset($_SESSION['full_path']) && !empty($_SESSION['full_path']) ? BASE_URL.$_SESSION['full_path'] : BASE_URL."/img/default.png";
+    ?>
+        <img src="<?=$imgSrc?>" alt="" class="adm-img">
         <span class="adm-name"><?= $_SESSION['user']['first_name']." ".$_SESSION['user']['last_name'] ?> <i class="fas fa-user-secret"></i></i></span>
     </div>
 <?php

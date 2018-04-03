@@ -222,7 +222,7 @@ class StudentModel extends Model {
             throw new Exception("Missing required information", 400);
         }
 
-        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE `student_id` = :student_id");
+        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE `student_id` = :student_id ORDER BY create_date ASC");
         $stmt->execute(["student_id" => $student_id]);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 

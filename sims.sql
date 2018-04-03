@@ -200,7 +200,8 @@ INSERT INTO `rights` (`rights_id`, `rights_code`) VALUES
 (19, 'ADD_SECTION'),
 (20, 'EDIT_SECTION'),
 (21, 'ADD_SCHEDULE'),
-(22, 'MANAGE_SCHEDULE');
+(22, 'MANAGE_SCHEDULE'),
+(22, 'MANAGE_STUDENT');
 
 -- --------------------------------------------------------
 

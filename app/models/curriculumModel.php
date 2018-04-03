@@ -2,6 +2,7 @@
 
 use SIMS\Classes\Model;
 use SIMS\Classes\Database;
+use SIMS\App\Models\Grademodel;
 use PDO;
 use Exception;
 
@@ -217,6 +218,105 @@ class CurriculumModel extends Model{
             return $result;
         }
         return false;
+    }
+
+    /**
+     * Finalize the grades
+     */
+    public function finalizeGrade(int $section_id){
+        // temporary Since this wasn't inclued on the grade scheme
+        $flags = [
+            ["flag_id" => 1, "description" => "1st Grading"],
+            ["flag_id" => 2, "description" => "2nd Grading"]
+        ];
+        
+        if($section_id == 0 || empty($section_id)){
+            throw new Exception("Invalid section id", 400);
+        }
+
+        $sectionModel = new SectionModel();
+        $sectionInfo = $sectionModel->info($section_id);
+        $level_id = $sectionInfo['level_id'] ?? 0;
+
+        
+
+        if($level_id == 0){
+            throw new Exception("Invalid level id", 400);
+        }
+        // first get the students on the section having In Progress
+        $gradeModel = new GradeModel();
+        $studentStmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE section_id =:section_id AND status=:status");
+        $studentStmt->execute(["section_id" => $section_id , "status" => "In Progress"]);
+        $students = $studentStmt->fetchAll(PDO::FETCH_OBJ);
+
+        $currModel = new CurriculumModel();
+        $subjects = $currModel->showLevelRequiredSubjects($level_id);
+
+        $grades = []; //indexes are the student-id
+        if($students){
+            // Get the grades of per student student
+            foreach($students as $student){
+
+                $studentGrade = $gradeModel->getGrades($student->student_id, $section_id);
+                
+                    
+                 
+                $grades[$student->student_id] = $studentGrade;
+            }
+
+        }
+        // Assess if pass or fail base on grade scheme
+        $gradeSchemeResult = $currModel->schoolLevelGradeSchemeInfo($level_id);
+        $gradeScheme = $gradeModel->gradeSchemeDetails((int)$gradeSchemeResult['grade_scheme_id'] ?? 0);
+        $pass_threshold = $gradeScheme[0]->pass_threshold ?? 0;
+
+        if($pass_threshold == 0){
+            throw new Exception("Threshold should not be zero. 0 Given upon finalizing", 409);
+        }
+
+        $assessment = []; //index is the student. value contains passed or failed
+
+        if($subjects){
+            foreach($grades as $studentId => $studentGrades){
+                $isFail = false;
+                $summary = []; //summary of grades per subject of this student
+                foreach($grades[$studentId] as $studentGrades){
+                    if(!isset($summary[$studentGrades->subject_id])){
+                        $summary[$studentGrades->subject_id] = 0;
+                    }
+                    $summary[$studentGrades->subject_id] += (int)$studentGrades->grade ?? 0;
+                }
+
+                foreach($summary as $total_grade){
+                    $average = (int)$total_grade / count($flags);
+                    
+                    if($average < $pass_threshold){
+                        $isFail = true;
+                        break;
+                    }
+                }
+        
+                $assessment[$studentId] = $isFail;
+            }
+        }else{
+            throw new Exception("No Subjects detected on this section", 500);
+        }
+
+
+        // update the student_education status if pass or fail
+        // True if fail
+        foreach($assessment as $studentId => $a){
+            $status = $a == true ? "failed" : "passed";
+
+            $stmt = $this->db->prepare("UPDATE `student_educational` SET `status`=:status WHERE section_id=:section_id AND student_id=:student_id");
+
+            $stmt->execute(["status" => $status , "section_id" => $section_id , "student_id" => $studentId ]);
+
+            
+        }
+
+        return $assessment;
+
     }
 
 

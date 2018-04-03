@@ -165,15 +165,15 @@ ob_start();
 				<td class="bold tc header" colspan="5">SCHOLASTIC RECORD</td>
 			</tr>
 			<tr>
-				<td class="bold">SCHOOL:</td>
+				<td class="bold">SCHOOL: <?= isset($this->levelList[0]) ? "Luakan High School" : "" ?></td>
 				<td class="bold">SCHOOL ID:</td>
-				<td class="bold">GRADE LEVEL:</td>
+				<td class="bold">GRADE LEVEL: <?= ($this->levelList[0]["level_info"]["level_name"] ?? "") ?></td>
 				<td class="bold">SY:</td>
 				<td class="bold">SEM:</td>
 			</tr>
 			<tr>
 				<td class="bold" colspan="2">TRACK/STRAND:</td>
-				<td class="bold" colspan="3">SECTION:</td>
+				<td class="bold" colspan="3">SECTION: <?= ($this->levelList[0]["section_info"]["section_name"] ?? "") ?></td>
 			</tr>
 		</table>
 		<table class="w-border">
@@ -194,102 +194,46 @@ ob_start();
 				</tr>
 			</thead>
 			<tbody>
+
+				<?php 
+				$subjects = $this->levelList[0]["subjects"] ?? [];
+				
+				foreach($subjects as $subject_name => $subject_grades){
+					$avg = "";
+					$status = "";
+				?>
 				<tr>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><span style='color:#fff'>_</span> <?= $subject_name ?? "" ?></td>
+					<td><center><?= $subject_grades[1] ?? "" ?></center></td>
+					<td><center><?= $subject_grades[2] ?? ""?></center></td>
+					<td>
+						<center>
+						<?php
+						 //total grade divided by 2(default 2 flags)
+						 $total_grade = ((int)$subject_grades[1] ?? 0 )+ ((int)$subject_grades[2] ?? 0);
+						 $avg = $total_grade / 2; //we still don't have configurable flags
+						 echo $avg;
+						?>
+						</center>
+					</td>
+					<td>
+						<center>
+						<?php
+						//status
+						$status = $avg > $this->levelList[0]['pass_threshold'] ? "Passed" : "Failed";
+						echo $status;
+						?>
+						</center>
+					</td>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				<?php }
+				
+				//balance the lines. Must be 12 lines.
+				for ($i = 0; $i < (12 - count($subjects)); $i++) {
+					echo "<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+				}
+				?>
 				<tr>
 					<td colspan="4" class="header bold" style="text-align: right;">General Ave. for the Semester:</td>
 					<td></td>
@@ -385,16 +329,16 @@ ob_start();
 		<br>
 		<br>
 		<table>
-			<tr>
-				<td class="bold">SCHOOL:</td>
+		<tr>
+				<td class="bold">SCHOOL: <?= isset($this->levelList[1]) ? "Luakan High School" : "" ?></td>
 				<td class="bold">SCHOOL ID:</td>
-				<td class="bold">GRADE LEVEL:</td>
+				<td class="bold">GRADE LEVEL: <?= ($this->levelList[1]["level_info"]["level_name"] ?? "") ?></td>
 				<td class="bold">SY:</td>
 				<td class="bold">SEM:</td>
 			</tr>
 			<tr>
 				<td class="bold" colspan="2">TRACK/STRAND:</td>
-				<td class="bold" colspan="3">SECTION:</td>
+				<td class="bold" colspan="3">SECTION: <?= ($this->levelList[1]["section_info"]["section_name"] ?? "") ?></td>
 			</tr>
 		</table>
 		<table class="w-border">
@@ -415,102 +359,46 @@ ob_start();
 				</tr>
 			</thead>
 			<tbody>
+
+				<?php 
+				$subjects = $this->levelList[1]["subjects"] ?? [];
+				
+				foreach($subjects as $subject_name => $subject_grades){
+					$avg = "";
+					$status = "";
+				?>
 				<tr>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><span style='color:#fff'>_</span> <?= $subject_name ?? "" ?></td>
+					<td><center><?= $subject_grades[1] ?? "" ?></center></td>
+					<td><center><?= $subject_grades[2] ?? ""?></center></td>
+					<td>
+						<center>
+						<?php
+						 //total grade divided by 2(default 2 flags)
+						 $total_grade = ((int)$subject_grades[1] ?? 0 )+ ((int)$subject_grades[2] ?? 0);
+						 $avg = $total_grade / 2; //we still don't have configurable flags
+						 echo $avg;
+						?>
+						</center>
+					</td>
+					<td>
+						<center>
+						<?php
+						//status
+						$status = $avg > $this->levelList[1]['pass_threshold'] ? "Passed" : "Failed";
+						echo $status;
+						?>
+						</center>
+					</td>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				<?php }
+				
+				//balance the lines. Must be 12 lines.
+				for ($i = 0; $i < (12 - count($subjects)); $i++) {
+					echo "<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+				}
+				?>
 				<tr>
 					<td colspan="4" class="header bold" style="text-align: right;">General Ave. for the Semester:</td>
 					<td></td>
@@ -602,16 +490,16 @@ ob_start();
 		<br>
 		<!-- End of 2nd block -->
 		<table>
-			<tr>
-				<td class="bold">SCHOOL:</td>
+		<tr>
+				<td class="bold">SCHOOL: <?= isset($this->levelList[2]) ? "Luakan High School" : "" ?></td>
 				<td class="bold">SCHOOL ID:</td>
-				<td class="bold">GRADE LEVEL:</td>
+				<td class="bold">GRADE LEVEL: <?= ($this->levelList[2]["level_info"]["level_name"] ?? "") ?></td>
 				<td class="bold">SY:</td>
 				<td class="bold">SEM:</td>
 			</tr>
 			<tr>
 				<td class="bold" colspan="2">TRACK/STRAND:</td>
-				<td class="bold" colspan="3">SECTION:</td>
+				<td class="bold" colspan="3">SECTION: <?= ($this->levelList[2]["section_info"]["section_name"] ?? "") ?></td>
 			</tr>
 		</table>
 		<table class="w-border">
@@ -632,102 +520,46 @@ ob_start();
 				</tr>
 			</thead>
 			<tbody>
+
+				<?php 
+				$subjects = $this->levelList[2]["subjects"] ?? [];
+				
+				foreach($subjects as $subject_name => $subject_grades){
+					$avg = "";
+					$status = "";
+				?>
 				<tr>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><span style='color:#fff'>_</span> <?= $subject_name ?? "" ?></td>
+					<td><center><?= $subject_grades[1] ?? "" ?></center></td>
+					<td><center><?= $subject_grades[2] ?? ""?></center></td>
+					<td>
+						<center>
+						<?php
+						 //total grade divided by 2(default 2 flags)
+						 $total_grade = ((int)$subject_grades[1] ?? 0 )+ ((int)$subject_grades[2] ?? 0);
+						 $avg = $total_grade / 2; //we still don't have configurable flags
+						 echo $avg;
+						?>
+						</center>
+					</td>
+					<td>
+						<center>
+						<?php
+						//status
+						$status = $avg > $this->levelList[1]['pass_threshold'] ? "Passed" : "Failed";
+						echo $status;
+						?>
+						</center>
+					</td>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				<?php }
+				
+				//balance the lines. Must be 12 lines.
+				for ($i = 0; $i < (12 - count($subjects)); $i++) {
+					echo "<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+				}
+				?>
 				<tr>
 					<td colspan="4" class="header bold" style="text-align: right;">General Ave. for the Semester:</td>
 					<td></td>
@@ -817,15 +649,15 @@ ob_start();
 		<!-- <br> -->
 		<table>
 			<tr>
-				<td class="bold">SCHOOL:</td>
+				<td class="bold">SCHOOL: <?= isset($this->levelList[3]) ? "Luakan High School" : "" ?></td>
 				<td class="bold">SCHOOL ID:</td>
-				<td class="bold">GRADE LEVEL:</td>
+				<td class="bold">GRADE LEVEL: <?= ($this->levelList[3]["level_info"]["level_name"] ?? "") ?></td>
 				<td class="bold">SY:</td>
 				<td class="bold">SEM:</td>
 			</tr>
 			<tr>
 				<td class="bold" colspan="2">TRACK/STRAND:</td>
-				<td class="bold" colspan="3">SECTION:</td>
+				<td class="bold" colspan="3">SECTION: <?= ($this->levelList[3]["section_info"]["section_name"] ?? "") ?></td>
 			</tr>
 		</table>
 		<table class="w-border">
@@ -846,102 +678,46 @@ ob_start();
 				</tr>
 			</thead>
 			<tbody>
+
+				<?php 
+				$subjects = $this->levelList[3]["subjects"] ?? [];
+				
+				foreach($subjects as $subject_name => $subject_grades){
+					$avg = "";
+					$status = "";
+				?>
 				<tr>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><span style='color:#fff'>_</span> <?= $subject_name ?? "" ?></td>
+					<td><center><?= $subject_grades[1] ?? "" ?></center></td>
+					<td><center><?= $subject_grades[2] ?? ""?></center></td>
+					<td>
+						<center>
+						<?php
+						 //total grade divided by 2(default 2 flags)
+						 $total_grade = ((int)$subject_grades[1] ?? 0 )+ ((int)$subject_grades[2] ?? 0);
+						 $avg = $total_grade / 2; //we still don't have configurable flags
+						 echo $avg;
+						?>
+						</center>
+					</td>
+					<td>
+						<center>
+						<?php
+						//status
+						$status = $avg > $this->levelList[3]['pass_threshold'] ? "Passed" : "Failed";
+						echo $status;
+						?>
+						</center>
+					</td>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				<?php }
+				
+				//balance the lines. Must be 12 lines.
+				for ($i = 0; $i < (12 - count($subjects)); $i++) {
+					echo "<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+				}
+				?>
 				<tr>
 					<td colspan="4" class="header bold" style="text-align: right;">General Ave. for the Semester:</td>
 					<td></td>

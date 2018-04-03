@@ -961,6 +961,10 @@ class AdminController extends Controller{
 
 
     public function print_form($id){
+        if(empty($id) || $id == ""){
+            $this->error();
+            return false;
+        }
         // Check rights
         $userHasRights = $this->roleModel->verifyRights("ALL");
         if(!$userHasRights){
@@ -982,7 +986,43 @@ class AdminController extends Controller{
             return false;
         }
 
+        $educational = $studentModel->studentEducationalList($id);
+        
+        $currModel = new CurriculumModel();
+        $gradeModel = new GradeModel();
+        $subjectModel = new SubjectModel();
+        $sectionModel = new SectionModel();
+        $teacherModel = new TeacherModel();
+        $levelList = [];
+        $grades = [];
+        if($educational){
+            foreach($educational as $studentEducational){
+                $level_info = $currModel->schoolLevelInfo($studentEducational->level_id);
+                $grades = $gradeModel->getGrades((int)$studentEducational->student_id ?? 0, (int)$studentEducational->section_id ?? 0);
+                $section_info  = $sectionModel->info((int)$studentEducational->section_id);
+                $teacher = $teacherModel->findById('teacher_id',$section_info['section_adviser'] ?? 0);
+                $gradeSchemeInfo = $currModel->schoolLevelGradeSchemeInfo($studentEducational->level_id);
+                $gradeScheme = $gradeModel->gradeSchemeDetails( ($gradeSchemeInfo['grade_scheme_id'] ?? 0) );
+                $subjects = [];
+                
+                if($grades){
+                    // format the grades with key of subjectname
+                    foreach($grades as $grade){
+                        $subject_details = $subjectModel->info((int)$grade->subject_id ?? 0);
+                        $subjectDetail = $subject_details[0];
+                        $subjects[$subjectDetail['subject_name']][$grade->flags] = $grade->grade;
+                    }
+                }
+                $levelList[] = ["section_info" => $section_info , "level_info" => $level_info, "subjects" => $subjects, "pass_threshold" => $gradeScheme[0]->pass_threshold ?? 0 , "adviser" => $teacher[0] ?? []];
+            }
+            
+        }
+
+        
+
+        
         $this->view = new View("print_form");
+        $this->view->levelList = $levelList;
         $this->view->student = $studentInfo;
         $this->view->raw_view();
 

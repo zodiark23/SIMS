@@ -151,13 +151,18 @@ class AccountController extends Controller{
 
 		if($id == 1 || $id == 2) { // Admin / teacher
 			$this->view = new View("profile_teacher");
-
+			$this->view->pointer = $this->pointer;
+        	$this->view->side_nav_data = $this->side_nav_data;
 			$this->view->render();
 		}elseif($id == 3){ // Student
 			$this->view = new View("profile_student");
+			$this->view->pointer = $this->pointer;
+        	$this->view->side_nav_data = $this->side_nav_data;
 			$this->view->render();
 		}elseif($id == 4){ // Parent
 			$this->view = new View("profile_parent");
+			$this->view->pointer = $this->pointer;
+        	$this->view->side_nav_data = $this->side_nav_data;
 			$this->view->render();
 		}
 		else{
