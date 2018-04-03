@@ -8,14 +8,26 @@
 Fix the UI @morbid
     -->
 
+<?php
+if(!$this->hasRights){
+    $this->unauthorized();
+    exit;
+}
+
+?>
+
 <div class="main-container">
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Education</h3>
-            <br>
-            <br>
-            <a class="outlined-button" href="<?=BASE_URL?>/admin/create-education">Create</a>
+            <div class="content-head">
+                <h3 class="dashboard-section-title">Education</h3>
+                <div class="input-group">
+                    <a class="outlined-button" href="<?=BASE_URL?>/admin/create-education">Create</a>
+                    <input type="text" id="search-box" placeholder="Search">
+                    <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
+                </div>
+            </div>
 
             <table style="width:100%" class="content-panel-table">
                 <thead>
@@ -33,19 +45,29 @@ Fix the UI @morbid
                         $count++;
                     ?>
                     
-                        <tr>
+                        <tr class='search_index'>
                             <td><?= ($count) ?></td>
                             <td><?= ($cur_data['description'] ?? "") ?></td>
                             <td><?= ($cur_data['year_duration'] ?? "") ?></td>
                             <td>
+                                <a class='tbl-builder-btn' href="<?=BASE_URL?>/admin/show-education/<?=($cur_data['curriculum_id'] ?? "")?>">Info</a>
                                 <a class="tbl-edit-btn" href="<?=BASE_URL?>/admin/edit-education/<?=($cur_data['curriculum_id'] ?? "")?>" >Edit</a>
                                 <a class="tbl-delete-btn" href="<?=BASE_URL?>/admin/delete-education/<?=($cur_data['curriculum_id'] ?? "")?>" >Delete</a>
                             </td>
                         </tr>
                     
-                    <?php } ?>
+                    <?php } 
+                         
+                        if(!$this->data){
+                            echo "<tr><td colspan='4'>No Data</td></tr>";
+                        }
+                    ?>
                 </tbody>
             </table>
+
+            <script>
+                    $("#search-box").quicksearch('.search_index');
+            </script>
 
         </div>
 

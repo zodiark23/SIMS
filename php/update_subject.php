@@ -19,7 +19,7 @@ $result = $subjectModel->update($id,$subject_name , $curr_id);
 if($result){
 
     $callback['code'] = "00";
-    $callback['message'] = "Successfully deleted the subject.";
+    $callback['message'] = "Successfully updated the subject.";
 }else{
     $callback['code'] = "01";
     $callback['message'] = "Unable to remove/perform the operation";

@@ -24,6 +24,7 @@
         <script>window.jQuery || document.write('<script src="<?=BASE_URL?>/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="<?=BASE_URL?>/js/lightbox.js"></script>
         <script src="<?=BASE_URL?>/js/jquery.tablesorter.min.js"></script>
+        <script src="<?=BASE_URL?>/js/rQuery.js"></script>
         <script>
             var BASE_URL = "<?=BASE_URL?>";
         </script>

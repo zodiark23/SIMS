@@ -2,9 +2,6 @@
 
 use SIMS\Classes\Model;
 use SIMS\Classes\Database;
-//use SIMS\App\Models\LoginModel;
-
-//session_start();
 
 
 class RoleModel extends Model {
@@ -16,19 +13,36 @@ class RoleModel extends Model {
 	}
 
 	/**
-	 * Returns the list of all available right names
+	 * Fetch all the right(s) of the logged in user.
 	 */
-	private function verify_rights(){
-		$role_id = $_SESSION['role_id'];
+	public function loadRights($role_id){
 
-		$stmt = $this->db->prepare("SELECT r.rights_code FROM role_privilege rp LEFT JOIN rights r ON rp.rights_id = r.rights_id WHERE rp.role_id = :role_id");
+	    @session_start();
+		$stmt = $this->db->prepare("SELECT r.rights_code FROM role_privilege rp LEFT JOIN rights r ON rp.rights_id=r.rights_id WHERE rp.role_id = $role_id");
 
-		$stmt->execute([":role_id"=>$role_id]);
+		$stmt->execute();
 
 		$result = $stmt->fetchAll();
 
 		return $result;
 
+	}
+
+	/**
+	 * Returns true if the logged in user have / has right(s) to that page.
+	 */
+	public function verifyRights($rights_code)
+	{
+		@session_start();
+		if(isset($_SESSION['userRights'])){
+
+			foreach ($_SESSION['userRights'] as $r) {
+				if (in_array($rights_code, $r)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -42,6 +56,14 @@ class RoleModel extends Model {
         $result = $stmt->fetchAll();
 
         return $result;
+
+    }
+
+    public function displayRole($role_id){
+    	$stmt = $this->db->prepare("SELECT role_name FROM roles WHERE role_id = :role_id");
+    	$stmt->execute([":role_id"=>$role_id]);
+	    $result = $stmt->fetchAll();
+	    return $result;
 
     }
 
@@ -81,31 +103,39 @@ class RoleModel extends Model {
     }
 
 	public function deleteRights($role_id){
-		$stmt = $this->db->prepare("DELETE FROM role_privilege WHERE role_id=:role_id ");
-		$stmt->execute([":role_id"=>$role_id]);
+    	$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_id = :role_id");
+    	$stmt->execute([":role_id"=>$role_id]);
+    	$result = $stmt->fetchAll();
+    	foreach ($result as $r){
+    		$default = $r['default'];
+	    }
 
-		if($stmt){
-			return true;
-		}
+	    if($default != 1){
+		    $stmt = $this->db->prepare("DELETE FROM role_privilege WHERE role_id=:role_id ");
+		    $stmt->execute([":role_id"=>$role_id]);
 
+		    if($stmt){
+			    return true;
+		    }
+	    }
 		return false;
 
 	}
 
 
 	/**
-	 * Perform a delete 
-	 * 
+	 * Perform a delete
+	 *
 	 * Then insert all the new rights
-	 * 
-	 * 
+	 *
+	 *
 	 */
-    public function updateRights($role_id,$rights_id){
-    	
+    public function updateRights($role_id,$rights_id,$role_name){
+
 	    // Delete rights if the user submitted the form.
-	    
+
 			$result = $this->deleteRights($role_id);
-			
+
 
 		    // Insert new rights if the user submitted the form.
 		    if($result){
@@ -114,15 +144,59 @@ class RoleModel extends Model {
 
 					$stmt = $this->db->prepare("INSERT INTO role_privilege (privilege_id,role_id,rights_id) VALUES (null, :role_id, :rights_id)");
 					$stmt->execute([":role_id"=>$role_id, ":rights_id"=>$rid]);
-				
+
+					if($stmt){
+						$stmt = $this->db->prepare("UPDATE roles SET role_name = :role_name WHERE role_id = :role_id");
+						$stmt->execute([":role_name"=>$role_name, ":role_id"=>$role_id]);
+						($stmt) ? true : false;
+					}
 				}
 
 				return true;
 			}
-			
 
 		return false;
-	    
 
     }
+
+    /*
+     *  Add int $default parameter later (FOR CONFIRMATION)
+     */
+    public function addRole($role_name){
+
+    	$stmt = $this->db->prepare("SELECT * FROM roles WHERE role_name = :role_name");
+    	$stmt->execute([':role_name'=>$role_name,]);
+    	$result = $stmt->fetchAll();
+    	if($result){
+    		return false;
+	    }
+    	$stmt = $this->db->prepare("INSERT INTO `roles` (role_id,role_name,`default`) VALUES (null,:role_name,0)");
+    	$stmt->execute([':role_name'=>$role_name]);
+    	if ($stmt){
+    		return true;
+	    }
+	    return false;
+    }
+
+
+
+    public function deleteRole($role_id){
+
+    	$result = $this->deleteRights($role_id);
+
+    	if($result){
+    		$stmt = $this->db->prepare("DELETE FROM roles WHERE role_id = :role_id");
+    		$stmt->execute([":role_id"=>$role_id]);
+		    if($stmt){
+		    	return true;
+		    }
+
+	    }
+	    return false;
+
+
+    }
+
+
+
 }

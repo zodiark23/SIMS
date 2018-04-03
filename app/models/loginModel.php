@@ -16,6 +16,7 @@ class LoginModel extends Model {
 	}
 
 	private function process($p1, $p2, $table){
+        @session_start();
 
 		$this->userEmail = $p1;
 		$this->userPass = $p2;
@@ -28,12 +29,17 @@ class LoginModel extends Model {
 
 		if(count($result) > 0){
 
-			foreach ($result as $r){
-				$_SESSION['role_id'] = $r['role_id'];
-				$_SESSION['first_name'] = $r['first_name'];
-				$_SESSION['last_name'] = $r['last_name'];
-			}
+		    $user_info = [];
 
+            foreach($result as $key => $val){
+                foreach($val as $key => $v){
+                    $user_info[$key] = $v;
+                }
+
+            }
+
+
+            $_SESSION['user'] = $user_info;
 			return true;
 
 		} else {

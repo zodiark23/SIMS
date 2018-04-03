@@ -17,8 +17,23 @@ class Student{
     public $password;
     public $contact_number;
 
+    public $create_date;
+    public $last_updated;
+
+    public $birth_date;
+
     public $gender;
-    public $status;
+    public $house_street_number;
+    public $subdivision_barangay;
+    public $town_city;
+    public $province;
+    public $tel_number;
+    public $cell_number;
+    
+    public $region;
+
+    public $status = 0;
+    public $role_id;
 
 
 }

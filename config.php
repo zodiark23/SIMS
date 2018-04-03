@@ -6,7 +6,7 @@
  */
 define("DEFAULT_ROUTE_PAGE", "default");
 
-$actual_link = "http://".$_SERVER["HTTP_HOST"]."/sims";
+$actual_link = "http://".($_SERVER["HTTP_HOST"] ?? "")."/sims";
 
 /**
  * Default base url used by whole application

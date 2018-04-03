@@ -14,6 +14,10 @@ class View {
      * The data passed by controller
      */
     public $data = [];
+    /**
+     * The controller action will pass a pointer here
+     */
+    public $pointer;
 
 
     public function __construct($view){
@@ -27,8 +31,16 @@ class View {
         require_once ("app/views/master.layout.php");
     }
 
+    public function raw_view(){
+        require_once("app/views/".$this->view.".php");
+    }
+
 
     public function error(){
         require_once ("app/views/404.php");
     }
+
+	public function unauthorized(){
+		require_once ("app/views/401.php");
+	}
 }

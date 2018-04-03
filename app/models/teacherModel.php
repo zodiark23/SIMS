@@ -20,6 +20,21 @@ class TeacherModel extends Model{
     }
 
 
+
+    public function list(){
+        $stmt = $this->db->prepare("SELECT * FROM `teachers` WHERE `teacher_id` > 1");
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        if(count($result) > 0){
+            return $result;
+        }
+
+        return false;
+    }
+
+
     /**
      * Method to create a new teacher
      * 
@@ -81,6 +96,38 @@ class TeacherModel extends Model{
 
         return false;
         
+    }
+
+    /**
+     * Get the students under this teacher
+     */
+    public function myStudents($teacher_id){
+        $sectionModel = new SectionModel();
+        $studentModel = new StudentModel();
+        $sections = $sectionModel->getSectionByAdvisor($teacher_id);
+
+        if(!$sections){
+            return false;
+        }
+        $list = [];
+        foreach($sections as $s){
+
+            $students = $sectionModel->getStudents($s->section_id);
+            $sectionStudents = array();
+            if($students){
+
+                foreach($students as $student){
+
+                    $student_id = $student->student_id;
+                    $result = $studentModel->findById("student_id",$student_id);
+                    $sectionStudents[] = $result;
+                }
+            }
+            $list[$s->section_id] = ["section_name" => $s->section_name, "data" => $sectionStudents];
+        }
+
+        return $list;
+
     }
 
 

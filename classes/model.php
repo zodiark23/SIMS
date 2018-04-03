@@ -16,7 +16,7 @@ abstract class Model{
      * Find the target id
      * 
      * @param string $column - The column to be searched
-     * @param int $id - The actual value to be queried
+     * @param int|string $id - The actual value to be queried
      * @param string $table Overrides the current property
      */
     public function findById($column,$id, $table = ""){

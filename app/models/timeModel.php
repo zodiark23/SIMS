@@ -17,7 +17,7 @@ use SIMS\Classes\Model;
  * 
  * > `$isAvailable = $t->setTime("8:00", "9:00")->check_availability("8:00", "8:30");`
  * 
- * 
+ * @author schizonic
  */
 class TimeModel 
 {
@@ -50,21 +50,71 @@ class TimeModel
     public function check_availability(string $time = "", string $other_time =""){
         $available = true;
 
-        // Only checks the first args
-        if( ( strtotime($time) >= strtotime($this->from) ) && ( strtotime($time) <= strtotime($this->to) ) ){
+        $outward = false; //directional checking - It checks the outside scope compare to inside
+        $inward = false;  //directional checking - It checks the inside scope and compare to outside
+
+        if( strtotime($this->from) > strtotime($time) && strtotime($this->from) < strtotime($other_time)){
+            $outward = true;
+        }
+
+        if( strtotime($this->to) > strtotime($time) && strtotime($this->to) < strtotime($other_time)){
+            $outward = true;
+        }
+
+
+        if( strtotime($time) > strtotime($this->from) && strtotime($time) < strtotime($this->to)){
+            $inward = true;
+        }
+
+        if( strtotime($other_time) > strtotime($this->from) && strtotime($other_time) < strtotime($this->to)){
+            $inward = true;
+        }
+
+
+        if($inward == true || $outward == true){
             $available = false;
         }
 
-        if(!empty($other_time)){
-            // Only checks the first args
-            if( ( strtotime($other_time) > strtotime($this->from) ) && ( strtotime($other_time) < strtotime($this->to) ) ){
-                $available = false;
-            }
+        // if its exactly the same e.g set time is 8am,9am. While the checking time is also 8am,9am
+        if(strtotime($time) == strtotime($this->from) && strtotime($other_time) == strtotime($this->to)){
+            $available = false; 
         }
-
+        // if checking time is same e.g 11am to 11am
+        if(strtotime($time) == strtotime($other_time)){
+            $available = false;
+        }
         
 
         return $available;
     }
+
+
+
+    
+    /**
+     * Returns an option fields for select
+     * Accepts a custom start & end time.
+     * Optional. Selected time
+     * 
+     */
+    public function generateTime($start = "05:00", $end = "24:00", $selected_time = ""){
+            $string = "";
+            $start = strtotime($this->start = $start); //Start Time
+            $end = strtotime($this->end = $end);  //End Time
+            
+            
+            for ($i = $start; $i <= $end; $i += 900){
+                $selected = "";
+                if($selected_time == date("H:i:00",$i)){
+                    $selected = "selected";
+                }
+                $string .= "<option $selected value='". date('H:i:00', $i)."'>" . date('g:i a', $i);
+            }
+
+            return $string;
+    }
+   
+
+    
     
 }

@@ -28,6 +28,7 @@ abstract class Controller{
 
 
 	public function default(){
+        $this->view->side_nav_data = $this->side_nav_data ?? [];
         $this->view->render();
     }
 
@@ -35,4 +36,8 @@ abstract class Controller{
     public function error(){
         $this->view->error();
     }
+
+	public function unauthorized(){
+		$this->view->unauthorized();
+	}
 }

@@ -13,7 +13,7 @@
                 <p class="sc-address">Dinalupihan, Bataan 2110</p>
             </div>
 
-            <form action="" class="reg-form">
+            <form action="" id="student-form" class="reg-form">
                 <table>
                     <tbody>
                         <tr>
@@ -21,15 +21,15 @@
                         </tr>
                         <tr>
                             <td colspan="2">Last:</td>
-                            <td colspan="5"><input type="text"></td>
+                            <td colspan="5"><input name="s_last_name" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="2">First:</td>
-                            <td colspan="5"><input type="text"></td>
+                            <td colspan="5"><input name="s_first_name" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="2">Middle:</td>
-                            <td colspan="5"><input type="text"></td>
+                            <td colspan="5"><input name="s_middle_name" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="head">Sex:</td>
@@ -39,78 +39,85 @@
                         </tr>
                         <tr>
                             <td style="width: 100px;">
-                                <input type="radio" name="sex" id="s-male">
+                                <input type="radio" value="1" name="sex" id="s-male">
                                 <label for="s-male">Male</label>
                             </td>
                             <td style="width: 100px;">
-                                <input type="radio" name="sex" id="s-female">
+                                <input type="radio" value="2" name="sex" id="s-female">
                                 <label for="s-female">Female</label>
                             </td>
                             <td style="width: 50px;">
-                                <input type="number" id="mm">
+                                <input name="s_month" type="number" id="mm">
                             </td>
                             <td style="width: 50px;">
-                                <input type="number" id="dd">
+                                <input name="s_day" type="number" id="dd">
                             </td>
                             <td style="width: 100px;">
-                                <input type="number" id="yyyy">
+                                <input name="s_year" type="number" id="yyyy">
                             </td>
-                            <td style="width: 150px;"><input type="text"></td>
-                            <td><input type="text"></td>
+                            <td style="width: 150px;"><input name="s_nationality" type="text"></td>
+                            <td><input name="s_place_of_birth" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="6" class="head">Elementary School Name:</td>
                             <td class="head">Month/Year of Completion:</td>
                         </tr>
                         <tr>
-                            <td colspan="6" ><input type="text"></td>
-                            <td><input type="text"></td>
+                            <td colspan="6" ><input name="edu_elementary_name" type="text"></td>
+                            <td><input name="edu_elem_year_completed" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="6" class="head">Elementary School Address:</td>
                             <td class="head">Region:</td>
                         </tr>
                         <tr>
-                            <td colspan="6" ><input type="text"></td>
-                            <td><input type="text"></td>
+                            <td colspan="6" ><input name="edu_elem_address" type="text"></td>
+                            <td><input name="s_region" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="7" class="head">House Number and Street:</td>
                         </tr>
                         <tr>
-                            <td colspan="7"><input type="text"></td>
+                            <td colspan="7"><input name="s_house_street_number" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="7" class="head">Subdivision/Barangay:</td>
                         </tr>
                         <tr>
-                            <td colspan="7"><input type="text"></td>
+                            <td colspan="7"><input name="s_sub_barangay" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="7" class="head">Town/City:</td>
                         </tr>
                         <tr>
-                            <td colspan="7"><input type="text"></td>
+                            <td colspan="7"><input name="s_town_city" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="7" class="head">Province:</td>
                         </tr>
                         <tr>
-                            <td colspan="7"><input type="text"></td>
+                            <td colspan="7"><input name="province" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="head">Telephone Number:</td>
-                            <td colspan="5"><input type="number"></td>
+                            <td colspan="5"><input name="s_tel_number" type="number"></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="head">Cellphone Number:</td>
-                            <td colspan="5"><input type="number"></td>
+                            <td colspan="5"><input name="s_cell_number" type="number"></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="head">Email Address:</td>
-                            <td colspan="5"><input type="text"></td>
+                            <td colspan="5"><input name="s_email" type="text"></td>
                         </tr>
                     </tbody>
+                </table>
+                <table style="margin-top: 10px; text-align: center;">
+                    <tr>
+                        <td><input type="radio" id="new-student" name="enlistment"> <label for="new-student">New Student</label></td>
+                        <td><input type="radio" id="transferee" name="enlistment"> <label for="transferee">Transferee</label></td>
+                        <td><input type="radio" id="balik-skwela" name="enlistment"> <label for="balik-skwela">Balik-skwela</label></td>
+                    </tr>
                 </table>
                 <div class="acknowledgement">
                     <p>I understand that all information I provide in this form may be used by the Department of Education and I consent to such with the assurance that my personal details will be kept confidential.</p>
@@ -128,8 +135,9 @@
             </form>
 
             <div class="print-btn">
-                <a href="javascript:void(0)"><i class="far fa-save"></i> Save</a>
+                <a href="javascript: $('#student-form').submit()"><i class="far fa-save"></i> Save</a>
             </div>
+            
 
         </div>
 
