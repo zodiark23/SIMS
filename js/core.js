@@ -1280,9 +1280,9 @@ $("#login-form").validate({
             subject_id : {
                 required : true
             },
-            day : {
-                required : true
-            },
+            // day : {
+            //     required : true
+            // },
             start_time : {
                 required : true
             },

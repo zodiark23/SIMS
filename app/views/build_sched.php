@@ -57,7 +57,7 @@ add styling on bottom note
                     ?>
                 </select>
 
-                <select name="day">
+                <!-- <select name="day">
                     <option value="">Select Day</option>
                     <option>Mon</option>
                     <option>Tue</option>
@@ -66,7 +66,7 @@ add styling on bottom note
                     <option>Fri</option>
                     <option>Sat</option>
                     <option>Sun</option>
-                </select>
+                </select> -->
 
                 <select name="start_time">
                     <option value=""> Select Start Time </option>

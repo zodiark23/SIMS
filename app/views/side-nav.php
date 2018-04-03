@@ -88,7 +88,7 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                 <a href="javascript:void(0);">Schedules <span class="count"><?=($this->side_nav_data['scheduleCount'] ?? 0)?></span></a>
                 <ul class="child-ul">
                     <!-- <li><a href="">View Schedules</a></li> -->
-                    <li><a href="">My Schedule</a></li>
+                    <!-- <li><a href="">My Schedule</a></li> -->
                     <li><a href="<?=BASE_URL?>/admin/manage-schedule">Manage Schedule</a></li>
                 </ul>
             </li>
