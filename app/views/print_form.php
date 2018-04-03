@@ -16,6 +16,7 @@ ob_start();
 		@page {
 			margin-left: 0.5cm;
 			margin-right: 0.5cm;
+			margin-top:0.5cm;
 		}
 	</style>
 	<style>
@@ -330,8 +331,6 @@ ob_start();
 		<br>
 		<br>
 		<br>
-		<br>
-		<br>
 		<table>
 		<tr>
 				<td class="bold">SCHOOL: <?= isset($this->levelList[1]) ? "Luakan High School" : "" ?></td>
@@ -420,7 +419,7 @@ ob_start();
 				<td class="bold w-3" style="padding-bottom: 20px;">Date Checked(MM/DD/YYYY):</td>
 			</tr>
 			<tr>
-				<td><center class='underscore'><?= $this->levelList[1]['adviser']['first_name'] ?? ""?> <?= $this->levelList[0]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[0]['adviser']['last_name'] ?? ""?></center></td>
+				<td><center class='underscore'><?= $this->levelList[1]['adviser']['first_name'] ?? ""?> <?= $this->levelList[1]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[1]['adviser']['last_name'] ?? ""?></center></td>
 				<td></td>
 				<td></td>
 			</tr>
@@ -586,7 +585,7 @@ ob_start();
 				<td class="bold w-3" style="padding-bottom: 20px;">Date Checked(MM/DD/YYYY):</td>
 			</tr>
 			<tr>
-				<td><center class='underscore'><?= $this->levelList[2]['adviser']['first_name'] ?? ""?> <?= $this->levelList[0]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[0]['adviser']['last_name'] ?? ""?></center></td>
+				<td><center class='underscore'><?= $this->levelList[2]['adviser']['first_name'] ?? ""?> <?= $this->levelList[2]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[2]['adviser']['last_name'] ?? ""?></center></td>
 				<td></td>
 				<td></td>
 			</tr>
@@ -660,7 +659,8 @@ ob_start();
 				<td style="width: 300px;">Signature:</td>
 			</tr>
 		</table>
-		<!-- <br> -->
+		<br>
+		<br>
 		<table>
 			<tr>
 				<td class="bold">SCHOOL: <?= isset($this->levelList[3]) ? "Luakan High School" : "" ?></td>
@@ -749,7 +749,7 @@ ob_start();
 				<td class="bold w-3" style="padding-bottom: 20px;">Date Checked(MM/DD/YYYY):</td>
 			</tr>
 			<tr>
-				<td><center class='underscore'><?= $this->levelList[3]['adviser']['first_name'] ?? ""?> <?= $this->levelList[0]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[0]['adviser']['last_name'] ?? ""?></center></td>
+				<td><center class='underscore'><?= $this->levelList[3]['adviser']['first_name'] ?? ""?> <?= $this->levelList[3]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[3]['adviser']['last_name'] ?? ""?></center></td>
 				<td></td>
 				<td></td>
 			</tr>
