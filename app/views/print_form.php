@@ -251,6 +251,11 @@ ob_start();
 				<td class="bold w-3" style="padding-bottom: 20px;">Date Checked(MM/DD/YYYY):</td>
 			</tr>
 			<tr>
+				<td><center class='underscore'><?= $this->levelList[0]['adviser']['first_name'] ?? ""?> <?= $this->levelList[0]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[0]['adviser']['last_name'] ?? ""?></center></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
 				<td class="tc w-3 top-border">Signature of Adviser over Printed Name</td>
 				<td class="tc w-3 top-border">Signature of Authorized Person over Printed Name, Designation</td>
 				<td class="tc w-3 top-border"></td>
@@ -322,7 +327,6 @@ ob_start();
 			</tr>
 		</table>
 		<!-- End of First Block -->
-		<br>
 		<br>
 		<br>
 		<br>
@@ -414,6 +418,11 @@ ob_start();
 				<td class="bold w-3" style="padding-bottom: 20px;">Prepared By:</td>
 				<td class="bold w-3" style="padding-bottom: 20px;">Certified True and Correct:</td>
 				<td class="bold w-3" style="padding-bottom: 20px;">Date Checked(MM/DD/YYYY):</td>
+			</tr>
+			<tr>
+				<td><center class='underscore'><?= $this->levelList[1]['adviser']['first_name'] ?? ""?> <?= $this->levelList[0]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[0]['adviser']['last_name'] ?? ""?></center></td>
+				<td></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td class="tc w-3 top-border">Signature of Adviser over Printed Name</td>
@@ -577,6 +586,11 @@ ob_start();
 				<td class="bold w-3" style="padding-bottom: 20px;">Date Checked(MM/DD/YYYY):</td>
 			</tr>
 			<tr>
+				<td><center class='underscore'><?= $this->levelList[2]['adviser']['first_name'] ?? ""?> <?= $this->levelList[0]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[0]['adviser']['last_name'] ?? ""?></center></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
 				<td class="tc w-3 top-border">Signature of Adviser over Printed Name</td>
 				<td class="tc w-3 top-border">Signature of Authorized Person over Printed Name, Designation</td>
 				<td class="tc w-3 top-border"></td>
@@ -733,6 +747,11 @@ ob_start();
 				<td class="bold w-3" style="padding-bottom: 20px;">Prepared By:</td>
 				<td class="bold w-3" style="padding-bottom: 20px;">Certified True and Correct:</td>
 				<td class="bold w-3" style="padding-bottom: 20px;">Date Checked(MM/DD/YYYY):</td>
+			</tr>
+			<tr>
+				<td><center class='underscore'><?= $this->levelList[3]['adviser']['first_name'] ?? ""?> <?= $this->levelList[0]['adviser']['middle_name'] ?? ""?> <?= $this->levelList[0]['adviser']['last_name'] ?? ""?></center></td>
+				<td></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td class="tc w-3 top-border">Signature of Adviser over Printed Name</td>
