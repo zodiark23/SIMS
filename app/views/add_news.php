@@ -25,36 +25,14 @@ Fix the UI @morbid
                     </p>
                     <br>
                     <br>
-
-
 	                <textarea class="tinymce" id="newsContent" name="newsContent" cols='105' rows='30'></textarea>
-
-                    <!--- tinymce CDN-->
-                    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-                    <script>
-                        tinymce.init({
-	                        menubar: false,
-                            selector: ".tinymce",
-                            plugins: [
-                                "advlist autolink lists link image charmap print preview anchor",
-                                "searchreplace visualblocks code fullscreen",
-                                "insertdatetime media table contextmenu paste",
-                                "textcolor"
-                            ],
-                            browser_spellcheck: true,
-                            toolbar: "insertfile undo redo | styleselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image "
-                        });
-                    </script>
-
                     <br>
                     <br>
 
                     <input type="submit" class="outlined-button" value="Add" id="save-news">
+                    <input name="image" type="file" id="upload-img" class="hidden" onchange="">
 
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+
 
                 </form>
 			</div>

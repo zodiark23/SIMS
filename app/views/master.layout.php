@@ -30,6 +30,57 @@
         </script>
         <script src="<?=BASE_URL?>/js/main.js"></script>
         <script src="<?=BASE_URL?>/js/core.js"></script>
+        <script src="<?=BASE_URL?>/vendor/tinymce/js/tinymce/tinymce.min.js"></script>
+        <script>
+		    tinymce.init({
+			    selector: '#newsContent',
+			    plugins: ["code image imagetools autolink textcolor colorpicker fullscreen",
+				    "help media wordcount"],
+			    toolbar: 'undo redo | code | image | forecolor backcolor | fullscreen | media | help ',
+			    menubar: false,
+			    browser_spellcheck: true,
+			    media_alt_source: false,
+			    media_poster: false,
+			    mobile: {
+				    theme: 'mobile'
+			    },
+			    // without images_upload_url set, Upload tab won't show up
+			    images_upload_url: 'upload.php',
+
+			    // override default upload handler to simulate successful upload
+			    images_upload_handler: function (blobInfo, success, failure) {
+				    var xhr, formData;
+
+				    xhr = new XMLHttpRequest();
+				    xhr.withCredentials = false;
+				    xhr.open('POST', 'upload.php');
+
+				    xhr.onload = function () {
+					    var json;
+
+					    if (xhr.status != 200) {
+						    failure('HTTP Error: ' + xhr.status);
+						    return;
+					    }
+
+					    json = JSON.parse(xhr.responseText);
+
+					    if (!json || typeof json.location != 'string') {
+						    failure('Invalid JSON: ' + xhr.responseText);
+						    return;
+					    }
+
+					    success(json.location);
+				    };
+
+				    formData = new FormData();
+				    formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+				    xhr.send(formData);
+			    }
+		    });
+        </script>
+
 
     </head>
 

@@ -277,11 +277,10 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
             },
 
         submitHandler: function(){
-            newsContent = tinymce.get('newsContent').getContent();
+            newsContent = tinyMCE.get('newsContent').getContent();
 
             newsTitle = $('#newsTitle').val();
-
-
+            
             $.ajax({
                 type: 'POST',
                 url: BASE_URL+"/php/publish_news.php",
@@ -304,6 +303,10 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
         }
     });
 
+	// $('#save-news').on("click", function () {
+	// 	var newsContent = tinyMCE.get('newsContent').getContent();
+	// 	alert(newsContent);
+	// });
 
     // Update news
     $("#edit-news-form").validate({

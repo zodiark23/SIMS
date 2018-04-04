@@ -40,6 +40,8 @@ Fix the UI @morbid
 	                                $news_id = $result['news_id'];
 
 		                            if (strlen(htmlspecialchars($result['news_content'])) > 250) {
+
+
 			                            // Title and Content
 			                            echo "<tr><td style='padding: 5px 0 5px 15px; text-align: left; width: 400px;'>".$result['news_title'];
 			                            echo "<br><br>";
@@ -69,7 +71,7 @@ Fix the UI @morbid
 			                            // Title and Content
 			                            echo "<tr><td style='padding: 5px 0 5px 15px; text-align: left; width: 400px;'>".$result['news_title'];
 			                            echo "<br><br>";
-			                            echo htmlspecialchars_decode($result['news_content'])."</td>";
+			                            echo htmlspecialchars_decode(($result['news_content']))."</td>";
 
 			                            // Published button here (YES/NO)
 			                            echo "<td>".$result['news_publish'];
@@ -98,11 +100,10 @@ Fix the UI @morbid
 
         </table>
                     <div class='bg-modal'>
-						
+
                         <div class='modal-content'>
-                            
-						<div class='close-modal'><i class="far fa-times-circle"></i></div>
-                        <div class='real-content'></div>
+                            <div class='close-modal'><i class="far fa-times-circle"></i></div>
+                            <div class='real-content'></div>
                         </div>
                     </div>
 
