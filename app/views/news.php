@@ -13,14 +13,14 @@ Fix the UI @morbid
 			<div class="content-panel">
                 <div class="content-head">
                     <h3 class="dashboard-section-title">Publish News</h3>
-                    <div class="input-group">                 
+                    <div class="input-group">
                         <a class="outlined-button" href="<?=BASE_URL?>/admin/add_news">Create</a>
                         <input type="text" id="search-box" placeholder="Search">
                         <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
-                    </div> 
+                    </div>
                 </div>
                 <form id="display-news-form" method="post">
-                    
+
                     <div class='error_news_form'></div>
                     <table style="width:100%" class="content-panel-table">
                         <tr>
@@ -113,7 +113,7 @@ Fix the UI @morbid
 
                     <br>
                     <br>
-                    
+
 
                 </form>
 			</div>

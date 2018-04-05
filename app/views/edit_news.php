@@ -19,7 +19,10 @@ Fix the UI @morbid
                     <br>
 
                     <p>
-                        <label>Title</label>
+                        <span class="input input--hoshi" style="width:45%">
+                            <input value="" class="input__field input__field--hoshi" type="text" id="edit-newsTitle"  name="edit-newsTitle">
+                            <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="edit-newsTitle">
+                        <span class="input__label-content input__label-content--hoshi">News Title</span>
                         <br>
                         <input type="text" name="newsTitle" id="newsTitle" value="<?php echo $this->news_content[0]['news_title'] ?>">
                     </p>

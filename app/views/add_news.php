@@ -19,9 +19,14 @@ Fix the UI @morbid
                     <br>
 
                     <p>
-                        <label>Title</label>
+
                         <br>
-                        <input type="text" name="newsTitle" id="newsTitle">
+
+                        <span class="input input--hoshi" style="width:45%">
+                            <input value="" class="input__field input__field--hoshi" type="text" id="newsTitle"  name="newsTitle">
+                            <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="newsTitle">
+                        <span class="input__label-content input__label-content--hoshi">News Title</span>
+
                     </p>
                     <br>
                     <br>

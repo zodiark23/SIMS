@@ -1,7 +1,7 @@
 <div class="side-nav">
     <div class="admin">
     <?php
-    
+
     $imgSrc = isset($_SESSION['full_path']) && !empty($_SESSION['full_path']) ? BASE_URL.$_SESSION['full_path'] : BASE_URL."/img/default.png";
     ?>
         <img src="<?=$imgSrc?>" alt="" class="adm-img">
@@ -34,7 +34,7 @@ if($this->pointer == "subject_list" || $this->pointer == "edit_subject"  || $thi
 }
 $sectionPointer = "";
 if($this->pointer == "section_list" || $this->pointer == "add_section"){
-    
+
     $sectionPointer = "active";
 }
 
@@ -69,7 +69,7 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                 <ul class="child-ul">
                     <li><a href="<?=BASE_URL?>/admin/overview-teacher">Overview</a></li>
                     <li><a href="<?=BASE_URL?>/admin/create-teacher">Add Teacher</a></li>
-                    <?php 
+                    <?php
                         $teacher = $_SESSION['user']['teacher_id'] ?? null;
                         if(!empty($teacher) && $teacher > 1){
                         // prevent displaying on non teacher

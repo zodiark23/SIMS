@@ -201,7 +201,7 @@ INSERT INTO `rights` (`rights_id`, `rights_code`) VALUES
 (20, 'EDIT_SECTION'),
 (21, 'ADD_SCHEDULE'),
 (22, 'MANAGE_SCHEDULE'),
-(22, 'MANAGE_STUDENT');
+(23, 'MANAGE_STUDENT');
 
 -- --------------------------------------------------------
 
@@ -977,3 +977,86 @@ ALTER TABLE `profile_img`
 ALTER TABLE `profile_img`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
+
+--
+-- Table structure for table `profile_img`
+--
+
+CREATE TABLE `profile_img` (
+  `id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `email` text NOT NULL,
+  `full_path` text NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `profile_img`
+--
+
+INSERT INTO `profile_img` (`id`, `role_id`, `email`, `full_path`, `status`) VALUES
+(1, 0, 'default', '../user_uploads/1522690295donotdelete.png', 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `profile_img`
+--
+ALTER TABLE `profile_img`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `profile_img`
+--
+ALTER TABLE `profile_img`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `news_id` int(10) NOT NULL,
+  `news_title` varchar(255) NOT NULL,
+  `news_author` text NOT NULL,
+  `create_date` date NOT NULL,
+  `last_updated` date NOT NULL,
+  `news_content` text NOT NULL,
+  `news_publish` int(2) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`news_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `news_id` int(10) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
