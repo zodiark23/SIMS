@@ -770,13 +770,6 @@ $("#login-form").validate({
 				required: true,
 				regex : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
 			},
-			teacher_pass: {
-				required: true
-			},
-			teacher_pass_confirm : {
-				required: true,
-				equalTo : '#teacher_pass'
-			},
 			teacher_first_name : {
 				required : true,
 				regex : /^[a-zA-Z\s]+$/,
@@ -801,9 +794,6 @@ $("#login-form").validate({
 		messages : {
 			teacher_email : {
 				regex : 'Please enter a valid email'
-			},
-			teacher_pass_confirm : {
-				equalTo : "Password doesn't match"
 			},
 			teacher_first_name : {
 				minlength : "Name must be at least 2 characters",
@@ -831,6 +821,46 @@ $("#login-form").validate({
 					success: function (data) {
 						x = JSON.parse(data);
 
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
+	
+	// Update teacher password
+	$("#update-password-teacher-form").validate({
+		rules: {
+			teacher_pass: {
+				required: true
+			},
+			teacher_pass_confirm : {
+				required: true,
+				equalTo : '#teacher_pass'
+			}
+		},
+		messages : {
+			teacher_pass_confirm : {
+				equalTo : "Password doesn't match"
+			}
+		},
+		submitHandler : function(){
+			var data = $("#update-password-teacher-form").serialize();
+			var id = $(".t_pass-btn").data('id');
+			
+			if(confirm("Are you sure you want to update your password? You are required to re-login after saving your password.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_password_teacher.php",
+					type: "post",
+					data: data + "&tid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
 						if (x.code == "00") {
 							alert(x.message);
 							window.location = BASE_URL + "/home/logout";
@@ -969,6 +999,46 @@ $("#login-form").validate({
 			}
 		}
 	});
+	
+	// Update student password
+	$("#update-password-student-form").validate({
+		rules: {
+			student_pass: {
+				required: true
+			},
+			student_pass_confirm : {
+				required: true,
+				equalTo : '#student_pass'
+			}
+		},
+		messages : {
+			student_pass_confirm : {
+				equalTo : "Password doesn't match"
+			}
+		},
+		submitHandler : function(){
+			var data = $("#update-password-student-form").serialize();
+			var id = $(".s_pass-btn").data('id');
+			
+			if(confirm("Are you sure you want to update your password? You are required to re-login after saving your password.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_student_password.php",
+					type: "post",
+					data: data + "&sid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
 
 
 	// Update parent profile
@@ -1047,6 +1117,46 @@ $("#login-form").validate({
 					success: function (data) {
 						x = JSON.parse(data);
 
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
+	
+	// Update student password
+	$("#update-password-parent-form").validate({
+		rules: {
+			parent_pass: {
+				required: true
+			},
+			parent_pass_confirm : {
+				required: true,
+				equalTo : '#parent_pass'
+			}
+		},
+		messages : {
+			parent_pass_confirm : {
+				equalTo : "Password doesn't match"
+			}
+		},
+		submitHandler : function(){
+			var data = $("#update-password-parent-form").serialize();
+			var id = $(".p_pass-btn").data('id');
+			
+			if(confirm("Are you sure you want to update your password? You are required to re-login after saving your password.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_password_parent.php",
+					type: "post",
+					data: data + "&pid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
 						if (x.code == "00") {
 							alert(x.message);
 							window.location = BASE_URL + "/home/logout";

@@ -9,21 +9,16 @@ use SIMS\App\Models\ProfileModel;
 
 
 $profileModel = new ProfileModel();
-$parent_id = $_POST['pid'];
-$f_name = $_POST['parent_first_name'];
-$m_name = $_POST['parent_middle_name'];
-$l_name = $_POST['parent_last_name'];
-$email = $_POST['parent_email'];
-$contact = $_POST['parent_contact'];
+$teacher_id = $_POST['tid'];
+$pass = $_POST['teacher_pass_confirm'];
 
 
-$isValid = $profileModel->setParent($parent_id,$f_name,$m_name,$l_name,$email,$contact);
+$isValid = $profileModel->setTeacherPass($teacher_id,$pass);
 
 
 if($isValid){
     $callback['code'] = "00";
     $callback['message'] = "Successfully updated your profile.";
-
 }else{
     $callback['code'] = "01";
     $callback['message'] = "Unexpected error happen. Please contact support.";

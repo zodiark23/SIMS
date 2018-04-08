@@ -216,4 +216,24 @@ class AccountController extends Controller{
 		}
 	}
 
+	public function password(){
+		@session_start();
+		$id = $_SESSION['user']['role_id'];
+
+		if($id == 1 || $id == 2) { // Admin / teacher
+			$this->view = new View("update_password_teacher");
+			$this->view->render();
+		}elseif($id == 3){ // Student
+			$this->view = new View("update_student_password");
+			$this->view->render();
+		}elseif($id == 4){ // Parent
+			$this->view = new View("update_password_parent");
+			$this->view->render();
+		}
+		else{
+			$this->error();
+			return false;
+		}
+	}
+
 }

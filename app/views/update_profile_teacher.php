@@ -27,20 +27,6 @@ add styling on bottom note
 
                 <br>
 
-                <span class="input input--hoshi" style="width:45%">
-                    <input value="" class="input__field input__field--hoshi" type="password" id="teacher_pass"  name="teacher_pass">
-                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="teacher_pass">
-                        <span class="input__label-content input__label-content--hoshi">Password</span>
-                    </label>
-                </span>
-
-                <span class="input input--hoshi" style="width:45%">
-                    <input value="" class="input__field input__field--hoshi" type="password" id="teacher_pass_confirm"  name="teacher_pass_confirm">
-                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="teacher_pass_confirm">
-                        <span class="input__label-content input__label-content--hoshi">Confirm Password</span>
-                    </label>
-                </span>
-
                 <h4>Personal Data</h4>
 
                 <span class="input input--hoshi" style="width:45%">

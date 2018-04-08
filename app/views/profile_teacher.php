@@ -86,8 +86,10 @@ add styling on bottom note
                 <br>
                 <br>
 
-                <a href="<?= BASE_URL ?>/account/update"><input type="button" class="outlined-button teacher_edit-btn" value="Edit Profile" /></a>
-                <a href="<?= BASE_URL ?>/account/image"><input type="button" class="outlined-button student_edit-btn" value="Update Picture" /></a>
+                <input type="button" class="outlined-button teacher_edit-btn" value="Edit Profile" />
+                <a href="<?= BASE_URL ?>/account/image"><input type="button" class="outlined-button teacher_edit-btn" value="Update Picture" /></a>
+                <a href="<?= BASE_URL ?>/account/password"><input type="button" class="outlined-button teacher_edit-btn" value="Update Password" />
+
             </form>
 
         </div>
