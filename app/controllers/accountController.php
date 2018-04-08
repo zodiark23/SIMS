@@ -224,7 +224,7 @@ class AccountController extends Controller{
 			$this->view = new View("update_password_teacher");
 			$this->view->render();
 		}elseif($id == 3){ // Student
-			$this->view = new View("update_student_password");
+			$this->view = new View("update_password_student");
 			$this->view->render();
 		}elseif($id == 4){ // Parent
 			$this->view = new View("update_password_parent");

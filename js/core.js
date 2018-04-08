@@ -699,7 +699,7 @@ $("#login-form").validate({
             var token = $("#update_pass").data('token');
 
             $.ajax({
-                url : BASE_URL+"/php/update_student_password.php",
+                url : BASE_URL+"/php/auth_student.php",
                 type : "post",
                 data : dataString+"&sid="+id+"&token="+token,
                 success : function(data){
