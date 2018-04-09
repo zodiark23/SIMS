@@ -61,7 +61,7 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                     <li><a href="<?=BASE_URL?>/admin/student-overview">Overview</a></li>
                     <!-- <li><a href="">Create New</a></li> -->
                     <!-- <li><a href="">Manage Student</a></li> -->
-                    <li><a href="">Academic Status</a></li>
+                    <!-- <li><a href="">Academic Status</a></li> -->
                 </ul>
             </li>
             <li class="parent-li <?= $teacherPointer ?>">
