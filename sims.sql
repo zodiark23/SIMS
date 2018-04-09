@@ -226,9 +226,9 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`role_id`, `role_name`, `default`) VALUES
 (1, 'admin', 1),
-(2, 'teacher', 2),
-(3, 'student', 3),
-(4, 'parent', 4);
+(2, 'teacher', 1),
+(3, 'student', 1),
+(4, 'parent', 1);
 
 -- --------------------------------------------------------
 
