@@ -6,7 +6,8 @@ use SIMS\App\Models\AccessTokenModel;
 use SIMS\Classes\Controller;
 use SIMS\Classes\View;
 use SIMS\App\Models\NewsModel;
-
+use SIMS\App\Models\TeacherModel;
+use SIMS\App\Models\ProfileModel;
 class IndexController extends Controller
 {
 
@@ -99,7 +100,28 @@ class IndexController extends Controller
 
 		$this->view->render();
 
-	}
+    }
+    
+    public function teachers(){
+        $this->view = new View("teacher_list");
+        $teacherModel = new TeacherModel();
+
+        $profileModel = new ProfileModel();
+
+        $profilesImg = [];//indexes will be the teacher_id
+
+        $teachers = $teacherModel->list();
+
+        if($teachers){
+            foreach($teachers as $teacher){
+                $image = $profileModel->getProfileImagePath($teacher['email']);
+                $profilesImg[$teacher['teacher_id']] = $image;
+            }
+        }
+        $this->view->profileImage = $profilesImg;
+        $this->view->teachers = $teachers;
+        $this->view->render();
+    }
 
     public function logout(){
         @session_start();

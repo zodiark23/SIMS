@@ -924,6 +924,44 @@ textarea {
     text-transform: uppercase;
     letter-spacing: 1.5px;
 }
+
+.teacher-box{
+    margin:5px;
+    width: 48%;
+    height: 90px;
+    border:1px solid #dadada;
+    background: #f0f0f0;
+    float:left;
+}
+
+.teacher-box .teacher-user-img{
+    width:24%;
+    height:100%;
+    display: inline-block;
+    float:left;
+}
+.teacher-box .teacher-user-img img{
+    width:100%;
+    height:100%;
+}
+.teacher-box .teacher-info{
+    width:calc(76% -10px);
+    height:calc(100% - 10px);
+    position: relative;
+    float:left;
+    padding:5px;
+    padding-top:12px;
+}
+
+.teacher-box .teacher-info span{
+    font-weight: bold;
+}
+
+.teacher-box .teacher-info p{
+    margin-top:5px;
+}
+
+
 /* ==========================================================================
    Media Queries
    ========================================================================== */

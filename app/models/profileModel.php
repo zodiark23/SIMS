@@ -195,6 +195,28 @@ class ProfileModel extends Model {
 		return false;
 	}
 
+	/**
+	 * Returns the path and not modify the session iamge
+	 */
+	public function getProfileImagePath($email){
+		$stmt = $this->db->prepare("SELECT * FROM profile_img WHERE email = :email");
+		$stmt->execute([":email"=>$email]);
+		$result = $stmt->fetchAll();
+		foreach ($result as $r){
+			return $r['full_path'];
+		}
+		if(!$result){
+		
+			$stmt = $this->db->prepare("SELECT * FROM profile_img WHERE email = 'default'");
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			foreach ($result as $a){
+				return $a['full_path'];
+			}
+		}
+		return false;
+	}
+
 	public function getEducAttain($student_id){
 		$stmt = $this->db->prepare("SELECT * FROM educational_attainment WHERE student_id = :student_id");
 		$stmt->execute([":student_id"=>$student_id]);
