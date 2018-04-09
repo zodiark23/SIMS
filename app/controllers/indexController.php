@@ -41,6 +41,12 @@ class IndexController extends Controller
     public function login(){
         $this->view = new View("index");
 
+	    $this->model = new NewsModel();
+
+	    $displayNewsIndex = $this->model->displayNewsIndex();
+
+	    $this->view->displayNewsIndex = $displayNewsIndex;
+
         $this->view->render();
 
         if(!isset($_SESSION['role_id'] )){

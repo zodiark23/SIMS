@@ -35,7 +35,6 @@ Fix the UI @morbid
                     <br>
 
                     <input type="submit" class="outlined-button" value="Add" id="save-news">
-                    <input name="image" type="file" id="upload-img" class="hidden" onchange="">
 
 
 

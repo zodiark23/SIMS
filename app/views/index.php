@@ -35,7 +35,7 @@
 
 			                            if (strlen(htmlspecialchars($result['news_content'])) > 250) {
 			                                // News Title
-				                            echo "<a href='' class='ne-title'>".$result['news_title']."</a>";
+				                            echo "<a class='ne-title'>".$result['news_title']."</a>";
 				                            // Publisher and date
                                             echo "<p class='author-date'>"."By: "."<a href='''>"."admin "."</a>". " on " ."<span class='date'>".$result['create_date']."</span></p>";
                                             echo "<p class='ne-p'>";
@@ -43,11 +43,14 @@
                                             echo substr(htmlspecialchars_decode($result['news_content']),0,250)."..."."</td>";
                                             echo "</p>";
                                             // View button
-                                            echo "<input type='button' data-newsid='".$result['news_id']."' class='tbl-builder-btn home-view-btn' value='VIEW' name='view-btn'>";
+                                            echo "<a data-newsid='".$result['news_id']."' class='ne-title home-view-btn' value='VIEW' name='view-btn'>VIEW MORE...</a>";
+
+                                            echo "<br>";
+				                            echo "<br>";
 
 			                            } else {
 			                                // News title
-				                            echo "<a href='' class='ne-title'>".$result['news_title']."</a>";
+				                            echo "<a class='ne-title'>".$result['news_title']."</a>";
 				                            // Publisher and date
 				                            echo "<p class='author-date'>"."By: "."<a href='''>"."admin "."</a>". " on " ."<span class='date'>".$result['create_date']."</span></p>";
 				                            echo "<p class='ne-p'>";
@@ -56,7 +59,9 @@
 				                            echo "</p>";
 
 				                            //View button
-				                            echo "<input type='button' data-newsid='".$result['news_id']."' class='tbl-builder-btn home-view-btn' value='VIEW' name='view-btn'>";
+				                            echo "<a data-newsid='".$result['news_id']."' class='ne-title home-view-btn' value='VIEW' name='view-btn'>VIEW MORE...</a>";
+				                            echo "<br>";
+				                            echo "<br>";
 			                            }
 		                            }
 	                            }else {

@@ -25,7 +25,7 @@ Fix the UI @morbid
                     <table style="width:100%" class="content-panel-table">
                         <tr>
                             <th>News</th>
-                            <th>Published</th>
+
                             <th>Action</th>
                         </tr>
 
@@ -48,8 +48,7 @@ Fix the UI @morbid
 			                            echo substr(htmlspecialchars_decode($result['news_content']),0,250)."..."."</td>";
 
 
-			                            // Published button here (YES/NO)
-                                        echo "<td>".$result['news_publish'];
+
 
 
 			                            // Edit button here
@@ -73,8 +72,6 @@ Fix the UI @morbid
 			                            echo "<br><br>";
 			                            echo htmlspecialchars_decode(($result['news_content']))."</td>";
 
-			                            // Published button here (YES/NO)
-			                            echo "<td>".$result['news_publish'];
 
 			                            // Edit button here
 			                            echo "<td><a class='tbl-edit-btn' value='Edit' id='".$result['news_id']."' name='edit-btn' href='".BASE_URL."/admin/edit_news/".$result['news_id']."'>".'Edit'."</a>";

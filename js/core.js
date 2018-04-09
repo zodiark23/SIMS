@@ -386,6 +386,7 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
             success: function(data) {
                 $(".bg-modal").show();
                 $(".modal-content .real-content").html(data);
+                return false;
             }
         })
     });

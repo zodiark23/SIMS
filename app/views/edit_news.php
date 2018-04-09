@@ -20,11 +20,10 @@ Fix the UI @morbid
 
                     <p>
                         <span class="input input--hoshi" style="width:45%">
-                            <input value="" class="input__field input__field--hoshi" type="text" id="edit-newsTitle"  name="edit-newsTitle">
+                            <input value="<?php echo $this->news_content[0]['news_title'] ?>" class="input__field input__field--hoshi" type="text" id="newsTitle"  name="newsTitle">
                             <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="edit-newsTitle">
                         <span class="input__label-content input__label-content--hoshi">News Title</span>
                         <br>
-                        <input type="text" name="newsTitle" id="newsTitle" value="<?php echo $this->news_content[0]['news_title'] ?>">
                     </p>
 
                     <br>
@@ -38,7 +37,7 @@ Fix the UI @morbid
                     <br>
                     <br>
 
-                    <input type="submit" data-target="<?= ($this->news_id ?? "")?>" id="update-btn">
+                    <input type="submit" class="outlined-button" data-target="<?= ($this->news_id ?? "")?>" id="update-btn">
                     <input name="image" type="file" id="upload-img" class="hidden" onchange="">
                 </form>
 			</div>
