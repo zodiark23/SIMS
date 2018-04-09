@@ -65,7 +65,7 @@ add styling on bottom note
                 <br>
                 
                 <input type="submit" data-id="<?=$_SESSION['user']['parents_id']?>" class="outlined-button p_update-btn" value="Update" />
-                <a href="<?= BASE_URL ?>/account"><input type="button" class="p_cancel_btn" value="Cancel" ></a>
+                <a href="<?= BASE_URL ?>/account"><input type="button" class="outlined-button p_cancel_btn" value="Cancel" ></a>
             </form>
 
         </div>
