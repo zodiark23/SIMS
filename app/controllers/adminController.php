@@ -956,6 +956,8 @@ class AdminController extends Controller{
 
         }
         $this->view->levelNames = $levelNames ?? [];
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
@@ -1027,6 +1029,46 @@ class AdminController extends Controller{
         $this->view->raw_view();
 
 
+    }
+
+    public function master_list(){
+        
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            $this->unauthorized();
+            return false;
+            
+        }
+        
+        $this->view = new View("master-list");
+
+
+        $currModel = new CurriculumModel();
+        $this->view->curriculumList = $currModel->list();
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+
+    public function master_pdf(){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_STUDENT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+        
+        $this->view = new View('master-pdf');
+        $this->view->raw_view();
     }
 
 

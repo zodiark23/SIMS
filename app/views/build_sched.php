@@ -269,7 +269,7 @@ add styling on bottom note
                     echo "<div class='sched-cont'>";
                     echo "<span class='title'>".$subjectName."</span>";
                     echo "<span class='text'>".$teacherName."</span>";
-                    echo "<span class='time'>".date("H:i",strtotime($body['start_time']))."-".date("H:i",strtotime($body['end_time'])) ."</span>";
+                    echo "<span class='time'>".date("g:i a",strtotime($body['start_time']))."-".date("g:i a",strtotime($body['end_time'])) ."</span>";
                     echo "</div>";
                     echo "<button class='item-close' data-b80bb7740288fda1f201890375a60c8f='".$body['sched_item_id']."'>X</button>";
                     echo "</div>";

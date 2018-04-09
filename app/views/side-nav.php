@@ -9,7 +9,7 @@
     </div>
 <?php
 $adminPointer = "";
-if($this->pointer == "approval" || $this->pointer == "create_education" || $this->pointer == "add_news" || $this->pointer == "level_configuration" || $this->pointer == "grade_schemes" || $this->pointer == "edit_grade_scheme" || $this->pointer == "add_grade_scheme" || $this->pointer == "edit_education" || $this->pointer == "show_education" || $this->pointer == "manage_roles" || $this->pointer == "roles" || $this->pointer == "education" || $this->pointer == "news" || $this->pointer == "grades_scheme"){
+if($this->pointer == "master_list" ||$this->pointer == "approval" || $this->pointer == "create_education" || $this->pointer == "add_news" || $this->pointer == "level_configuration" || $this->pointer == "grade_schemes" || $this->pointer == "edit_grade_scheme" || $this->pointer == "add_grade_scheme" || $this->pointer == "edit_education" || $this->pointer == "show_education" || $this->pointer == "manage_roles" || $this->pointer == "roles" || $this->pointer == "education" || $this->pointer == "news" || $this->pointer == "grades_scheme"){
     $adminPointer = "active";
 }
 
@@ -19,7 +19,7 @@ if($this->pointer == "create_teacher" || $this->pointer == "overview_teacher" ||
 }
 
 $studentPointer = "";
-if($this->pointer == "enroll_student"){
+if($this->pointer == "enroll_student" || $this->pointer == "student_overview"){
     $studentPointer = "active";
 }
 
@@ -47,7 +47,7 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
                     <li><a href="<?=BASE_URL?>/admin/education">Education Settings</a></li>
                     <li class="roles"><a href="<?=BASE_URL?>/admin/roles">Roles</a></li>
                     <!-- <li><a href="">Privileges</a></li> -->
-                    <li><a href="">Master List</a></li>
+                    <li><a href="<?= BASE_URL?>/admin/master-list">Master List</a></li>
                     <li><a href="<?=BASE_URL?>/admin/news">News &amp; Announcements</a></li>
                     <!-- <li><a href="">Management</a></li> -->
                     <!-- <li><a href="">Payments</a></li> -->
