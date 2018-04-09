@@ -20,7 +20,7 @@
             
                 <tr>
                     <th>#</th>
-                    <th>Schedule Name</th>
+                    <th>Section Name</th>
                     <th>Level</th>
                     
                     <th>Action</th>

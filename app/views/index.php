@@ -86,7 +86,7 @@
 
             <div class="login-modal">
                 <div class="login-box">
-                    <a href="#0" class="close">
+                    <a href="<?=BASE_URL?>" class="close">
                         <i class="far fa-times-circle"></i>
                     </a>
                     <img src="<?=BASE_URL?>/img/logo.png" alt="" class="login-logo">

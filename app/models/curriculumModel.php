@@ -2,7 +2,7 @@
 
 use SIMS\Classes\Model;
 use SIMS\Classes\Database;
-use SIMS\App\Models\Grademodel;
+use SIMS\App\Models\GradeModel;
 use PDO;
 use Exception;
 
