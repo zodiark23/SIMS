@@ -52,6 +52,15 @@ ob_start();
     parse_str($string, $fakePost);
     $curr = $fakePost['curr'] ?? '';
     $level = $fakePost['level'] ?? '';
+    $status = $fakePost['status'] ?? '';
+
+    if($status != 'passed' && $status != "failed" && $status != "progress"){
+        $status = "";
+    }
+
+    if($status == "progress"){
+        $status = "in progress";
+    }
 
     //build the dynamic query;
     $where = '';
@@ -74,14 +83,22 @@ ob_start();
         }
     }
 
-   
+   //filter status
+   if(!empty($status)){
+       $whereArray[] = "status=".$status;
+   }
     
         if(count($whereArray) > 0){
             $where = "WHERE ".implode(" AND " , $whereArray);
         }
 
         if(!empty($level)){
-            $where = "WHERE level_id = $level";
+            $statusString = "";
+            if(!empty($status)){
+                $statusString = "AND status='".$status."'";
+            }
+
+            $where = "WHERE level_id = $level $statusString";
         }
 
         $stmt = $db->prepare("SELECT * FROM `student_educational` $where");
@@ -125,7 +142,7 @@ ob_start();
 echo "<br>";
 echo "<span style='font-size:13'>Date Generated : ".date("Y-m-d")."</span>"; 
 echo "<br>";
-echo "<span style='font-size:13'>Total Students : $count</span>";
+echo "<span style='font-size:13'>Total Students : ".count($result)."</span>";
 }
 ?>
 
