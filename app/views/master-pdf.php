@@ -85,7 +85,7 @@ ob_start();
 
    //filter status
    if(!empty($status)){
-       $whereArray[] = "status=".$status;
+       $whereArray[] = "status='".$status."'";
    }
     
         if(count($whereArray) > 0){
