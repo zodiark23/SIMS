@@ -964,7 +964,7 @@ CREATE TABLE `profile_img` (
 --
 
 INSERT INTO `profile_img` (`id`, `role_id`, `email`, `full_path`, `status`) VALUES
-(1, 0, 'default', '../user_uploads/1522690295donotdelete.png', 1);
+(1, 0, 'default', '/user_uploads/1522690295donotdelete.png', 1);
 
 --
 -- Indexes for dumped tables
