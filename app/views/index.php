@@ -43,7 +43,7 @@
                                             echo substr(htmlspecialchars_decode($result['news_content']),0,250)."..."."</td>";
                                             echo "</p>";
                                             // View button
-                                            echo "<a data-newsid='".$result['news_id']."' class='ne-content home-view-btn' value='VIEW' name='view-btn'>VIEW MORE...</a>";
+                                            echo "<a data-newsid='".$result['news_id']."' class='ne-title home-view-btn' value='VIEW' name='view-btn' style='font-size:100%;'>VIEW MORE...</a>";
 
                                             echo "<br>";
 				                            echo "<br>";
