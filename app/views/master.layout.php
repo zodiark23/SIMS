@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title></title>
+        <link rel="shortcut icon" href="<?=BASE_URL?>/img/favicon.ico" />
         <meta name="description" content="">
         <meta name="viewport" content="width=1200px">
         <base href="/sims">
