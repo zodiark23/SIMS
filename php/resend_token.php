@@ -32,8 +32,8 @@ if(!empty($student_id)){
 		    $mail->SMTPAuth = true;                               // Enable SMTP authentication
 		    $mail->Username = 'simstestemail10@gmail.com';        // SMTP username
 		    $mail->Password = 'sims1234!@#';                     // SMTP password
-		    $mail->SMTPSecure = 'TLS';                            // Enable TLS encryption, `ssl` also accepted
-		    $mail->Port = 587;                                    // TCP port to connect to; 465 for ssl and 587 for TLS
+		    $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+		    $mail->Port = 465;                                    // TCP port to connect to; 465 for ssl and 587 for TLS
 
 		    //Recipients
 		    $mail->setFrom('simsofficial@gmail.com', 'SIMS'); // Sender (SIMS)
@@ -48,10 +48,10 @@ if(!empty($student_id)){
 		    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 			$mail->send();
-			
+
 			$callback['code'] = "00";
 			$callback['message'] = "Successfully forwarded the approval code.";
-		    
+
 	    } catch (Exception $e) {
 		    $callback['code'] = 500;
 		    $callback['message'] =  'Message could not be sent. Mailer Error: '. $mail->ErrorInfo;

@@ -13,9 +13,13 @@ Fix the UI @morbid
 			<div class="content-panel">
                 <div class="content-head">
                     <h3 class="dashboard-section-title">Send approval codes</h3>
+                    <div class="input-group">
+                        <input type="text" placeholder="Search" id="search-box">
+                        <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
+                    </div>
                 </div>
                 <form id="approval-form" method="post">
-                    
+
                     <div class='error_news_form'></div>
                     <table style="width:100%" class="content-panel-table">
                         <tr>
@@ -28,16 +32,19 @@ Fix the UI @morbid
 	                    <?php
 	                    if($this->students){
 		                    foreach ($this->students as $student){
+
 			                    $f_name = $student['first_name'];
 			                    $s_name = $student['last_name'];
 			                    $student_id = $student['student_id'];
 								$email = $student['email'];
-								echo "<tr>";
+                                echo "<tr class='search_index'>";
+
 								echo "<td>".$f_name." ".$s_name."</td>";
 								echo "<td>".$email."</td>";
 								// Resend email to the student | Set the access_token to 1
 								echo "<td><input type='button'  class='tbl-builder-btn resend-btn' value='Send' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'> | <input type='button'  class='tbl-delete-btn reject-btn' value='Reject' data-target='".$student_id."' data-f_name='".$f_name."' data-email='".$email."'></td>";
 								echo "</tr>";
+
 		                    }
 	                    }
 	                    ?>
@@ -46,6 +53,10 @@ Fix the UI @morbid
         </div>
 
         </table>
+
+        <script>
+            $("#search-box").quicksearch('.search_index');
+        </script>
 
 
 
