@@ -1184,13 +1184,22 @@ $("#login-form").validate({
                 required : true
             },
             s_day: {
-                required : true
+                required : true,
+	            number : true,
+	            minlength: 2,
+	            maxlength: 2
             },
             s_month: {
-                required : true
+                required : true,
+	            number : true,
+	            minlength: 2,
+	            maxlength: 2
             },
             s_year: {
-                required : true
+                required : true,
+	            number : true,
+	            minlength: 4,
+	            maxlength: 4
             },
             s_nationality: {
                 required : true
@@ -1203,7 +1212,9 @@ $("#login-form").validate({
             },
             edu_elem_year_completed: {
                 required : true,
-                number : true
+                number : true,
+	            minlength: 4,
+	            maxlength: 4
             },
             edu_elem_address: {
                 required : true
@@ -1240,14 +1251,63 @@ $("#login-form").validate({
         messages : {
             s_email : {
                 regex : "Please use a valid email format"
-            }
+            },
+	        s_day: {
+		        maxlength: "Please only use 2 characters.",
+		        minlength: "Please only use 2 characters.",
+		        number: "Please input a valid day"
+	        },
+	        s_month: {
+		        maxlength: "Please only use 2 characters.",
+		        minlength: "Please only use 2 characters.",
+		        number: "Please input a valid month"
+	        },
+	        s_year: {
+		        maxlength: "Please only use 4 characters.",
+		        minlength: "Please only use 4 characters.",
+		        number: "Please input a valid year"
+	        },
+	        edu_elem_year_completed: {
+		        maxlength: "Please only use 4 characters.",
+		        minlength: "Please only use 4 characters.",
+		        number: "Please input a valid year"
+	        }
+	        
         },
         submitHandler : function(e){
             var gender1 = $("#s-male").is(":checked");
             var gender2 = $("#s-female").is(":checked");
+            var day = parseInt($('#dd').val());
+            var month = parseInt($('#mm').val());
+            var year = parseInt($('#yyyy').val());
+	        var edu_year = parseInt($('#edu_elem_year_completed').val());
+            var currYear = new Date();
+            var yyyy = currYear.getFullYear();
+            var calYear = yyyy - year;
+            
+            if(day <= 0 || day >= 32){
+            	alert("Please input a valid day");
+            	return false;
+	        }
+	        
+	        if(month <= 0 || month >= 13){
+		        alert("Please input a valid month");
+		        return false;
+	        }
+	        
+	        if(calYear <= 0 || calYear >= 100 || year >= yyyy){
+		        alert("Please input a valid year");
+		        return false;
+	        }
+	        
+	        if(edu_year <= year || edu_year >= yyyy){
+            	alert("Please input a valid year of completion");
+            	return false;
+	        }
 
             if(gender1 == false && gender2 == false){
-                alert("Please selet a gender");
+                alert("Please select a gender");
+                return false;
             }
 
             var data = $(e).serialize();

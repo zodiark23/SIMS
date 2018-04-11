@@ -64,7 +64,7 @@
                         </tr>
                         <tr>
                             <td colspan="6" ><input name="edu_elementary_name" type="text"></td>
-                            <td><input name="edu_elem_year_completed" type="text"></td>
+                            <td><input name="edu_elem_year_completed" id="edu_elem_year_completed" type="text"></td>
                         </tr>
                         <tr>
                             <td colspan="6" class="head">Elementary School Address:</td>
