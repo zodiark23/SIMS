@@ -36,6 +36,8 @@
                     <td><?= $sched['year_start']."-".$sched['year_end']?></td>
                     <td><?= $this->levelNames[$sched['level_id']]?></td>
                     <td>
+
+                    <a class="tbl-print-btn" href='<?=BASE_URL?>/admin/print-schedule/<?= $sched['schedule_id']?>'>Print</a> | 
                     <a class="tbl-builder-btn" href='<?=BASE_URL?>/admin/schedule/<?= $sched['schedule_id']?>'>Builder</a> | 
                     <a class="tbl-edit-btn" href='<?=BASE_URL?>/admin/schedule/<?= $sched['schedule_id']?>'>Edit</a> | 
                     <a class="tbl-delete-btn" href='<?=BASE_URL?>/admin/delete-schedule/<?= $sched['schedule_id']?>'>Delete</a>

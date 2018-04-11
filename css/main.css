@@ -810,6 +810,14 @@ textarea {
     color: #fff;
     border: 1px solid #ccc;
 }
+.content-panel .content-panel-table tr td .tbl-print-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px 5px;
+    background: #9d9bec;
+    color: #fff;
+    border: 1px solid #ccc;
+}
 .content-panel .content-panel-table tr td .tbl-delete-btn {
     display: inline-block;
     vertical-align: middle;

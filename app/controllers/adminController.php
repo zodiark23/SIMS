@@ -647,6 +647,23 @@ class AdminController extends Controller{
         $this->view->render();
     }
 
+    public function print_schedule($id){
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_SCHEDULE");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+        $this->view = new View("print_schedule");
+        $this->view->schedule_id = $id;
+        $this->view->raw_view();
+    }
+
     public function add_section(){
 
         // Check rights
