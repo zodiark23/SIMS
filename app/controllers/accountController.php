@@ -10,6 +10,7 @@ use SIMS\App\Models\SubjectModel;
 use SIMS\App\Models\ScheduleModel;
 use SIMS\App\Models\SectionModel;
 use SIMS\App\Models\StudentModel;
+use SIMS\App\Models\GradeModel;
 
 
 class AccountController extends Controller{
@@ -234,6 +235,58 @@ class AccountController extends Controller{
 			$this->error();
 			return false;
 		}
+	}
+
+	public function my_grades(){
+		$student_id = $_SESSION['user']['student_id'] ?? '';
+
+		if(empty($student_id)){
+			$this->error();
+			return false;
+		}
+		$this->view = new View("my_grades");
+
+		$structuredGrades = [];
+		$requiredSubjects = [];
+
+		
+		$studentModel = new StudentModel();
+		$subjectModel = new SubjectModel();
+		$sectionModel = new SectionModel();
+		$curriculumModel = new CurriculumModel();
+
+		// Index of $grades contain the section_id 
+		$grades = $studentModel->viewGrade( (int)$student_id);
+		
+
+		//Rebuild the array with proper name values
+		if($grades){
+
+			foreach($grades as $section_id => $raw_grades){
+				
+				$detailedGrades = [];
+				$requiredSubjects[$raw_grades['level_id']]= $curriculumModel->showLevelRequiredSubjects($raw_grades['level_id']);
+
+				if($raw_grades['grades']){
+					foreach($raw_grades['grades'] as $grade){
+						$subjectInfo = $subjectModel->info($grade->subject_id);
+
+						$detailedGrades[$grade->subject_id][$grade->flags] = ["subject" => ($subjectInfo[0]['subject_name'] ?? 'err#') , "grade" => $grade->grade];
+					}
+				}
+
+				$sectionInfo = $sectionModel->info($section_id);
+				
+				$structuredGrades[] = [ "level_id" => $raw_grades['level_id'] , "section" => ($sectionInfo['section_name'] ?? $section_id ) , "grades" => $detailedGrades];
+			}
+
+		}
+		
+
+
+		$this->view->requiredSubjects = $requiredSubjects;
+		$this->view->grades = $structuredGrades;
+		$this->view->render();
 	}
 
 }

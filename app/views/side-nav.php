@@ -118,6 +118,12 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
             <li class="parent-li">
                 <a href="<?= BASE_URL ?>/account">My Profile</a>
             </li>
+            <!-- ONLY VISIBLE ON STUDENT -->
+            <?php if( !empty($_SESSION['user']['student_id']) ){ ?>
+            <li class="parent-li">
+                <a href="<?= BASE_URL ?>/account/my-grades">My Grades</a>
+            </li>
+            <?php } ?>
             <!-- <li class="parent-li">
                 <a href="javascript:void(0);">Logs <span class="count">5</span></a>
                 <ul class="child-ul">

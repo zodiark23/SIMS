@@ -6,6 +6,8 @@ use SIMS\Classes\Model;
 use SIMS\Classes\Database;
 use SIMS\App\Entities\Student;
 use SIMS\App\Entities\EducationalAttainment;
+use SIMS\App\Models\GradeModel;
+use SIMS\App\Models\CurriculumModel;
 use PDO;
 use Exception;
 
@@ -309,8 +311,21 @@ class StudentModel extends Model {
      *
      * @return Grades Grade Model
      */
-    public function viewGrade($student_id, $level = false){
+    public function viewGrade(int $student_id, $level = false){
+        $grade = [];
+        $gradeModel = new GradeModel();
+        $lists = $this->studentEducationalList($student_id);
+        if($lists){
+            foreach($lists as $list ){
+                $grade[$list->section_id] = ['level_id' => ($list->level_id ?? 0) , "grades" => $gradeModel->getGrades( $student_id , ((int)$list->section_id ?? 0) ) ];
 
+            }
+        }
+
+        if(count($grade) > 0){
+            return $grade;
+        }
+        return false;
     }
 
 
