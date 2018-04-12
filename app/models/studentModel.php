@@ -175,6 +175,11 @@ class StudentModel extends Model {
             throw new Exception("This student currently has in progress status. The system will not proceed with the process.", 409);
         }
 
+        $levelCompleted = $this->checkCompletedLevel($student_id, $level_id);
+        if($levelCompleted === true){
+            throw new Exception("The student already taken this level. The system will not proceed with the process", 400);
+        }
+
 
         $stmt = $this->db->prepare("INSERT INTO `student_educational`(student_id,level_id,section_id,status,custom_level,create_date,modified_date) 
                             VALUES (
@@ -251,6 +256,29 @@ class StudentModel extends Model {
                 return true;
             }
         }
+        return false;
+    }
+
+    /**
+     * Checks if the student already completed this level.
+     * 
+     * @param int $student_id The student to check
+     * @param int $level_id The level id to check from
+     * 
+     * @return bool True if found
+     */
+    private function checkCompletedLevel(int $student_id , int $level_id){
+        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE `student_id` = :student_id AND `level_id` =:level_id AND `status` = 'passed' ");
+        $stmt->execute(["student_id" => $student_id , "level_id" => $level_id ]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        if($result){
+            if(count($result) > 0){
+                return true;
+            }
+        }
+
         return false;
     }
 
