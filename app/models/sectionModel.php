@@ -31,7 +31,15 @@ class SectionModel extends Model{
             throw new Exception("Invalid Advisor ID");
         }
 
+        $stmt = $this->db->prepare("SELECT * FROM `sections` WHERE curr_id = :curr_id AND level_id = :level_id AND section_adviser = :section_adviser");
+        $stmt->execute([':curr_id'=>$section->curr,
+	        ':section_adviser'=>$section->section_adviser,
+	        ':level_id'=>$section->level_id]);
+        $result = $stmt->fetchAll();
 
+        if($result){
+        	return false;
+        }
         $stmt = $this->db->prepare("INSERT INTO `sections`
                 (
                     `section_name`,
@@ -105,6 +113,16 @@ class SectionModel extends Model{
             return false;
         }
 
+	    $stmt = $this->db->prepare("SELECT * FROM `sections` WHERE curr_id = :curr_id AND level_id = :level_id AND section_adviser = :section_adviser AND section_name = :section_name");
+	    $stmt->execute([':curr_id'=>$section->curr,
+		    ':section_adviser'=>$section->section_adviser,
+		    ':level_id'=>$section->level_id,
+		    ':section_name'=>$section->section_name]);
+	    $result = $stmt->fetchAll();
+
+	    if($result){
+		    return false;
+	    }
         $stmt = $this->db->prepare("UPDATE `sections` 
                     SET 
                         `section_name`=:section_name , 

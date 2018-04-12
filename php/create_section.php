@@ -24,6 +24,9 @@ try {
     if($result === true){
         $callback['code'] = "00";
         $callback['message'] = "Section was created.";
+    } else {
+	    $callback['code'] = "01";
+	    $callback['message'] = "Please select another teacher.";
     }
 
 } catch(Exception $e){
