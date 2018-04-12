@@ -100,8 +100,8 @@
 
 			<?php 
 				$flags = [
-					["flag_id" => 1, "description" => "1st Grading"],
-					["flag_id" => 2, "description" => "2nd Grading"]
+					["flag_id" => 1, "description" => "1st Quarter"],
+					["flag_id" => 2, "description" => "2nd Quarter"]
 				];
 
 				$emptyFields = 0;
@@ -216,7 +216,7 @@
 					
 				</tbody>
 			</table>
-			<?php if($emptyFields == 0){ ?>
+			<?php if($emptyFields == 0 && !empty($student)){ ?>
 			<input type="button" value="Finalize" id="finalize-grade" />
 			<?php } ?>
 			<script>

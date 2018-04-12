@@ -190,8 +190,8 @@ ob_start();
 					<th rowspan="2" style="width: 100px;">ACTION TAKEN</th>
 				</tr>
 				<tr>
-					<th style="width: 50px;">&nbsp;</th>
-					<th style="width: 50px;">&nbsp;</th>
+					<th style="width: 50px;">1 QTR</th>
+					<th style="width: 50px;">2 QTR</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -357,8 +357,8 @@ ob_start();
 					<th rowspan="2" style="width: 100px;">ACTION TAKEN</th>
 				</tr>
 				<tr>
-					<th style="width: 50px;">&nbsp;</th>
-					<th style="width: 50px;">&nbsp;</th>
+					<th style="width: 50px;">1 QTR</th>
+					<th style="width: 50px;">2 QTR</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -523,8 +523,8 @@ ob_start();
 					<th rowspan="2" style="width: 100px;">ACTION TAKEN</th>
 				</tr>
 				<tr>
-					<th style="width: 50px;">&nbsp;</th>
-					<th style="width: 50px;">&nbsp;</th>
+					<th style="width: 50px;">1 QTR</th>
+					<th style="width: 50px;">2 QTR</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -687,8 +687,8 @@ ob_start();
 					<th rowspan="2" style="width: 100px;">ACTION TAKEN</th>
 				</tr>
 				<tr>
-					<th style="width: 50px;">&nbsp;</th>
-					<th style="width: 50px;">&nbsp;</th>
+					<th style="width: 50px;">1 QTR</th>
+					<th style="width: 50px;">2 QTR</th>
 				</tr>
 			</thead>
 			<tbody>
