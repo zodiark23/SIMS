@@ -254,10 +254,11 @@ class AccountController extends Controller{
 		$subjectModel = new SubjectModel();
 		$sectionModel = new SectionModel();
 		$curriculumModel = new CurriculumModel();
+		$gradeModel = new GradeModel();
 
 		// Index of $grades contain the section_id 
 		$grades = $studentModel->viewGrade( (int)$student_id);
-		
+				
 
 		//Rebuild the array with proper name values
 		if($grades){
@@ -270,22 +271,30 @@ class AccountController extends Controller{
 				if($raw_grades['grades']){
 					foreach($raw_grades['grades'] as $grade){
 						$subjectInfo = $subjectModel->info($grade->subject_id);
-
+						
 						$detailedGrades[$grade->subject_id][$grade->flags] = ["subject" => ($subjectInfo[0]['subject_name'] ?? 'err#') , "grade" => $grade->grade];
 					}
 				}
 
 				$sectionInfo = $sectionModel->info($section_id);
+
+				//get the grade scheme this level is using
+				$gradeSchemeId = $curriculumModel->schoolLevelGradeSchemeInfo($raw_grades['level_id']);
+				$gradeScheme = $gradeModel->gradeSchemeDetails((int)$gradeSchemeId['grade_scheme_id'] ?? 0);
 				
-				$structuredGrades[] = [ "level_id" => $raw_grades['level_id'] , "section" => ($sectionInfo['section_name'] ?? $section_id ) , "grades" => $detailedGrades];
+				$structuredGrades[] = [ "grade_scheme" => ($gradeScheme[0]->pass_threshold ?? 0 ) , "level_id" => $raw_grades['level_id'] , "section" => ($sectionInfo['section_name'] ?? $section_id ) , "grades" => $detailedGrades];
 			}
 
 		}
 		
+		 
+
 
 
 		$this->view->requiredSubjects = $requiredSubjects;
+		$this->view->subjectModel = $subjectModel;
 		$this->view->grades = $structuredGrades;
+		
 		$this->view->render();
 	}
 
