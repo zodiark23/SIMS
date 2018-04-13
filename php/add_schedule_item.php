@@ -15,7 +15,7 @@ $si->schedule_id = $_POST['sched_id'] ?? 0;
 $si->section_id = $_POST['section_id'] ?? 0;
 $si->teacher_id = $_POST['teacher_id'] ?? 0;
 $si->subject_id = $_POST['subject_id'] ?? 0;
-$si->day = $_POST['day'] ?? ""; //@TODO : Implement day functionality
+$si->day = implode("-", ($_POST['days'] ?? []) ) ?? ""; //@TODO : Implement day functionality
 $si->start_time = $_POST['start_time'];
 $si->end_time = $_POST['end_time'];
 

@@ -14,7 +14,7 @@ add styling on bottom note
     <div class="dashboard-container">
         <div class="content-panel">
             <h3 class="dashboard-section-title">Schedule Builder</h3>      
-            <form class="clearfix" id="sched-builder-form" data-arg='<?= ($this->schedInfo->schedule_id ?? 0)?>'>
+            <form class="clearfix" style='min-height:140px;height:auto;' id="sched-builder-form" data-arg='<?= ($this->schedInfo->schedule_id ?? 0)?>'>
                 <select name='section_id'>
                     <?php
 
@@ -77,6 +77,17 @@ add styling on bottom note
                     <option value=""> Select End Time </option>
                     <?= $this->timeSelection?>
                 </select>
+
+                <div class="days_field">
+                    <li><input type='checkbox' name='days[]' id='mon_chk' value='M'/> <label for="mon_chk"> Monday </label></li>
+                    <li><input type='checkbox' name='days[]' id='tue_chk' value='T'/> <label for="tue_chk"> Tuesday </label></li>
+                    <li><input type='checkbox' name='days[]' id='wed_chk' value='W'/> <label for="wed_chk"> Wednesday </label></li>
+                    <li><input type='checkbox' name='days[]' id='thu_chk' value='TH'/> <label for="thu_chk"> Thursday </label></li>
+                    <li><input type='checkbox' name='days[]' id='fri_chk' value='F'/> <label for="fri_chk"> Friday </label></li>
+                    <li><input type='checkbox' name='days[]' id='sat_chk' value='SA'/> <label for="sat_chk"> Saturday </label></li>
+                    <li><input type='checkbox' name='days[]' id='sun_chk' value='SU'/> <label for="sun_chk"> Sunday </label></li>
+                </div>
+
             
                 <input type='submit' value='Add' />
             </form>    
@@ -132,6 +143,15 @@ add styling on bottom note
             }
             .sched-item .sched-cont .text{
                 font-style:italic;
+
+            }
+
+            .sched-item .sched-cont .days-info{
+                clear:both;
+                width:100%;
+                float:left;
+                letter-spacing:3px;
+                margin-top:2px;
 
             }
 
@@ -269,7 +289,8 @@ add styling on bottom note
                     echo "<div class='sched-cont'>";
                     echo "<span class='title'>".$subjectName."</span>";
                     echo "<span class='text'>".$teacherName."</span>";
-                    echo "<span class='time'>".date("H:i",strtotime($body['start_time']))."-".date("H:i",strtotime($body['end_time'])) ."</span>";
+                    echo "<span class='days-info'>".($body['days'])."</span>";
+                    echo "<span class='time'>".date("g:i a",strtotime($body['start_time']))."-".date("g:i a",strtotime($body['end_time'])) ."</span>";
                     echo "</div>";
                     echo "<button class='item-close' data-b80bb7740288fda1f201890375a60c8f='".$body['sched_item_id']."'>X</button>";
                     echo "</div>";

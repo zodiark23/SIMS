@@ -26,8 +26,13 @@ $fileNameNew = time() . "." . $fileActualExt;
 $target_dir = "../user_uploads/";
 $target_file = $target_dir . $fileNameNew;
 
+
+
 // Data to be inserted on database
-$full_path = $target_dir.$fileNameNew;
+$path_img = "/user_uploads/";
+$full_path = $path_img.$fileNameNew;
+
+//$full_img = BASE_URL."../user_uploads/";
 
 $uploadOk = 1;
 

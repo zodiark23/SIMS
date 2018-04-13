@@ -13,13 +13,13 @@ add styling on bottom note
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Update parent Picture</h3>
+            <h3 class="dashboard-section-title">Update Picture</h3>
             <form enctype="multipart/form-data" method="POST" action="<?= BASE_URL ?>/php/pic_update.php">
 
 
                 <br>
                 <br>
-                <p>Upload your an image</p>
+                <p>Upload your image</p>
                 <br>
                 <br>
                 <input type="file" name="uploaded_file" id="uploaded_file">

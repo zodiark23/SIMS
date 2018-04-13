@@ -7,7 +7,13 @@
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Student Overview</h3>                        
+        <div class="content-head">
+                <h3 class="dashboard-section-title">Student Overview</h3>
+                <div class="input-group">
+                    <input type="text" placeholder="Search" id="search-box">
+                    <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
+                </div>
+            </div>                       
             <table width="100%" class='content-panel-table'>
                 <tr>
                     <th>Full Name</th>
@@ -18,7 +24,7 @@
 
                 <?php
                     foreach($this->studentList as $sl){
-                        echo "<tr>";
+                        echo "<tr class='search_index'>";
                         echo "<td>".$sl->first_name." ".$sl->middle_name." ".$sl->last_name."</td>";
                         echo "<td>".$sl->create_date."</td>";
                         echo "<td><a href='".BASE_URL."/admin/print-form/".$sl->student_id."'>Form 137</a> | <a href='".BASE_URL."/admin/enroll-student/".$sl->student_id."'>Enroll</a></td>";
@@ -28,6 +34,10 @@
 
                 
             </table>
+
+            <script>
+                    $("#search-box").quicksearch('.search_index');
+            </script>
 
         </div>
 

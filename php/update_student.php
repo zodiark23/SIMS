@@ -15,7 +15,6 @@ $f_name = $_POST['student_first_name'];
 $m_name = $_POST['student_middle_name'];
 $l_name = $_POST['student_last_name'];
 $email = $_POST['student_email'];
-$pass = md5($_POST['student_pass_confirm']);
 $house = $_POST['student_house_num'];
 $sub = $_POST['student_barangay'];
 $town = $_POST['student_town'];
@@ -23,7 +22,7 @@ $province = $_POST['student_province'];
 $tel = $_POST['student_tel_num'];
 $cell = $_POST['student_cell_num'];
 
-$isValid = $profileModel->setStudent($student_id,$f_name,$m_name,$l_name,$email,$pass,$house,$sub,$town,$province,$tel,$cell);
+$isValid = $profileModel->setStudent($student_id,$f_name,$m_name,$l_name,$email,$house,$sub,$town,$province,$tel,$cell);
 
 
 if($isValid){

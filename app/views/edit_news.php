@@ -19,9 +19,11 @@ Fix the UI @morbid
                     <br>
 
                     <p>
-                        <label>Title</label>
+                        <span class="input input--hoshi" style="width:45%">
+                            <input value="<?php echo $this->news_content[0]['news_title'] ?>" class="input__field input__field--hoshi" type="text" id="newsTitle"  name="newsTitle">
+                            <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="edit-newsTitle">
+                        <span class="input__label-content input__label-content--hoshi">News Title</span>
                         <br>
-                        <input type="text" name="newsTitle" id="newsTitle" value="<?php echo $this->news_content[0]['news_title'] ?>">
                     </p>
 
                     <br>
@@ -31,26 +33,12 @@ Fix the UI @morbid
 	                <textarea class="tinymce" id="newsContent" name="newsContent" cols='105' rows='30'><?php echo  htmlspecialchars_decode($this->news_content[0]['news_content'])?>
                     </textarea>
 
-                    <!--- tinymce CDN-->
-                    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-                    <script>
-                        tinymce.init({
-                            selector: ".tinymce",
-                            plugins: [
-                                "advlist autolink lists link image charmap print preview anchor",
-                                "searchreplace visualblocks code fullscreen",
-                                "insertdatetime media table contextmenu paste",
-                                "textcolor"
-                            ],
-                            browser_spellcheck: true,
-                            toolbar: "insertfile undo redo | styleselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image "
-                        });
-                    </script>
 
                     <br>
                     <br>
 
-                    <input type="submit" data-target="<?= ($this->news_id ?? "")?>" id="update-btn">
+                    <input type="submit" class="outlined-button" data-target="<?= ($this->news_id ?? "")?>" id="update-btn">
+                    <input name="image" type="file" id="upload-img" class="hidden" onchange="">
                 </form>
 			</div>
 

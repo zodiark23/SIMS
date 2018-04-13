@@ -13,7 +13,7 @@ add styling on bottom note
 <div class="content-container dashboard">
     <div class="dashboard-container">
         <div class="content-panel">
-            <h3 class="dashboard-section-title">Update stu Picture</h3>
+            <h3 class="dashboard-section-title">Update Picture</h3>
             <form enctype="multipart/form-data" method="POST" action="<?= BASE_URL ?>/php/pic_update.php">
 
 

@@ -6,6 +6,8 @@ use SIMS\Classes\Model;
 use SIMS\Classes\Database;
 use SIMS\App\Entities\Student;
 use SIMS\App\Entities\EducationalAttainment;
+use SIMS\App\Models\GradeModel;
+use SIMS\App\Models\CurriculumModel;
 use PDO;
 use Exception;
 
@@ -175,6 +177,11 @@ class StudentModel extends Model {
             throw new Exception("This student currently has in progress status. The system will not proceed with the process.", 409);
         }
 
+        $levelCompleted = $this->checkCompletedLevel($student_id, $level_id);
+        if($levelCompleted === true){
+            throw new Exception("The student already taken this level. The system will not proceed with the process", 400);
+        }
+
 
         $stmt = $this->db->prepare("INSERT INTO `student_educational`(student_id,level_id,section_id,status,custom_level,create_date,modified_date) 
                             VALUES (
@@ -222,7 +229,7 @@ class StudentModel extends Model {
             throw new Exception("Missing required information", 400);
         }
 
-        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE `student_id` = :student_id");
+        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE `student_id` = :student_id ORDER BY create_date ASC");
         $stmt->execute(["student_id" => $student_id]);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
@@ -255,6 +262,29 @@ class StudentModel extends Model {
     }
 
     /**
+     * Checks if the student already completed this level.
+     * 
+     * @param int $student_id The student to check
+     * @param int $level_id The level id to check from
+     * 
+     * @return bool True if found
+     */
+    private function checkCompletedLevel(int $student_id , int $level_id){
+        $stmt = $this->db->prepare("SELECT * FROM `student_educational` WHERE `student_id` = :student_id AND `level_id` =:level_id AND `status` = 'passed' ");
+        $stmt->execute(["student_id" => $student_id , "level_id" => $level_id ]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        if($result){
+            if(count($result) > 0){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Checks whether the email is already existing
      *
      * @param string $email The email to be checked
@@ -281,8 +311,21 @@ class StudentModel extends Model {
      *
      * @return Grades Grade Model
      */
-    public function viewGrade($student_id, $level = false){
+    public function viewGrade(int $student_id, $level = false){
+        $grade = [];
+        $gradeModel = new GradeModel();
+        $lists = $this->studentEducationalList($student_id);
+        if($lists){
+            foreach($lists as $list ){
+                $grade[$list->section_id] = ['level_id' => ($list->level_id ?? 0) , "grades" => $gradeModel->getGrades( $student_id , ((int)$list->section_id ?? 0) ) ];
 
+            }
+        }
+
+        if(count($grade) > 0){
+            return $grade;
+        }
+        return false;
     }
 
 

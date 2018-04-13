@@ -277,10 +277,9 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
             },
 
         submitHandler: function(){
-            newsContent = tinymce.get('newsContent').getContent();
+            newsContent = tinyMCE.get('newsContent').getContent();
 
             newsTitle = $('#newsTitle').val();
-
 
             $.ajax({
                 type: 'POST',
@@ -303,7 +302,6 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
             return false;
         }
     });
-
 
     // Update news
     $("#edit-news-form").validate({
@@ -388,6 +386,7 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
             success: function(data) {
                 $(".bg-modal").show();
                 $(".modal-content .real-content").html(data);
+                return false;
             }
         })
     });
@@ -396,12 +395,12 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
     $(".close-modal").on("click", function () {
         $(".bg-modal").css("display","none");
     });
-	
+
 	// View news content
 	$(".home-view-btn").on("click",function () {
-		
+
 		var news_id = $(this).data('newsid');
-		
+
 		$.ajax({
 			type: 'POST',
 			url: BASE_URL+"/php/view_news.php",
@@ -412,7 +411,7 @@ $.validator.addMethod("regex", function(value, element, regexpr) {
 			}
 		})
 	});
-	
+
 	// Close view modal
 	$(".close-modal").on("click", function () {
 		$(".bg-modal").css("display","none");
@@ -701,7 +700,7 @@ $("#login-form").validate({
             var token = $("#update_pass").data('token');
 
             $.ajax({
-                url : BASE_URL+"/php/update_student_password.php",
+                url : BASE_URL+"/php/auth_student.php",
                 type : "post",
                 data : dataString+"&sid="+id+"&token="+token,
                 success : function(data){
@@ -772,13 +771,6 @@ $("#login-form").validate({
 				required: true,
 				regex : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
 			},
-			teacher_pass: {
-				required: true
-			},
-			teacher_pass_confirm : {
-				required: true,
-				equalTo : '#teacher_pass'
-			},
 			teacher_first_name : {
 				required : true,
 				regex : /^[a-zA-Z\s]+$/,
@@ -803,9 +795,6 @@ $("#login-form").validate({
 		messages : {
 			teacher_email : {
 				regex : 'Please enter a valid email'
-			},
-			teacher_pass_confirm : {
-				equalTo : "Password doesn't match"
 			},
 			teacher_first_name : {
 				minlength : "Name must be at least 2 characters",
@@ -833,6 +822,46 @@ $("#login-form").validate({
 					success: function (data) {
 						x = JSON.parse(data);
 
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
+	
+	// Update teacher password
+	$("#update-password-teacher-form").validate({
+		rules: {
+			teacher_pass: {
+				required: true
+			},
+			teacher_pass_confirm : {
+				required: true,
+				equalTo : '#teacher_pass'
+			}
+		},
+		messages : {
+			teacher_pass_confirm : {
+				equalTo : "Password doesn't match"
+			}
+		},
+		submitHandler : function(){
+			var data = $("#update-password-teacher-form").serialize();
+			var id = $(".t_pass-btn").data('id');
+			
+			if(confirm("Are you sure you want to update your password? You are required to re-login after saving your password.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_password_teacher.php",
+					type: "post",
+					data: data + "&tid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
 						if (x.code == "00") {
 							alert(x.message);
 							window.location = BASE_URL + "/home/logout";
@@ -971,6 +1000,46 @@ $("#login-form").validate({
 			}
 		}
 	});
+	
+	// Update student password
+	$("#update-password-student-form").validate({
+		rules: {
+			student_pass: {
+				required: true
+			},
+			student_pass_confirm : {
+				required: true,
+				equalTo : '#student_pass'
+			}
+		},
+		messages : {
+			student_pass_confirm : {
+				equalTo : "Password doesn't match"
+			}
+		},
+		submitHandler : function(){
+			var data = $("#update-password-student-form").serialize();
+			var id = $(".s_pass-btn").data('id');
+			
+			if(confirm("Are you sure you want to update your password? You are required to re-login after saving your password.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_student_password.php",
+					type: "post",
+					data: data + "&sid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
 
 
 	// Update parent profile
@@ -1060,6 +1129,46 @@ $("#login-form").validate({
 			}
 		}
 	});
+	
+	// Update student password
+	$("#update-password-parent-form").validate({
+		rules: {
+			parent_pass: {
+				required: true
+			},
+			parent_pass_confirm : {
+				required: true,
+				equalTo : '#parent_pass'
+			}
+		},
+		messages : {
+			parent_pass_confirm : {
+				equalTo : "Password doesn't match"
+			}
+		},
+		submitHandler : function(){
+			var data = $("#update-password-parent-form").serialize();
+			var id = $(".p_pass-btn").data('id');
+			
+			if(confirm("Are you sure you want to update your password? You are required to re-login after saving your password.")) {
+				$.ajax({
+					url: BASE_URL + "/php/update_password_parent.php",
+					type: "post",
+					data: data + "&pid=" + id,
+					success: function (data) {
+						x = JSON.parse(data);
+						
+						if (x.code == "00") {
+							alert(x.message);
+							window.location = BASE_URL + "/home/logout";
+						} else {
+							alert(x.message);
+						}
+					}
+				})
+			}
+		}
+	});
 
 
 
@@ -1075,13 +1184,22 @@ $("#login-form").validate({
                 required : true
             },
             s_day: {
-                required : true
+                required : true,
+	            number : true,
+	            minlength: 2,
+	            maxlength: 2
             },
             s_month: {
-                required : true
+                required : true,
+	            number : true,
+	            minlength: 2,
+	            maxlength: 2
             },
             s_year: {
-                required : true
+                required : true,
+	            number : true,
+	            minlength: 4,
+	            maxlength: 4
             },
             s_nationality: {
                 required : true
@@ -1094,7 +1212,9 @@ $("#login-form").validate({
             },
             edu_elem_year_completed: {
                 required : true,
-                number : true
+                number : true,
+	            minlength: 4,
+	            maxlength: 4
             },
             edu_elem_address: {
                 required : true
@@ -1131,14 +1251,63 @@ $("#login-form").validate({
         messages : {
             s_email : {
                 regex : "Please use a valid email format"
-            }
+            },
+	        s_day: {
+		        maxlength: "Please only use 2 characters.",
+		        minlength: "Please only use 2 characters.",
+		        number: "Please input a valid day"
+	        },
+	        s_month: {
+		        maxlength: "Please only use 2 characters.",
+		        minlength: "Please only use 2 characters.",
+		        number: "Please input a valid month"
+	        },
+	        s_year: {
+		        maxlength: "Please only use 4 characters.",
+		        minlength: "Please only use 4 characters.",
+		        number: "Please input a valid year"
+	        },
+	        edu_elem_year_completed: {
+		        maxlength: "Please only use 4 characters.",
+		        minlength: "Please only use 4 characters.",
+		        number: "Please input a valid year"
+	        }
+	        
         },
         submitHandler : function(e){
             var gender1 = $("#s-male").is(":checked");
             var gender2 = $("#s-female").is(":checked");
+            var day = parseInt($('#dd').val());
+            var month = parseInt($('#mm').val());
+            var year = parseInt($('#yyyy').val());
+	        var edu_year = parseInt($('#edu_elem_year_completed').val());
+            var currYear = new Date();
+            var yyyy = currYear.getFullYear();
+            var calYear = yyyy - year;
+            
+            if(day <= 0 || day >= 32){
+            	alert("Please input a valid day");
+            	return false;
+	        }
+	        
+	        if(month <= 0 || month >= 13){
+		        alert("Please input a valid month");
+		        return false;
+	        }
+	        
+	        if(calYear <= 0 || calYear >= 100 || year >= yyyy){
+		        alert("Please input a valid year");
+		        return false;
+	        }
+	        
+	        if(edu_year <= year || edu_year >= yyyy){
+            	alert("Please input a valid year of completion");
+            	return false;
+	        }
 
             if(gender1 == false && gender2 == false){
-                alert("Please selet a gender");
+                alert("Please select a gender");
+                return false;
             }
 
             var data = $(e).serialize();
@@ -1288,6 +1457,9 @@ $("#login-form").validate({
             },
             end_time : {
                 required : true
+            },
+            days : {
+                required :true
             }
         },
         messages : {
@@ -1297,6 +1469,22 @@ $("#login-form").validate({
             var formData = $(e).serialize();
 
             var targ = $(e).data('arg');
+
+            //check if at least one of the days is checked
+
+            var checked = 0;
+            $("#sched-builder-form input[type='checkbox']").each(function(){
+                console.log(this);
+                var state = $(this).is(":checked")
+                if(state){
+                    checked++;
+                }
+            });
+
+            if(checked == 0){
+                alert('Please select atleast one or more day');
+                return false;
+            }
 
             $.ajax({
                 url : BASE_URL+"/php/add_schedule_item.php",

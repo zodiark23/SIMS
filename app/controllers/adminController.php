@@ -20,7 +20,7 @@ class AdminController extends Controller{
     public $side_nav_data = [];
 
     public function __construct(){
-        
+
 
         $this->view = new View("educational_list");
         $this->view->action = "new";
@@ -44,7 +44,7 @@ class AdminController extends Controller{
         $studentModel = new StudentModel();
         $studentResult = $studentModel->showList();
         $this->side_nav_data['studentCount'] = $studentResult ? count($studentResult) : 0;
-        
+
         /**
          * Schedules sidenav counter
          */
@@ -58,11 +58,11 @@ class AdminController extends Controller{
          $subjectModel = new SubjectModel();
          $subjectResult = $subjectModel->list();
          $this->side_nav_data['subjectCount'] = $subjectResult ? count($subjectResult) : 0;
-         
+
          $sectionModel= new SectionModel();
          $sectionResult = $sectionModel->list();
          $this->side_nav_data['sectionCount'] = $sectionResult ? count($sectionResult) : 0;
-         
+
     }
 
 
@@ -79,7 +79,7 @@ class AdminController extends Controller{
 			$this->unauthorized();
 			return false;
         }
-        
+
         $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
@@ -92,16 +92,16 @@ class AdminController extends Controller{
         $level_info = $curriculumModel->schoolLevelInfo($id);
 
         $getRequiredSubjects = $curriculumModel->showLevelRequiredSubjects((int)$id);
-        
 
-        
+
+
         if(!$level_info){
             $this->error();
             return false;
         }
         $gradeSchemeResult = $curriculumModel->schoolLevelGradeSchemeInfo((int)$level_info['level_id'] ?? 0);
-        
-        
+
+
         $gradeModel = new GradeModel();
         $gradeSchemes = $gradeModel->gradeSchemeList();
 
@@ -279,7 +279,7 @@ class AdminController extends Controller{
                 return false;
             }
         }
-        
+
         $this->view = new View("create_subject");
         $currModel = new CurriculumModel();
         $this->view->curriculumList = $currModel->list();
@@ -461,6 +461,18 @@ class AdminController extends Controller{
 	}
 
 	public function news(){
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("ADD_NEWS");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
     	$this->view = new View("news");
 
     	$this->model = new NewsModel();
@@ -517,7 +529,7 @@ class AdminController extends Controller{
 
 
         $builderUI = $schedModel->scheduleBuilder($this->view->schedInfo->schedule_id);
-        
+
         /** Pass the data to the view */
 
         $this->view->sectionList = $sectionList;
@@ -594,11 +606,11 @@ class AdminController extends Controller{
 
             foreach($this->view->data as $sched){
                 $result = $curriculumModel->schoolLevelInfo($sched['level_id']);
-                
+
                 if($result !== false){
                     $levelNames[$result['level_id']] = $result['level_name'];
                 }
-                
+
             }
         }
 
@@ -633,6 +645,23 @@ class AdminController extends Controller{
         $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
+    }
+
+    public function print_schedule($id){
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_SCHEDULE");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+        $this->view = new View("print_schedule");
+        $this->view->schedule_id = $id;
+        $this->view->raw_view();
     }
 
     public function add_section(){
@@ -691,7 +720,7 @@ class AdminController extends Controller{
 
         // The level this curriculum had
         $this->view->levels  = $currModel->schoolLevels($curr_id);
-        
+
 
         $teacherModel = new TeacherModel();
         $this->view->teachers = $teacherModel->list();
@@ -726,12 +755,12 @@ class AdminController extends Controller{
 
             foreach($this->view->data as $sched){
                 $result = $curriculumModel->schoolLevelInfo($sched['level_id']);
-                
+
                 if($result !== false){
                     $levelNames[$result['level_id']] = $result['level_name'];
                 }
             }
-            
+
         }
 
         $this->view->levelNames = $levelNames ?? [];
@@ -764,10 +793,10 @@ class AdminController extends Controller{
         if($lists){
 
             foreach($lists as $list){
-                $reference = $gradeModel->getSchemeReferences( ($list->grade_scheme_id ?? 0 ) );    
+                $reference = $gradeModel->getSchemeReferences( ($list->grade_scheme_id ?? 0 ) );
                 $references[($list->grade_scheme_id ?? "")] = $reference != false ? count($reference) : 0;
             }
-            
+
         }
 
         $this->view->references = $references;
@@ -791,7 +820,7 @@ class AdminController extends Controller{
         }
 
         $this->view = new View("add_grade_scheme");
-        
+
         $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
@@ -818,7 +847,7 @@ class AdminController extends Controller{
         $gradeModel = new GradeModel();
 
         $info = $gradeModel->gradeSchemeDetails($id);
-        
+
         $this->view->info = $info[0] ?? null;
         $this->view->pointer = $this->pointer;
         $this->view->side_nav_data = $this->side_nav_data;
@@ -880,7 +909,7 @@ class AdminController extends Controller{
         $this->view->side_nav_data = $this->side_nav_data;
 		$this->view->render();
     }
-    
+
 
     public function student_overview(){
         // Check rights
@@ -927,15 +956,15 @@ class AdminController extends Controller{
             return false;
         }
 
-        
-        
+
+
         $currModel = new CurriculumModel();
         $sectionModel = new SectionModel();
-        
-        
 
-        
-        
+
+
+
+
         $this->view = new View("enroll_student");
         $this->view->studentEducational = $studentModel->studentEducationalList((int)$id);
         $this->view->student = $student;
@@ -956,11 +985,17 @@ class AdminController extends Controller{
 
         }
         $this->view->levelNames = $levelNames ?? [];
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
         $this->view->render();
     }
 
 
     public function print_form($id){
+        if(empty($id) || $id == ""){
+            $this->error();
+            return false;
+        }
         // Check rights
         $userHasRights = $this->roleModel->verifyRights("ALL");
         if(!$userHasRights){
@@ -982,11 +1017,87 @@ class AdminController extends Controller{
             return false;
         }
 
+        $educational = $studentModel->studentEducationalList($id);
+
+        $currModel = new CurriculumModel();
+        $gradeModel = new GradeModel();
+        $subjectModel = new SubjectModel();
+        $sectionModel = new SectionModel();
+        $teacherModel = new TeacherModel();
+        $levelList = [];
+        $grades = [];
+        if($educational){
+            foreach($educational as $studentEducational){
+                $level_info = $currModel->schoolLevelInfo($studentEducational->level_id);
+                $grades = $gradeModel->getGrades((int)$studentEducational->student_id ?? 0, (int)$studentEducational->section_id ?? 0);
+                $section_info  = $sectionModel->info((int)$studentEducational->section_id);
+                $teacher = $teacherModel->findById('teacher_id',$section_info['section_adviser'] ?? 0);
+                $gradeSchemeInfo = $currModel->schoolLevelGradeSchemeInfo($studentEducational->level_id);
+                $gradeScheme = $gradeModel->gradeSchemeDetails( ($gradeSchemeInfo['grade_scheme_id'] ?? 0) );
+                $subjects = [];
+
+                if($grades){
+                    // format the grades with key of subjectname
+                    foreach($grades as $grade){
+                        $subject_details = $subjectModel->info((int)$grade->subject_id ?? 0);
+                        $subjectDetail = $subject_details[0];
+                        $subjects[$subjectDetail['subject_name']][$grade->flags] = $grade->grade;
+                    }
+                }
+                $levelList[] = ["section_info" => $section_info , "level_info" => $level_info, "subjects" => $subjects, "pass_threshold" => $gradeScheme[0]->pass_threshold ?? 0 , "adviser" => $teacher[0] ?? []];
+            }
+
+        }
+
+
+
+
         $this->view = new View("print_form");
+        $this->view->levelList = $levelList;
         $this->view->student = $studentInfo;
         $this->view->raw_view();
 
 
+    }
+
+    public function master_list(){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            $this->unauthorized();
+            return false;
+
+        }
+
+        $this->view = new View("master-list");
+
+
+        $currModel = new CurriculumModel();
+        $this->view->curriculumList = $currModel->list();
+        $this->view->pointer = $this->pointer;
+        $this->view->side_nav_data = $this->side_nav_data;
+        $this->view->render();
+    }
+
+
+    public function master_pdf(){
+
+        // Check rights
+        $userHasRights = $this->roleModel->verifyRights("ALL");
+        if(!$userHasRights){
+            // Check users with this rights
+            $commonRights = $this->roleModel->verifyRights("MANAGE_STUDENT");
+            if(!$commonRights){
+
+                $this->unauthorized();
+                return false;
+            }
+        }
+
+
+        $this->view = new View('master-pdf');
+        $this->view->raw_view();
     }
 
 

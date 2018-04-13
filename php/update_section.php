@@ -27,7 +27,7 @@ try {
         $callback['message'] = "Section updated.";
     }else{
         $callback['code'] = "01";
-        $callback['message'] = "Unexpected error occurred.";
+        $callback['message'] = "Duplicate section.";
     }
 
 } catch(Exception $e){

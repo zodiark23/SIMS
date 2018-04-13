@@ -60,7 +60,7 @@ Fix the UI @morbid
                 </table>
                     <div style="text-align: center;">
                         <input type="submit" data-target="<?= ($this->role_id ?? "" )?>" id="save-btn">
-                        <input type="submit" id="<?= ($this->role_id ?? "" )?>" class="delete-role-btn" value="DELETE">
+                        <input type="submit" id="<?= ($this->role_id ?? "" )?>" class="outlined-button delete-role-btn" value="DELETE">
                     </div>
                 </form>
 

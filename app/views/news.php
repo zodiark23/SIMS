@@ -13,19 +13,19 @@ Fix the UI @morbid
 			<div class="content-panel">
                 <div class="content-head">
                     <h3 class="dashboard-section-title">Publish News</h3>
-                    <div class="input-group">                 
+                    <div class="input-group">
                         <a class="outlined-button" href="<?=BASE_URL?>/admin/add_news">Create</a>
                         <input type="text" id="search-box" placeholder="Search">
                         <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
-                    </div> 
+                    </div>
                 </div>
                 <form id="display-news-form" method="post">
-                    
+
                     <div class='error_news_form'></div>
                     <table style="width:100%" class="content-panel-table">
                         <tr>
                             <th>News</th>
-                            <th>Published</th>
+
                             <th>Action</th>
                         </tr>
 
@@ -40,14 +40,15 @@ Fix the UI @morbid
 	                                $news_id = $result['news_id'];
 
 		                            if (strlen(htmlspecialchars($result['news_content'])) > 250) {
+
+
 			                            // Title and Content
 			                            echo "<tr><td style='padding: 5px 0 5px 15px; text-align: left; width: 400px;'>".$result['news_title'];
 			                            echo "<br><br>";
 			                            echo substr(htmlspecialchars_decode($result['news_content']),0,250)."..."."</td>";
 
 
-			                            // Published button here (YES/NO)
-                                        echo "<td>".$result['news_publish'];
+
 
 
 			                            // Edit button here
@@ -69,10 +70,8 @@ Fix the UI @morbid
 			                            // Title and Content
 			                            echo "<tr><td style='padding: 5px 0 5px 15px; text-align: left; width: 400px;'>".$result['news_title'];
 			                            echo "<br><br>";
-			                            echo htmlspecialchars_decode($result['news_content'])."</td>";
+			                            echo htmlspecialchars_decode(($result['news_content']))."</td>";
 
-			                            // Published button here (YES/NO)
-			                            echo "<td>".$result['news_publish'];
 
 			                            // Edit button here
 			                            echo "<td><a class='tbl-edit-btn' value='Edit' id='".$result['news_id']."' name='edit-btn' href='".BASE_URL."/admin/edit_news/".$result['news_id']."'>".'Edit'."</a>";
@@ -98,11 +97,10 @@ Fix the UI @morbid
 
         </table>
                     <div class='bg-modal'>
-						
+
                         <div class='modal-content'>
-                            
-						<div class='close-modal'><i class="far fa-times-circle"></i></div>
-                        <div class='real-content'></div>
+                            <div class='close-modal'><i class="far fa-times-circle"></i></div>
+                            <div class='real-content'></div>
                         </div>
                     </div>
 
@@ -112,7 +110,7 @@ Fix the UI @morbid
 
                     <br>
                     <br>
-                    
+
 
                 </form>
 			</div>

@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app/models" isTestSource="false" packagePrefix="SIMS\App\Models\" />
       <sourceFolder url="file://$MODULE_DIR$/app/entities" isTestSource="false" packagePrefix="SIMS\App\Entities\" />
       <sourceFolder url="file://$MODULE_DIR$/classes" isTestSource="false" packagePrefix="SIMS\Classes\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tinymce/js" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

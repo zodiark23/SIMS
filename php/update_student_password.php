@@ -5,14 +5,14 @@ include("../classes/autoloader.php");
 
 loadPackage("../");
 
-use SIMS\App\Models\accesstokenModel;
+use SIMS\App\Models\ProfileModel;
 
-$accessTokenModel = new AccessTokenModel();
+$accessTokenModel = new ProfileModel();
 
-$pass =$_POST['s_pass_confirm'];
+$pass =$_POST['student_pass_confirm'];
 $student_id = $_POST['sid'];
 
-$isValid = $accessTokenModel->setPassword($student_id,$pass);
+$isValid = $accessTokenModel->setStudentPass($student_id,$pass);
 
 if($isValid){
 	$callback['code'] = "00";

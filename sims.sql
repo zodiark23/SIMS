@@ -62,7 +62,12 @@ CREATE TABLE `grades` (
   `grade_id` int(11) NOT NULL,
   `section_id` int(6) NOT NULL,
   `student_id` int(10) NOT NULL,
-  `subject_id` int(10) NOT NULL
+  `subject_id` int(10) NOT NULL,
+  `grade` int(3) NOT NULL,
+  `created_date` DATETIME NOT NULL,
+  `modified_date` DATETIME NOT NULL,
+  `flags` int(10) NOT NULL,
+  `result` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -200,7 +205,8 @@ INSERT INTO `rights` (`rights_id`, `rights_code`) VALUES
 (19, 'ADD_SECTION'),
 (20, 'EDIT_SECTION'),
 (21, 'ADD_SCHEDULE'),
-(22, 'MANAGE_SCHEDULE');
+(22, 'MANAGE_SCHEDULE'),
+(23, 'MANAGE_STUDENT');
 
 -- --------------------------------------------------------
 
@@ -220,9 +226,9 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`role_id`, `role_name`, `default`) VALUES
 (1, 'admin', 1),
-(2, 'teacher', 2),
-(3, 'student', 3),
-(4, 'parent', 4);
+(2, 'teacher', 1),
+(3, 'student', 1),
+(4, 'parent', 1);
 
 -- --------------------------------------------------------
 
@@ -277,7 +283,8 @@ CREATE TABLE `schedule_items` (
   `section_id` int(6) NOT NULL,
   `subject_id` int(10) NOT NULL,
   `start_time` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `end_time` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `end_time` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `days` text NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -941,6 +948,10 @@ ALTER TABLE `school_level_subjects`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
+--
+-- Table structure for table `profile_img`
+--
+
 CREATE TABLE `profile_img` (
   `id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
@@ -954,7 +965,7 @@ CREATE TABLE `profile_img` (
 --
 
 INSERT INTO `profile_img` (`id`, `role_id`, `email`, `full_path`, `status`) VALUES
-(1, 0, 'default', '../user_uploads/1522690295donotdelete.png', 1);
+(1, 0, 'default', '/user_uploads/1522690295donotdelete.png', 1);
 
 --
 -- Indexes for dumped tables
@@ -976,3 +987,8 @@ ALTER TABLE `profile_img`
 ALTER TABLE `profile_img`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

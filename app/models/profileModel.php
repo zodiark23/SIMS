@@ -23,7 +23,7 @@ class ProfileModel extends Model {
 		return false;
 	}
 
-	public function setTeacher($teacher_id,$f_name,$m_name,$l_name,$email,$pass,$civil_status,$address){
+	public function setTeacher($teacher_id,$f_name,$m_name,$l_name,$email,$civil_status,$address){
 		$stmt = $this->db->prepare("SELECT * FROM teachers WHERE teacher_id = :teacher_id");
 		$stmt->execute([":teacher_id"=>$teacher_id]);
 		$result = $stmt->fetchAll();
@@ -31,12 +31,11 @@ class ProfileModel extends Model {
 			$id = $r['teacher_id'];
 		}
 		if($result){
-			$stmt = $this->db->prepare("UPDATE teachers SET first_name = :first_name, middle_name = :middle_name, last_name = :last_name, email = :email, password = :password, civil_status = :civil_status, address = :address, last_modified = :last_modified WHERE teacher_id = :teacher_id");
+			$stmt = $this->db->prepare("UPDATE teachers SET first_name = :first_name, middle_name = :middle_name, last_name = :last_name, email = :email, civil_status = :civil_status, address = :address, last_modified = :last_modified WHERE teacher_id = :teacher_id");
 			$result = $stmt->execute([":first_name"=>$f_name,
 				":middle_name"=>$m_name,
 				":last_name"=>$l_name,
 				":email"=>$email,
-				":password"=>$pass,
 				":civil_status"=>$civil_status,
 				":address"=>$address,
 				":last_modified"=>date("Y-m-d H:i:s"),
@@ -45,12 +44,26 @@ class ProfileModel extends Model {
 			if($result){
 				return true;
 			}
-
 		}
 		return false;
 	}
 
-	public function setStudent($student_id,$f_name,$m_name,$l_name,$email,$pass,$house,$sub,$town,$province,$tel,$cell){
+	public function setTeacherPass($teacher_id,$pass){
+		$stmt = $this->db->prepare("SELECT * FROM teachers WHERE teacher_id = :teacher_id");
+		$stmt->execute([":teacher_id"=>$teacher_id]);
+		$result = $stmt->fetchAll();
+		if($result){
+			$stmt = $this->db->prepare("UPDATE `teachers` SET `password`= md5(:password) WHERE teacher_id = :teacher_id");
+			$result = $stmt->execute([":teacher_id"=>$teacher_id,
+				":password"=>$pass]);
+			if($result){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function setStudent($student_id,$f_name,$m_name,$l_name,$email,$house,$sub,$town,$province,$tel,$cell){
 		$stmt = $this->db->prepare("SELECT * FROM students WHERE student_id = :student_id");
 		$stmt->execute([":student_id"=>$student_id]);
 		$result = $stmt->fetchAll();
@@ -58,12 +71,11 @@ class ProfileModel extends Model {
 			$id = $r['student_id'];
 		}
 		if($result){
-			$stmt = $this->db->prepare("UPDATE students SET first_name = :first_name, middle_name = :middle_name, last_name = :last_name, email = :email, password = :password, last_updated= :last_updated, house_street_number = :house, subdivision_barangay = :sub, town_city = :town, province = :province, tel_number = :tel, cell_number = :cell WHERE student_id = :student_id");
+			$stmt = $this->db->prepare("UPDATE students SET first_name = :first_name, middle_name = :middle_name, last_name = :last_name, email = :email, last_updated= :last_updated, house_street_number = :house, subdivision_barangay = :sub, town_city = :town, province = :province, tel_number = :tel, cell_number = :cell WHERE student_id = :student_id");
 			$result = $stmt->execute([":first_name"=>$f_name,
 				":middle_name"=>$m_name,
 				":last_name"=>$l_name,
 				":email"=>$email,
-				":password"=>$pass,
 				":last_updated"=>date("Y-m-d H:i:s"),
 				":house"=>$house,
 				":sub"=>$sub,
@@ -80,7 +92,22 @@ class ProfileModel extends Model {
 		return false;
 	}
 
-	public function setParent($parent_id,$f_name,$m_name,$l_name,$email,$pass,$contact)
+	public function setStudentPass($student_id,$pass){
+		$stmt = $this->db->prepare("SELECT * FROM students WHERE student_id = :student_id");
+		$stmt->execute([":student_id"=>$student_id]);
+		$result = $stmt->fetchAll();
+		if($result){
+			$stmt = $this->db->prepare("UPDATE `students` SET `password`= md5(:password) WHERE student_id = :student_id");
+			$result = $stmt->execute([":student_id"=>$student_id,
+				":password"=>$pass]);
+			if($result){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function setParent($parent_id,$f_name,$m_name,$l_name,$email,$contact)
 	{
 		$stmt = $this->db->prepare("SELECT * FROM parents WHERE parents_id = :parent_id");
 		$stmt->execute([":parent_id" => $parent_id]);
@@ -89,17 +116,31 @@ class ProfileModel extends Model {
 			$id = $r['parents_id'];
 		}
 		if ($result) {
-			$stmt = $this->db->prepare("UPDATE parents SET first_name = :f_name, middle_name = :m_name, last_name = :l_name, email = :email, password = :password, contact_number = :contact, last_updated= :last_updated WHERE parents_id = :parent_id");
+			$stmt = $this->db->prepare("UPDATE parents SET first_name = :f_name, middle_name = :m_name, last_name = :l_name, email = :email, contact_number = :contact, last_updated= :last_updated WHERE parents_id = :parent_id");
 			$result = $stmt->execute([":f_name" => $f_name,
 				":m_name" => $m_name,
 				":l_name" => $l_name,
 				":email" => $email,
-				":password" => $pass,
 				":contact" => $contact,
 				":last_updated" => date("Y-m-d H:i:s"),
 				":parent_id" => $id]);
 
 			if ($result) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function setParentPass($parent_id,$pass){
+		$stmt = $this->db->prepare("SELECT * FROM parents WHERE parents_id = :parent_id");
+		$stmt->execute([":parent_id"=>$parent_id]);
+		$result = $stmt->fetchAll();
+		if($result){
+			$stmt = $this->db->prepare("UPDATE `parents` SET `password`= md5(:password) WHERE parents_id = :parent_id");
+			$result = $stmt->execute([":parent_id"=>$parent_id,
+				":password"=>$pass]);
+			if($result){
 				return true;
 			}
 		}
@@ -112,7 +153,7 @@ class ProfileModel extends Model {
 		$result = $stmt->fetchAll();
 
 		if($result){
-			$stmt = $this->db->prepare("UPDATE profile_img SET role_id = :role_id, email = :email, full_path = :full_path, `status` = 1");
+			$stmt = $this->db->prepare("UPDATE profile_img SET role_id = :role_id, email = :email, full_path = :full_path, `status` = 1 WHERE email = :email");
 			$result = $stmt->execute([":role_id"=>$role_id,
 				":email"=>$email,
 				":full_path"=>$full_path]);
@@ -150,6 +191,38 @@ class ProfileModel extends Model {
 			if($result) {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	/**
+	 * Returns the path and not modify the session iamge
+	 */
+	public function getProfileImagePath($email){
+		$stmt = $this->db->prepare("SELECT * FROM profile_img WHERE email = :email");
+		$stmt->execute([":email"=>$email]);
+		$result = $stmt->fetchAll();
+		foreach ($result as $r){
+			return $r['full_path'];
+		}
+		if(!$result){
+		
+			$stmt = $this->db->prepare("SELECT * FROM profile_img WHERE email = 'default'");
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			foreach ($result as $a){
+				return $a['full_path'];
+			}
+		}
+		return false;
+	}
+
+	public function getEducAttain($student_id){
+		$stmt = $this->db->prepare("SELECT * FROM educational_attainment WHERE student_id = :student_id");
+		$stmt->execute([":student_id"=>$student_id]);
+		$result = $stmt->fetchAll();
+		if($result){
+			return $result;
 		}
 		return false;
 	}

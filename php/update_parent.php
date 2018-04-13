@@ -14,11 +14,10 @@ $f_name = $_POST['parent_first_name'];
 $m_name = $_POST['parent_middle_name'];
 $l_name = $_POST['parent_last_name'];
 $email = $_POST['parent_email'];
-$pass = md5($_POST['parent_pass_confirm']);
 $contact = $_POST['parent_contact'];
 
 
-$isValid = $profileModel->setParent($parent_id,$f_name,$m_name,$l_name,$email,$pass,$contact);
+$isValid = $profileModel->setParent($parent_id,$f_name,$m_name,$l_name,$email,$contact);
 
 
 if($isValid){

@@ -33,20 +33,6 @@ add styling on bottom note
 
                 <br>
 
-                <span class="input input--hoshi" style="width:45%">
-                    <input value="" class="input__field input__field--hoshi" type="password" id="student_pass"  name="student_pass">
-                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="student_pass">
-                        <span class="input__label-content input__label-content--hoshi">Password</span>
-                    </label>
-                </span>
-
-                <span class="input input--hoshi" style="width:45%">
-                    <input value="" class="input__field input__field--hoshi" type="password" id="student_pass_confirm"  name="student_pass_confirm">
-                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="student_pass_confirm">
-                        <span class="input__label-content input__label-content--hoshi">Confirm Password</span>
-                    </label>
-                </span>
-
                 <h4>Personal Data</h4>
 
                 <span class="input input--hoshi" style="width:45%">
@@ -124,7 +110,7 @@ add styling on bottom note
                 <br>
                 
                 <input type="submit" data-id="<?=$_SESSION['user']['student_id']?>" class="outlined-button s_update-btn" value="Update" />
-                <a href="<?= BASE_URL ?>/account"><input type="button" class="s_cancel_btn" value="Cancel" ></a>
+                <a href="<?= BASE_URL ?>/account"><input type="button" class="outlined-button s_cancel_btn" value="Cancel" ></a>
             </form>
 
         </div>

@@ -81,15 +81,18 @@ class GradeController extends Controller{
         $subjectResult = $curriculumModel->showLevelRequiredSubjects($level_id);
         $subjecModel = new SubjectModel();
         $requiredSubjects = array();
-        foreach($subjectResult as $subj){
-            $requiredSubjects[] = $subjecModel->info($subj->subject_id);
+        
+        if($subjectResult){
+            foreach($subjectResult as $subj){
+                $requiredSubjects[] = $subjecModel->info($subj->subject_id);
+            }
         }
 
          //get the grade scheme this level is using
         $gradeSchemeId = $curriculumModel->schoolLevelGradeSchemeInfo($level_id);
         $gradeScheme = $gradeModel->gradeSchemeDetails((int)$gradeSchemeId['grade_scheme_id'] ?? 0);
 
-        $this->view->pass_threshold = (int)$gradeScheme[0]->pass_threshold ?? null;
+        $this->view->pass_threshold = $gradeScheme ? ((int)$gradeScheme[0]->pass_threshold ?? 0) : false;
         $this->view->targetSection = $section_id;
         $this->view->studentGrades = $studentGrades; //Contains all the grade this section have. Each array represents a student
         $this->view->studentSection = $studentSection;

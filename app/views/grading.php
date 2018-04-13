@@ -75,17 +75,36 @@
 	</style>
 
 	<body>
+		
 		<div class="grading-item">
 			<div class="grading-period">
 				Grading Form (<i><?= ($this->studentSection['section_name'] ?? "") ?></i>)
+				<span style='color:red'>
+					<?php
+					$errors = [];
+					if($this->pass_threshold == false){
+						$errors[] = "No Threshold Set";
+					}
+					if(count($this->requiredSubjects) <= 0){
+
+						$errors[] = "No Subjects Set";
+					}
+
+					if(count($errors)){
+						echo "<br>".implode(", ", $errors);
+					}
+					?>
+				</span>
 				<a href="<?=BASE_URL?>/account/grade-management" class="goback"><< Back</a>
 			</div>
 
 			<?php 
 				$flags = [
-					["flag_id" => 1, "description" => "1st Grading"],
-					["flag_id" => 2, "description" => "2nd Grading"]
+					["flag_id" => 1, "description" => "1st Quarter"],
+					["flag_id" => 2, "description" => "2nd Quarter"]
 				];
+
+				$emptyFields = 0;
 
 				$subjectCount = $this->requiredSubjects ? count($this->requiredSubjects) : 0;
 			?>
@@ -154,6 +173,10 @@
 								// 	$uid = 0;
 								// }
 
+								if($grade == "" || $grade == 0){
+									$emptyFields++;
+								}
+
 								echo "<td ><input value='$grade' class='grade-input-item' type='text' maxlength='3' data-section='".$this->targetSection."' data-flag='$flag_id' data-subject='".$subject[0]['subject_id']."' data-uid='$uid' data-student='".$student[0]['student_id']."' ></td>";
 							}
 						}
@@ -193,8 +216,31 @@
 					
 				</tbody>
 			</table>
-
+			<?php if($emptyFields == 0 && !empty($student)){ ?>
+			<input type="button" value="Finalize" id="finalize-grade" />
+			<?php } ?>
 			<script>
+				$("#finalize-grade").on("click", function(){
+					var c = confirm("This will submit the grades and prevent further editing.");
+
+					if(c){
+						$.ajax({
+							url : BASE_URL+"/php/finalize_grade.php",
+							type : "post",
+							data : {sid : <?= $this->targetSection ?? 0?>},
+							success : function(data){
+								var x = JSON.parse(data);
+								
+								alert(x.message);
+
+								if(x.code == "00"){
+									location.reload();
+								}
+							}
+						})
+					}
+				});
+
 				$(".grade-input-item").on("blur", function(){
 					var value = $(this).val();
 					var flag = $(this).data('flag');
