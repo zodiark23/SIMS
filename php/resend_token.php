@@ -43,9 +43,71 @@ if(!empty($student_id)){
 
 		    //Content
 		    $mail->isHTML(true);                                  // Set email format to HTML
-		    $mail->Subject = 'Verify account for SIMS';
-		    $mail->Body    = 'Please validate your account here <b>'.BASE_URL.'/home/validate/'.$resendToken.'</b>';
-		    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+			$mail->Subject = 'Verify account for SIMS';
+			
+			$htmlEmailBody = "<html>
+			<head>
+			<style>
+			.table-email{
+			  width:100%;
+			}
+			.header{
+			  padding:20px;
+			  font-size:18px;
+			}
+			.blue{
+			  background: #4272d7;
+			  color: white;
+			}
+			.activate-btn{
+			  text-decoration:none;
+			  color:white;
+			  background: #8BC34A;
+			  padding:4px 10px;
+			  margin:3px;
+			}
+			body{
+			  font-family: Segoe UI;
+			  padding:10px;
+			  font-size:14px;
+			}
+			</style>
+			</head>
+			<body>
+			
+			<table class='table-email'>
+			<tr>
+			  
+			  <td  class='blue header'><center>Account Activation</center></td>
+			</tr>
+			<tr height='20px;'>
+				<td></td>
+			  </tr>
+			<tr>
+			  
+			  <td>
+				Please validate your account to start using it.
+				<br>Click on the button below to activate your account.
+			   </td>
+			  </tr>
+			  <tr height='20px;'>
+				<td></td>
+			  </tr>
+			 <tr>
+			   <td>
+				<a class='activate-btn' href=".BASE_URL.'/home/validate/'.$resendToken.">Activate</a>
+			  </td>
+			</tr>
+			</table>
+			
+			
+			</body>
+			
+			
+			
+			</html>";
+		    $mail->Body    = $htmlEmailBody;
+		    $mail->AltBody = 'Please validate your account here <b>'.BASE_URL.'/home/validate/'.$resendToken.'</b>';
 
 			$mail->send();
 
