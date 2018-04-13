@@ -37,18 +37,26 @@ if($this->pointer == "section_list" || $this->pointer == "add_section"){
 
     $sectionPointer = "active";
 }
+use SIMS\App\Models\RoleModel;
+$rightsModel = new RoleModel();
+
+$adminCounter = 0;
+if($rightsModel->verifyRights("ALL") || $rightsModel->verifyRights("MANAGE_EDUCATION")){
+    $educationRights = true;
+    $adminCounter++;
+}
 
 ?>
     <div class="nav-list">
         <ul class="parent-ul">
-            <li class="parent-li <?= $adminPointer ?>">
+            <li class="parent-li <?= $adminPointer ?>" style="<?= $adminCounter == 0 ? 'display:none' : ''?>">
                 <a href="javascript:void(0);">Administration</a>
                 <ul class="child-ul">
-                    <li><a href="<?=BASE_URL?>/admin/education">Education Settings</a></li>
+                    <li <?php if (empty($educationRights) ){?>style="display:"<?php } ?>><a href="<?=BASE_URL?>/admin/education">Education Settings</a></li>
                     <li class="roles"><a href="<?=BASE_URL?>/admin/roles">Roles</a></li>
                     <!-- <li><a href="">Privileges</a></li> -->
-                    <li><a href="<?= BASE_URL?>/admin/master-list">Master List</a></li>
-                    <li><a href="<?=BASE_URL?>/admin/news">News &amp; Announcements</a></li>
+                    <li ><a href="<?= BASE_URL?>/admin/master-list">Master List</a></li>
+                    <li <?php if (!$this->hasRights){?>style="display:none"<?php } ?>><a href="<?=BASE_URL?>/admin/news">News &amp; Announcements</a></li>
                     <!-- <li><a href="">Management</a></li> -->
                     <!-- <li><a href="">Payments</a></li> -->
                     <li><a href="<?=BASE_URL?>/admin/approval">Approvals</a></li>
