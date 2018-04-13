@@ -23,7 +23,7 @@ if(!$this->hasRights){
             <div class="content-head">
                 <h3 class="dashboard-section-title">Education</h3>
                 <div class="input-group">
-                    <a class="outlined-button" href="<?=BASE_URL?>/admin/create-education">Create</a>
+                    <!-- <a class="outlined-button" href="<?=BASE_URL?>/admin/create-education">Create</a> -->
                     <input type="text" id="search-box" placeholder="Search">
                     <a href="javascript:void(0);" class="search-btn"><img src="<?=BASE_URL?>/img/search-icon.png" alt=""></a>
                 </div>
