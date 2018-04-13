@@ -67,7 +67,7 @@ if(!empty($schedules['body']) && count($schedules['body']) > 0 ){
 
         echo "<table class='no-border-table'>
         <tr>
-        <th class='no-border' style='padding:13px 3px;'> $section_name Schedule</th>
+        <th class='no-border' style='padding:43px 3px;'> $section_name Schedule</th>
         </tr>
         </table>
         ";
@@ -75,6 +75,7 @@ if(!empty($schedules['body']) && count($schedules['body']) > 0 ){
         <tr>
         <th><center>Time</center></th>
         <th><center>Subject</center></th>
+        <th><center>Days</center></th>
         <th><center>Teacher</center></th>
         </tr>";
         foreach($schedules['body'] as $schedule){
@@ -95,6 +96,7 @@ if(!empty($schedules['body']) && count($schedules['body']) > 0 ){
                 echo "<tr>
                 <td width='20%'><center>".$schedule['start_time']." - ".$schedule['start_time']."</center></td>
                 <td><center>".$subject_name."</center></td>
+                <td><center>".($schedule['days'] ?? '')."</center></td>
                 <td><center>".$teacher_name."</center></td>
                 
                 </tr>";

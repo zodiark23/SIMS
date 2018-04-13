@@ -1457,6 +1457,9 @@ $("#login-form").validate({
             },
             end_time : {
                 required : true
+            },
+            days : {
+                required :true
             }
         },
         messages : {
@@ -1466,6 +1469,22 @@ $("#login-form").validate({
             var formData = $(e).serialize();
 
             var targ = $(e).data('arg');
+
+            //check if at least one of the days is checked
+
+            var checked = 0;
+            $("#sched-builder-form input[type='checkbox']").each(function(){
+                console.log(this);
+                var state = $(this).is(":checked")
+                if(state){
+                    checked++;
+                }
+            });
+
+            if(checked == 0){
+                alert('Please select atleast one or more day');
+                return false;
+            }
 
             $.ajax({
                 url : BASE_URL+"/php/add_schedule_item.php",

@@ -880,6 +880,21 @@ textarea {
     float: left;
     margin: 2px;
 }
+.content-panel #sched-builder-form .days_field{
+    padding-top:5px;
+    width:100%;
+    
+    float:left;
+}
+.content-panel #sched-builder-form .days_field li{
+    list-style:none;
+    display:inline-block;
+    margin:5px;
+}
+.content-panel #sched-builder-form input[type='checkbox'] {
+    float:left;
+    margin-right:4px;
+}
 .content-panel #sched-builder-form input[type="submit"] {
     display: block;
     margin-left: auto;

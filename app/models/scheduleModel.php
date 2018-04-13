@@ -83,7 +83,8 @@ class ScheduleModel extends Model
                     "subject" => $sched['subject_id'],
                     "section" => $sched['section_id'],
                     "teacher" => $sched['teacher_id'],
-                    "sched_item_id" => $sched["sched_item_id"] 
+                    "sched_item_id" => $sched["sched_item_id"],
+                    "days" => ($sched["days"] ?? '')
                 ];
         }
 
@@ -284,7 +285,8 @@ class ScheduleModel extends Model
                     section_id,
                     subject_id,
                     start_time,
-                    end_time
+                    end_time,
+                    `days`
                 )
                 VALUES (
                     :schedule_id,
@@ -292,7 +294,8 @@ class ScheduleModel extends Model
                     :section_id,
                     :subject_id,
                     :start_time,
-                    :end_time
+                    :end_time,
+                    :days
                 )
         ");
         try {
@@ -303,7 +306,8 @@ class ScheduleModel extends Model
                 "section_id" => $scheduleItem->section_id,
                 "subject_id" => $scheduleItem->subject_id,
                 "start_time" => $scheduleItem->start_time,
-                "end_time" => $scheduleItem->end_time
+                "end_time" => $scheduleItem->end_time,
+                "days" => $scheduleItem->day
                 ]);
         }catch(Exception $e){
             //incase of foreign key constraint
