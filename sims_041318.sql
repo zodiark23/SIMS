@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2018 at 04:49 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
+-- Generation Time: Mar 11, 2018 at 08:29 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,20 +23,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `access_token`
---
-
-CREATE TABLE `access_token` (
-  `token_id` int(11) NOT NULL,
-  `student_id` int(10) NOT NULL,
-  `access_token` varchar(255) NOT NULL,
-  `date_validity` date NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `curriculum`
 --
 
@@ -46,23 +30,6 @@ CREATE TABLE `curriculum` (
   `curriculum_id` int(5) NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `year_duration` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `educational_attainment`
---
-
-CREATE TABLE `educational_attainment` (
-  `ea_id` int(11) NOT NULL,
-  `curriculum_id` int(10) NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `student_id` int(10) NOT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `year_completed` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `create_date` datetime NOT NULL,
-  `last_modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -96,11 +63,11 @@ CREATE TABLE `grades` (
   `section_id` int(6) NOT NULL,
   `student_id` int(10) NOT NULL,
   `subject_id` int(10) NOT NULL,
-  `grade` float NOT NULL,
-  `created_date` datetime NOT NULL,
-  `modified_date` datetime NOT NULL,
+  `grade` int(3) NOT NULL,
+  `created_date` DATETIME NOT NULL,
+  `modified_date` DATETIME NOT NULL,
   `flags` int(10) NOT NULL,
-  `result` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `result` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -114,7 +81,7 @@ CREATE TABLE `grade_scheme` (
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_implemented` datetime NOT NULL,
   `published` int(1) NOT NULL,
-  `pass_threshold` float NOT NULL
+  `pass_threshold` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -145,22 +112,6 @@ CREATE TABLE `log` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news`
---
-
-CREATE TABLE `news` (
-  `news_id` int(10) NOT NULL,
-  `news_title` varchar(255) NOT NULL,
-  `news_author` text NOT NULL,
-  `create_date` date NOT NULL,
-  `last_updated` date NOT NULL,
-  `news_content` text NOT NULL,
-  `news_publish` int(2) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `parents`
 --
 
@@ -178,6 +129,14 @@ CREATE TABLE `parents` (
   `status` int(1) NOT NULL,
   `role_id` int(5) DEFAULT '3'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `parents`
+--
+
+INSERT INTO `parents` (`parents_id`, `first_name`, `middle_name`, `last_name`, `email`, `password`, `contact_number`, `create_date`, `last_updated`, `gender`, `status`, `role_id`) VALUES
+(1, 'amos', 'rhagel', 'reyes', 'amos@test.com', 'easy1234', '09121231234', '2018-03-05 08:39:36', '2018-03-05 08:39:36', 1, 1, 4),
+(2, 'christian', 'robert', 'salenga', 'christian@test.com', 'easy1234', '09121231234', '2018-03-05 08:39:36', '2018-03-05 08:39:36', 1, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -208,27 +167,6 @@ CREATE TABLE `payment_line` (
   `student_id` int(10) NOT NULL,
   `payment_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `profile_img`
---
-
-CREATE TABLE `profile_img` (
-  `id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `email` text NOT NULL,
-  `full_path` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `profile_img`
---
-
-INSERT INTO `profile_img` (`id`, `role_id`, `email`, `full_path`, `status`) VALUES
-(1, 0, 'default', '/user_uploads/1522690295donotdelete.png', 1);
 
 -- --------------------------------------------------------
 
@@ -309,7 +247,10 @@ CREATE TABLE `role_privilege` (
 --
 
 INSERT INTO `role_privilege` (`privilege_id`, `role_id`, `rights_id`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(4, 2, 2),
+(5, 2, 5),
+(6, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -342,7 +283,8 @@ CREATE TABLE `schedule_items` (
   `section_id` int(6) NOT NULL,
   `subject_id` int(10) NOT NULL,
   `start_time` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `end_time` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `end_time` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `days` text NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -361,26 +303,14 @@ CREATE TABLE `school_levels` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `school_level_subjects`
---
-
-CREATE TABLE `school_level_subjects` (
-  `sls_id` int(10) NOT NULL,
-  `subject_id` int(10) NOT NULL,
-  `level_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `sections`
 --
 
 CREATE TABLE `sections` (
   `section_id` int(6) NOT NULL,
   `section_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `level_id` int(10) NOT NULL,
-  `curr_id` int(10) NOT NULL,
+  `level_id` INT(10) NOT NULL,
+  `curr_id` INT(10) NOT NULL,
   `section_adviser` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -424,22 +354,43 @@ CREATE TABLE `students` (
   `role_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `student_educational`
---
 
-CREATE TABLE `student_educational` (
-  `sse` int(10) NOT NULL,
+CREATE TABLE `educational_attainment` (
+  `ea_id` int(11) NOT NULL,
+  `curriculum_id` int(10) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `student_id` int(10) NOT NULL,
-  `level_id` int(10) NOT NULL,
-  `section_id` int(10) NOT NULL,
-  `status` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `custom_level` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `year_completed` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `create_date` datetime NOT NULL,
-  `modified_date` datetime NOT NULL
+  `last_modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `educational_attainment`
+--
+ALTER TABLE `educational_attainment`
+  ADD PRIMARY KEY (`ea_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `educational_attainment`
+--
+ALTER TABLE `educational_attainment`
+  MODIFY `ea_id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+
+--
+-- Dumping data for table `students`
+--
+
 
 -- --------------------------------------------------------
 
@@ -498,29 +449,17 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `first_name`, `middle_name`, `last_name`, `email`, `password`, `gender`, `date_of_birth`, `nationality`, `civil_status`, `address`, `create_date`, `last_modified`, `status`, `role_id`) VALUES
-(1, 'Administrator', '-', '-', 'admin@sims.com', 'acc1b2532ab4314b909ea6c282f55c20', 1, '1994-06-29', '-', '-', '-', '2018-04-14 22:48:47', '2018-04-14 22:48:47', 1, 1);
+(1, 'Administrator', '-', '-', 'admin@sims.com', 'acc1b2532ab4314b909ea6c282f55c20', 1, '1994-06-29', '-', '-', '-', '2018-03-01 00:00:00', '2018-03-01 00:00:00', 1, 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `access_token`
---
-ALTER TABLE `access_token`
-  ADD PRIMARY KEY (`token_id`);
-
---
 -- Indexes for table `curriculum`
 --
 ALTER TABLE `curriculum`
   ADD PRIMARY KEY (`curriculum_id`);
-
---
--- Indexes for table `educational_attainment`
---
-ALTER TABLE `educational_attainment`
-  ADD PRIMARY KEY (`ea_id`);
 
 --
 -- Indexes for table `enum_table`
@@ -557,12 +496,6 @@ ALTER TABLE `log`
   ADD PRIMARY KEY (`log_id`);
 
 --
--- Indexes for table `news`
---
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`news_id`);
-
---
 -- Indexes for table `parents`
 --
 ALTER TABLE `parents`
@@ -581,12 +514,6 @@ ALTER TABLE `payment_line`
   ADD PRIMARY KEY (`payment_line_id`),
   ADD KEY `payment_line_fk0` (`student_id`),
   ADD KEY `payment_line_fk1` (`payment_id`);
-
---
--- Indexes for table `profile_img`
---
-ALTER TABLE `profile_img`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `rights`
@@ -632,12 +559,6 @@ ALTER TABLE `school_levels`
   ADD KEY `school_levels_fk0` (`curriculum_id`);
 
 --
--- Indexes for table `school_level_subjects`
---
-ALTER TABLE `school_level_subjects`
-  ADD PRIMARY KEY (`sls_id`);
-
---
 -- Indexes for table `sections`
 --
 ALTER TABLE `sections`
@@ -658,12 +579,6 @@ ALTER TABLE `section_subject_group`
 ALTER TABLE `students`
   ADD PRIMARY KEY (`student_id`),
   ADD KEY `students_fk0` (`gender`);
-
---
--- Indexes for table `student_educational`
---
-ALTER TABLE `student_educational`
-  ADD PRIMARY KEY (`sse`);
 
 --
 -- Indexes for table `student_schedule`
@@ -692,167 +607,110 @@ ALTER TABLE `teachers`
 --
 
 --
--- AUTO_INCREMENT for table `access_token`
---
-ALTER TABLE `access_token`
-  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `curriculum`
 --
 ALTER TABLE `curriculum`
   MODIFY `curriculum_id` int(5) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `educational_attainment`
---
-ALTER TABLE `educational_attainment`
-  MODIFY `ea_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `enum_table`
 --
 ALTER TABLE `enum_table`
   MODIFY `enum_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
   MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `grade_scheme`
 --
 ALTER TABLE `grade_scheme`
   MODIFY `grade_scheme_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `grade_scheme_item_id`
 --
 ALTER TABLE `grade_scheme_item_id`
   MODIFY `grade_scheme_item_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
   MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `news`
---
-ALTER TABLE `news`
-  MODIFY `news_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `parents`
 --
 ALTER TABLE `parents`
-  MODIFY `parents_id` int(10) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `parents_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
   MODIFY `payment_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `payment_line`
 --
 ALTER TABLE `payment_line`
   MODIFY `payment_line_id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `profile_img`
---
-ALTER TABLE `profile_img`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `rights`
 --
 ALTER TABLE `rights`
-  MODIFY `rights_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
+  MODIFY `rights_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `role_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `role_privilege`
 --
 ALTER TABLE `role_privilege`
-  MODIFY `privilege_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `privilege_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
   MODIFY `schedule_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `schedule_items`
 --
 ALTER TABLE `schedule_items`
   MODIFY `sched_item_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `school_levels`
 --
 ALTER TABLE `school_levels`
   MODIFY `level_id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `school_level_subjects`
---
-ALTER TABLE `school_level_subjects`
-  MODIFY `sls_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
   MODIFY `section_id` int(6) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `section_subject_group`
 --
 ALTER TABLE `section_subject_group`
   MODIFY `ssg_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `student_educational`
---
-ALTER TABLE `student_educational`
-  MODIFY `sse` int(10) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `student_schedule`
 --
 ALTER TABLE `student_schedule`
   MODIFY `ss_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
   MODIFY `subject_id` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
   MODIFY `teacher_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- Constraints for dumped tables
 --
@@ -942,8 +800,195 @@ ALTER TABLE `subjects`
 --
 ALTER TABLE `teachers`
   ADD CONSTRAINT `teachers_fk0` FOREIGN KEY (`gender`) REFERENCES `enum_table` (`enum_id`);
+  
+  -- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `news_id` int(10) NOT NULL,
+  `news_title` varchar(255) NOT NULL,
+  `news_author` text NOT NULL,
+  `create_date` date NOT NULL,
+  `last_updated` date NOT NULL,
+  `news_content` text NOT NULL,
+  `news_publish` int(2) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`news_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `news_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `access_token`
+--
+
+CREATE TABLE `access_token` (
+  `token_id` int(11) NOT NULL,
+  `student_id` int(10) NOT NULL,
+  `access_token` varchar(255) NOT NULL,
+  `date_validity` date NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `access_token`
+--
+ALTER TABLE `access_token`
+  ADD PRIMARY KEY (`token_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `access_token`
+--
+ALTER TABLE `access_token`
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+--
+-- Table structure for table `student_educational`
+--
+
+CREATE TABLE `student_educational` (
+  `sse` int(10) NOT NULL,
+  `student_id` int(10) NOT NULL,
+  `level_id` int(10) NOT NULL,
+  `section_id` int(10) NOT NULL,
+  `status` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `custom_level` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `create_date` datetime NOT NULL,
+  `modified_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `student_educational`
+--
+ALTER TABLE `student_educational`
+  ADD PRIMARY KEY (`sse`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `student_educational`
+--
+ALTER TABLE `student_educational`
+  MODIFY `sse` int(10) NOT NULL AUTO_INCREMENT;COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+--
+-- Table structure for table `school_level_subjects`
+--
+
+CREATE TABLE `school_level_subjects` (
+  `sls_id` int(10) NOT NULL,
+  `subject_id` int(10) NOT NULL,
+  `level_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+--
+-- Indexes for table `school_level_subjects`
+--
+ALTER TABLE `school_level_subjects`
+  ADD PRIMARY KEY (`sls_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `school_level_subjects`
+--
+ALTER TABLE `school_level_subjects`
+  MODIFY `sls_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--
+-- Table structure for table `profile_img`
+--
+
+CREATE TABLE `profile_img` (
+  `id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `email` text NOT NULL,
+  `full_path` text NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `profile_img`
+--
+
+INSERT INTO `profile_img` (`id`, `role_id`, `email`, `full_path`, `status`) VALUES
+(1, 0, 'default', '/user_uploads/1522690295donotdelete.png', 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `profile_img`
+--
+ALTER TABLE `profile_img`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `profile_img`
+--
+ALTER TABLE `profile_img`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

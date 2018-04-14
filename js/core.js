@@ -1621,15 +1621,15 @@ $("#login-form").validate({
             },
             pass_threshold : {
                 required : true,
-                maxlength : 2,
-                max : 90,
+                maxlength : 5,
+                max : 100,
                 number : true
             }
 
         },
         message : {
             pass_threshold : {
-                maxlength : "Only 2 digit number is allowed",
+                maxlength : "Only 4 digit number is allowed",
             }
         },
         submitHandler :  function(e){
@@ -1660,15 +1660,15 @@ $("#login-form").validate({
             },
             pass_threshold : {
                 required : true,
-                maxlength : 2,
-                max : 90,
+                maxlength : 5,
+                max : 100,
                 number : true
             }
 
         },
         message : {
             pass_threshold : {
-                maxlength : "Only 2 digit number is allowed",
+                maxlength : "Only 4 digit number is allowed",
             }
         },
         submitHandler :  function(e){

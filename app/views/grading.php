@@ -177,7 +177,7 @@
 									$emptyFields++;
 								}
 
-								echo "<td ><input value='$grade' class='grade-input-item' type='text' maxlength='3' data-section='".$this->targetSection."' data-flag='$flag_id' data-subject='".$subject[0]['subject_id']."' data-uid='$uid' data-student='".$student[0]['student_id']."' ></td>";
+								echo "<td ><input value='$grade' class='grade-input-item' type='text' maxlength='5' data-section='".$this->targetSection."' data-flag='$flag_id' data-subject='".$subject[0]['subject_id']."' data-uid='$uid' data-student='".$student[0]['student_id']."' ></td>";
 							}
 						}
 						?>
@@ -190,7 +190,7 @@
 								foreach($flags as $flag){
 									$studentGrade = $this->studentGrades[$student[0]['student_id']] ?? [];
 									$grade = $studentGrade[$flag['flag_id']][$subject[0]['subject_id']]->grade ?? 0;
-									$finalGrade = (int)$finalGrade + (int)$grade;
+									$finalGrade = (float)$finalGrade + (float)$grade;
 									$uid = $studentGrade[$flag_id][$subject[0]['subject_id']]->grade_id ?? 0;
 								}
 
