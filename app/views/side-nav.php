@@ -84,12 +84,12 @@ if ($rightsModel->verifyRights("ALL") || $rightsModel->verifyRights("ADD_TEACHER
 	$teacherCounter++;
 }
 
-if ($rightsModel->verifyRights("ALL") || $rightsModel->verifyRights("VIEW_STUDENT")){
+if ($rightsModel->verifyRights("VIEW_STUDENT")){
 	$myStudentsRights = true;
 	$teacherCounter++;
 
 }
-if ($rightsModel->verifyRights("ALL") || $rightsModel->verifyRights("EDIT_GRADE")){
+if ($rightsModel->verifyRights("EDIT_GRADE")){
 	$gradeManagementRights = true;
 	$teacherCounter++;
 }
@@ -157,10 +157,17 @@ if ($rightsModel->verifyRights("ALL") || $rightsModel->verifyRights("ADD_SECTION
                 <ul class="child-ul">
                     <li <?php if (empty($overviewTeacherRights) ){?>style="display:none"<?php } ?> ><a href="<?=BASE_URL?>/admin/overview-teacher">Overview</a></li>
                     <li <?php if (empty($createTeacherRights) ){?>style="display:none"<?php } ?> ><a href="<?=BASE_URL?>/admin/create-teacher">Add Teacher</a></li>
-
+	                <?php
+	                $teacher = $_SESSION['user']['teacher_id'] ?? null;
+	                if(!empty($teacher) && $teacher > 1){
+	                // prevent displaying on non teacher
+	                ?>
                     <li <?php if (empty($myStudentsRights) ){?>style="display:none"<?php } ?> ><a href="<?=BASE_URL?>/account/my-students">My Students</a></li>
 
+
                     <li <?php if (empty($gradeManagementRights) ){?>style="display:none"<?php } ?> ><a href="<?=BASE_URL?>/account/grade-management">Grade Management</a></li>
+	                <?php }?>
+
                 </ul>
             </li>
             <!-- disabled for now not included in the system
