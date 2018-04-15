@@ -342,7 +342,8 @@ CREATE TABLE `schedule_items` (
   `section_id` int(6) NOT NULL,
   `subject_id` int(10) NOT NULL,
   `start_time` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `end_time` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `end_time` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `days` text NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
